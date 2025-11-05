@@ -1,0 +1,879 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ article.title }} - الثَّقَف العربي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Amiri:wght@400;700&family=Almarai:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-bg: #F7F4EF;
+            --primary-text: #2C2C2C;
+            --secondary-text: #6B6B6B;
+            --accent: #C19A6B;
+            --secondary-accent: #8C6B4F;
+            --card-bg: #FFFFFF;
+            --hover: rgba(193, 154, 107, 0.1);
+            --shadow: rgba(0, 0, 0, 0.08);
+            --shadow-hover: rgba(0, 0, 0, 0.12);
+            --border: rgba(193, 154, 107, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Almarai', 'Cairo', sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--primary-text);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.4s ease;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1300px;
+            margin: auto;
+        }
+
+        /* ====== الهيدر ====== */
+        .header {
+            background: rgba(247, 244, 239, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+            transition: all 0.5s ease;
+            padding: 12px 0;
+        }
+
+        .header.scrolled {
+            background: rgba(247, 244, 239, 0.98);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            padding: 8px 0;
+        }
+
+        .header .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo a {
+            color: var(--accent);
+            font-size: 1.8rem;
+            font-weight: 700;
+            font-family: 'Amiri', serif;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            font-size: 1.6rem;
+        }
+
+        .nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav a {
+            position: relative;
+            color: var(--secondary-text);
+            font-weight: 500;
+            padding: 8px 0;
+            font-size: 1.05rem;
+        }
+
+        .nav a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            right: 0;
+            background-color: var(--accent);
+            transition: width 0.4s ease;
+        }
+
+        .nav a:hover {
+            color: var(--accent);
+        }
+
+        .nav a:hover:after {
+            width: 100%;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--accent);
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            font-family: inherit;
+        }
+
+        .nav-btn:hover {
+            background: var(--accent);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(193, 154, 107, 0.3);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: transparent;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--accent);
+            cursor: pointer;
+        }
+
+        /* ====== صفحة المقال ====== */
+        .article-page {
+            padding: 120px 20px 80px;
+            background: var(--primary-bg);
+            position: relative;
+        }
+
+        .article-page:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: url('{% static "images/arabesque-pattern.png" %}') repeat;
+            opacity: 0.03;
+            pointer-events: none;
+        }
+
+        .article-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border-radius: 24px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* ====== رأس المقال ====== */
+        .article-hero {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+        }
+
+        .article-hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .article-hero:hover .article-hero-image {
+            transform: scale(1.05);
+        }
+
+        .article-hero-overlay {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 40%, rgba(44, 44, 44, 0.8));
+            display: flex;
+            align-items: flex-end;
+            padding: 40px;
+        }
+
+        .article-category {
+            background: var(--accent);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* ====== محتوى المقال ====== */
+        .article-content {
+            padding: 50px;
+        }
+
+        .article-header {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .article-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-text);
+            margin-bottom: 20px;
+            line-height: 1.4;
+            font-family: 'Amiri', serif;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            color: var(--secondary-text);
+            font-size: 0.95rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .meta-item i {
+            color: var(--accent);
+        }
+
+        .article-body {
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: var(--primary-text);
+        }
+
+        .article-body h2, .article-body h3 {
+            color: var(--accent);
+            margin: 40px 0 20px;
+            font-family: 'Amiri', serif;
+        }
+
+        .article-body p {
+            margin-bottom: 25px;
+            text-align: justify;
+        }
+
+        .article-body blockquote {
+            border-right: 4px solid var(--accent);
+            padding: 20px 30px;
+            margin: 30px 0;
+            background: rgba(193, 154, 107, 0.05);
+            border-radius: 0 12px 12px 0;
+            font-style: italic;
+            color: var(--secondary-accent);
+        }
+
+        /* ====== إجراءات المقال ====== */
+        .article-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 50px;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            margin: 40px 0;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .social-share {
+            display: flex;
+            gap: 15px;
+        }
+
+        .share-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--primary-bg);
+            color: var(--secondary-text);
+            transition: all 0.3s ease;
+        }
+
+        .share-btn:hover {
+            background: var(--accent);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--accent);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.5s ease;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 1rem;
+            box-shadow: 0 4px 15px rgba(193, 154, 107, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(193, 154, 107, 0.4);
+            background: #b08a5d;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            box-shadow: none;
+        }
+
+        .btn-outline:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        /* ====== مقالات مشابهة ====== */
+        .related-articles {
+            padding: 60px 50px 40px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--accent);
+            margin-bottom: 30px;
+            font-family: 'Amiri', serif;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 3px;
+            bottom: -8px;
+            right: 0;
+            background: linear-gradient(to left, var(--accent), transparent);
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .related-card {
+            background: var(--primary-bg);
+            border-radius: 16px;
+            padding: 25px;
+            transition: all 0.4s ease;
+            border: 1px solid var(--border);
+        }
+
+        .related-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px var(--shadow-hover);
+            border-color: var(--accent);
+        }
+
+        .related-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            line-height: 1.5;
+            font-family: 'Amiri', serif;
+        }
+
+        .related-card p {
+            color: var(--secondary-text);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .related-meta {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+            font-size: 0.8rem;
+            color: var(--secondary-text);
+        }
+
+        /* ====== حالة عدم وجود مقالات مشابهة ====== */
+        .empty-related {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--secondary-text);
+        }
+
+        .empty-related i {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+            opacity: 0.7;
+        }
+
+        /* ====== التذييل ====== */
+        .footer {
+            background: #2C2C2C;
+            color: #ddd;
+            padding: 60px 20px 30px;
+            margin-top: 80px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h5 {
+            color: var(--accent);
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            font-family: 'Amiri', serif;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-col h5:after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 2px;
+            bottom: -8px;
+            right: 0;
+            background-color: var(--accent);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #aaa;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            transform: translateX(-5px);
+        }
+
+        .footer-links i {
+            font-size: 0.8rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        /* ====== الوسائط المتعددة ====== */
+        @media (max-width: 992px) {
+            .nav {
+                gap: 20px;
+            }
+            
+            .article-title {
+                font-size: 2.2rem;
+            }
+            
+            .article-content {
+                padding: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav {
+                position: fixed;
+                top: 70px;
+                right: -100%;
+                background: var(--card-bg);
+                width: 80%;
+                height: calc(100vh - 70px);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 40px;
+                gap: 30px;
+                transition: all 0.5s ease;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+                z-index: 999;
+            }
+            
+            .nav.active {
+                right: 0;
+            }
+            
+            .nav-actions {
+                flex-direction: column;
+                width: 80%;
+                margin-top: 30px;
+            }
+            
+            .article-hero {
+                height: 300px;
+            }
+            
+            .article-title {
+                font-size: 1.8rem;
+            }
+            
+            .article-content {
+                padding: 30px;
+            }
+            
+            .article-actions {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .related-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .article-title {
+                font-size: 1.6rem;
+            }
+            
+            .article-meta {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- الهيدر -->
+    <header class="header" id="header">
+        <div class="container">
+            <h1 class="logo"><a href="/"><i class="fas fa-feather-alt"></i> الثَّقَف العربي</a></h1>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav class="nav" id="nav">
+               <a href="/">الرئيسية</a>
+                <a href="/articles/">المقالات</a>
+                <a href="/categories/">الأقسام</a>
+                <a href="/gallery/">المعرض</a>
+                <a href="/about/">من نحن</a>
+                <a href="/contact/">اتصل بنا</a>
+                
+                <div class="nav-actions">
+                    <button class="nav-btn"><i class="fas fa-search"></i> بحث</button>
+                    <button class="nav-btn"><i class="fas fa-user"></i> دخول</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+<!-- 📰 صفحة المقال -->
+<section class="article-page">
+    <div class="article-container">
+
+        <!-- رأس المقال -->
+        <div class="article-hero">
+            {% if article.image %}
+                <img src="{{ article.image.url }}" alt="{{ article.title }}" class="article-hero-image">
+            {% elif article.image_url %}
+                <img src="{{ article.image_url }}" alt="{{ article.title }}" class="article-hero-image">
+            {% else %}
+                <img src="{% static 'images/default-article.jpg' %}" alt="{{ article.title }}" class="article-hero-image">
+            {% endif %}
+
+            <div class="article-hero-overlay">
+                {% if article.category %}
+                <a href="{% url 'category_detail' article.category.slug %}" class="article-category">
+                    {{ article.category.name }}
+                </a>
+                {% else %}
+                <span class="article-category">ثقافة</span>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- محتوى المقال -->
+        <div class="article-content">
+            <div class="article-header">
+                <h1 class="article-title">{{ article.title }}</h1>
+
+                <div class="article-meta">
+                    {% if article.publish_date %}
+                    <div class="meta-item">
+                        <i class="far fa-calendar"></i>
+                        <span>{{ article.publish_date|date:"Y-m-d" }}</span>
+                    </div>
+                    {% endif %}
+
+                    {% if article.read_time %}
+                    <div class="meta-item">
+                        <i class="far fa-clock"></i>
+                        <span>{{ article.read_time }} دقيقة قراءة</span>
+                    </div>
+                    {% endif %}
+
+                    <div class="meta-item">
+                        <i class="far fa-eye"></i>
+                        <span>{{ article.views|default:0 }} مشاهدة</span>
+                    </div>
+
+                    {% if article.author %}
+                    <div class="meta-item">
+                        <i class="far fa-user"></i>
+                        <span>بواسطة {{ article.author }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="article-body">
+                {{ article.content|safe }}
+            </div>
+
+            <!-- إجراءات المقال -->
+            <div class="article-actions">
+                <div class="social-share">
+                    <a href="https://twitter.com/intent/tweet?text={{ article.title }}&url={{ request.build_absolute_uri }}" target="_blank" class="share-btn">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" target="_blank" class="share-btn">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri }}&title={{ article.title }}" target="_blank" class="share-btn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://wa.me/?text={{ article.title }} - {{ request.build_absolute_uri }}" target="_blank" class="share-btn">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-outline">
+                        <i class="far fa-bookmark"></i> حفظ
+                    </button>
+                    <button class="btn">
+                        <i class="fas fa-share-alt"></i> مشاركة
+                    </button>
+                </div>
+            </div>
+
+            <!-- مقالات مشابهة -->
+            <div class="related-articles">
+                <h3 class="section-title">📚 مقالات مشابهة</h3>
+                {% if related_articles %}
+                <div class="related-grid">
+                    {% for related in related_articles %}
+                    <a href="{% url 'article_detail' related.slug %}" class="related-card">
+                        <h4>{{ related.title }}</h4>
+                        <p>{{ related.content|striptags|truncatewords:20 }}</p>
+                        <div class="related-meta">
+                            <span><i class="far fa-calendar"></i> {{ related.publish_date|date:"Y-m-d" }}</span>
+                            {% if related.read_time %}
+                            <span><i class="far fa-clock"></i> {{ related.read_time }} دقيقة</span>
+                            {% endif %}
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="empty-related">
+                    <i class="fas fa-book-open"></i>
+                    <p>لا توجد مقالات مشابهة حالياً</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- التذييل -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h5>الثقَف العربي</h5>
+                    <p>منصة ثقافية عربية تهدف إلى إثراء المحتوى الثقافي والمعرفي العربي من خلال مقالات وبحوث ومواد متنوعة.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h5>روابط سريعة</h5>
+                    <ul class="footer-links">
+                        <li><a href="/"><i class="fas fa-arrow-left"></i> الرئيسية</a></li>
+                        <li><a href="/articles/"><i class="fas fa-arrow-left"></i> المقالات</a></li>
+                        <li><a href="/categories/"><i class="fas fa-arrow-left"></i> الأقسام</a></li>
+                        <li><a href="/about/"><i class="fas fa-arrow-left"></i> من نحن</a></li>
+                        <li><a href="/contact/"><i class="fas fa-arrow-left"></i> اتصل بنا</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h5>الأقسام</h5>
+                    <ul class="footer-links">
+                        {% for category in categories|slice:":5" %}
+                        <li><a href="{% url 'category_detail' category.slug %}"><i class="fas fa-arrow-left"></i> {{ category.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h5>معلومات</h5>
+                    <ul class="footer-links">
+                        <li><a href="/privacy/"><i class="fas fa-arrow-left"></i> سياسة الخصوصية</a></li>
+                        <li><a href="/terms/"><i class="fas fa-arrow-left"></i> اتفاقية الاستخدام</a></li>
+                        <li><a href="/disclaimer/"><i class="fas fa-arrow-left"></i> إخلاء المسؤولية</a></li>
+                        <li><a href="/sitemap/"><i class="fas fa-arrow-left"></i> خريطة الموقع</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>© 2025 الثَّقَف العربي – جميع الحقوق محفوظة</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const nav = document.getElementById('nav');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            nav.classList.toggle('active');
+            mobileMenuBtn.innerHTML = nav.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Add reading progress indicator
+        const progressBar = document.createElement('div');
+        progressBar.style.cssText = `
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 0;
+            height: 3px;
+            background: var(--accent);
+            z-index: 1001;
+            transition: width 0.3s ease;
+        `;
+        document.body.appendChild(progressBar);
+
+        window.addEventListener('scroll', function() {
+            const winHeight = window.innerHeight;
+            const docHeight = document.documentElement.scrollHeight;
+            const scrollTop = window.pageYOffset;
+            const scrollPercent = (scrollTop / (docHeight - winHeight)) * 100;
+            progressBar.style.width = scrollPercent + '%';
+        });
+    </script>
+
+</body>
+</html>

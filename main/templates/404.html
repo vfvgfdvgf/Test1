@@ -1,0 +1,503 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - الصفحة غير موجودة | الثَّقَف العربي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Amiri:wght@400;700&family=Almarai:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-bg: #F7F4EF;
+            --primary-text: #2C2C2C;
+            --secondary-text: #6B6B6B;
+            --accent: #C19A6B;
+            --secondary-accent: #8C6B4F;
+            --card-bg: #FFFFFF;
+            --hover: rgba(193, 154, 107, 0.1);
+            --shadow: rgba(0, 0, 0, 0.08);
+            --shadow-hover: rgba(0, 0, 0, 0.12);
+            --border: rgba(193, 154, 107, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Almarai', 'Cairo', sans-serif;
+            background: linear-gradient(135deg, var(--primary-bg) 0%, #f0ebe3 100%);
+            color: var(--primary-text);
+            line-height: 1.8;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        body:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: url('{% static "images/arabesque-pattern.png" %}') repeat;
+            opacity: 0.03;
+            pointer-events: none;
+        }
+
+        /* ====== محتوى 404 ====== */
+        .error-container {
+            max-width: 600px;
+            padding: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ====== الرقم 404 ====== */
+        .error-number {
+            font-size: 12rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 20px;
+            font-family: 'Amiri', serif;
+            position: relative;
+            display: inline-block;
+            text-shadow: 
+                0 4px 8px rgba(193, 154, 107, 0.2),
+                0 8px 16px rgba(193, 154, 107, 0.1);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .error-number:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            opacity: 0.3;
+            filter: blur(2px);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.5; }
+        }
+
+        /* ====== العنوان والوصف ====== */
+        .error-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-text);
+            margin-bottom: 20px;
+            font-family: 'Amiri', serif;
+            position: relative;
+            display: inline-block;
+        }
+
+        .error-title:after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            right: 50%;
+            transform: translateX(50%);
+            width: 80px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .error-description {
+            font-size: 1.2rem;
+            color: var(--secondary-text);
+            margin-bottom: 40px;
+            line-height: 1.7;
+            max-width: 500px;
+        }
+
+        /* ====== أزرار الإجراء ====== */
+        .error-actions {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 50px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--accent);
+            color: white;
+            padding: 16px 35px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.4s ease;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 1.1rem;
+            text-decoration: none;
+            box-shadow: 0 6px 20px rgba(193, 154, 107, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: right 0.5s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(193, 154, 107, 0.4);
+            background: #b08a5d;
+        }
+
+        .btn:hover:before {
+            right: 100%;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            box-shadow: none;
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        /* ====== أيقونة البحث ====== */
+        .search-icon {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 30px;
+            position: relative;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        .search-icon:before {
+            content: '🔍';
+            font-size: 5rem;
+            filter: grayscale(0.3) sepia(0.5) hue-rotate(-10deg);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* ====== العناصر المتحركة ====== */
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .floating-element {
+            position: absolute;
+            opacity: 0.1;
+            color: var(--accent);
+            font-size: 2rem;
+            animation: floatAround 20s linear infinite;
+        }
+
+        .floating-element:nth-child(1) { top: 10%; right: 10%; animation-delay: 0s; }
+        .floating-element:nth-child(2) { top: 20%; right: 80%; animation-delay: -5s; }
+        .floating-element:nth-child(3) { top: 60%; right: 20%; animation-delay: -10s; }
+        .floating-element:nth-child(4) { top: 80%; right: 60%; animation-delay: -15s; }
+        .floating-element:nth-child(5) { top: 30%; right: 40%; animation-delay: -7s; }
+
+        @keyframes floatAround {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+                opacity: 0.1;
+            }
+            25% {
+                transform: translate(100px, 50px) rotate(90deg);
+                opacity: 0.2;
+            }
+            50% {
+                transform: translate(50px, 100px) rotate(180deg);
+                opacity: 0.1;
+            }
+            75% {
+                transform: translate(-50px, 50px) rotate(270deg);
+                opacity: 0.2;
+            }
+            100% {
+                transform: translate(0, 0) rotate(360deg);
+                opacity: 0.1;
+            }
+        }
+
+        /* ====== شريط البحث المصغر ====== */
+        .mini-search {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px var(--shadow);
+            max-width: 400px;
+            margin: 0 auto;
+            border: 1px solid var(--border);
+        }
+
+        .mini-search h4 {
+            color: var(--accent);
+            margin-bottom: 15px;
+            font-family: 'Amiri', serif;
+            font-size: 1.2rem;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 12px 20px;
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(193, 154, 107, 0.2);
+        }
+
+        .search-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-btn:hover {
+            background: #b08a5d;
+            transform: scale(1.05);
+        }
+
+        /* ====== التذييل ====== */
+        .error-footer {
+            margin-top: 40px;
+            color: var(--secondary-text);
+            font-size: 0.9rem;
+        }
+
+        .error-footer a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .error-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* ====== الوسائط المتعددة ====== */
+        @media (max-width: 768px) {
+            .error-number {
+                font-size: 8rem;
+            }
+            
+            .error-title {
+                font-size: 2rem;
+            }
+            
+            .error-description {
+                font-size: 1.1rem;
+                padding: 0 20px;
+            }
+            
+            .error-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 200px;
+                justify-content: center;
+            }
+            
+            .floating-elements {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .error-number {
+                font-size: 6rem;
+            }
+            
+            .error-title {
+                font-size: 1.6rem;
+            }
+            
+            .error-description {
+                font-size: 1rem;
+            }
+            
+            .error-container {
+                padding: 20px;
+            }
+            
+            .search-icon {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .search-icon:before {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- العناصر المتحركة -->
+    <div class="floating-elements">
+        <div class="floating-element">📚</div>
+        <div class="floating-element">✍️</div>
+        <div class="floating-element">🔍</div>
+        <div class="floating-element">📖</div>
+        <div class="floating-element">✨</div>
+    </div>
+
+    <!-- المحتوى الرئيسي -->
+    <div class="error-container">
+        <!-- أيقونة البحث -->
+        <div class="search-icon"></div>
+
+        <!-- الرقم 404 -->
+        <h1 class="error-number">404</h1>
+
+        <!-- العنوان -->
+        <h2 class="error-title">الصفحة غير موجودة</h2>
+
+        <!-- الوصف -->
+        <p class="error-description">
+            عذرًا، يبدو أن الصفحة التي تبحث عنها غير موجودة أو تم نقلها. 
+            ربما تكون قد كتبت العنوان بشكل غير صحيح، أو ربما تكون الصفحة قد انتقلت إلى مكان آخر.
+        </p>
+
+        <!-- أزرار الإجراء -->
+        <div class="error-actions">
+            <a href="/" class="btn">
+                <i class="fas fa-home"></i>
+                العودة للرئيسية
+            </a>
+            <a href="/articles/" class="btn btn-secondary">
+                <i class="fas fa-newspaper"></i>
+                تصفح المقالات
+            </a>
+        </div>
+
+        <!-- شريط البحث المصغر -->
+        <div class="mini-search">
+            <h4>ابحث عما تريد</h4>
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="اكتب كلمة البحث...">
+                <button class="search-btn">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- التذييل -->
+        <div class="error-footer">
+            <p>إذا كنت تعتقد أن هذا خطأ، يرجى <a href="/contact/">الاتصال بنا</a></p>
+        </div>
+    </div>
+
+    <script>
+        // البحث في الموقع
+        const searchInput = document.querySelector('.search-input');
+        const searchBtn = document.querySelector('.search-btn');
+
+        function performSearch() {
+            const query = searchInput.value.trim();
+            if (query) {
+                window.location.href = `/articles/?search=${encodeURIComponent(query)}`;
+            }
+        }
+
+        searchBtn.addEventListener('click', performSearch);
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+
+        // تأثيرات إضافية للصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            // إضافة تأثير كتابة للنص
+            const description = document.querySelector('.error-description');
+            const text = description.textContent;
+            description.textContent = '';
+            
+            let i = 0;
+            function typeWriter() {
+                if (i < text.length) {
+                    description.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 30);
+                }
+            }
+            
+            // بدء تأثير الكتابة بعد تحميل الصفحة
+            setTimeout(typeWriter, 1000);
+        });
+
+        // تأثير اهتزاز خفيف للرقم 404
+        const errorNumber = document.querySelector('.error-number');
+        setInterval(() => {
+            errorNumber.style.transform = 'rotate(1deg)';
+            setTimeout(() => {
+                errorNumber.style.transform = 'rotate(-1deg)';
+            }, 100);
+            setTimeout(() => {
+                errorNumber.style.transform = 'rotate(0deg)';
+            }, 200);
+        }, 5000);
+    </script>
+
+</body>
+</html>

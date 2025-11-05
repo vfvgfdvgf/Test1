@@ -1,0 +1,889 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سياسة الخصوصية - الثَّقَف العربي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Amiri:wght@400;700&family=Almarai:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-bg: #F7F4EF;
+            --primary-text: #2C2C2C;
+            --secondary-text: #6B6B6B;
+            --accent: #C19A6B;
+            --secondary-accent: #8C6B4F;
+            --card-bg: #FFFFFF;
+            --hover: rgba(193, 154, 107, 0.1);
+            --shadow: rgba(0, 0, 0, 0.08);
+            --shadow-hover: rgba(0, 0, 0, 0.12);
+            --border: rgba(193, 154, 107, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Almarai', 'Cairo', sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--primary-text);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.4s ease;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1300px;
+            margin: auto;
+        }
+
+        /* ====== الهيدر ====== */
+        .header {
+            background: rgba(247, 244, 239, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+            transition: all 0.5s ease;
+            padding: 12px 0;
+        }
+
+        .header.scrolled {
+            background: rgba(247, 244, 239, 0.98);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            padding: 8px 0;
+        }
+
+        .header .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo a {
+            color: var(--accent);
+            font-size: 1.8rem;
+            font-weight: 700;
+            font-family: 'Amiri', serif;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            font-size: 1.6rem;
+        }
+
+        .nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav a {
+            position: relative;
+            color: var(--secondary-text);
+            font-weight: 500;
+            padding: 8px 0;
+            font-size: 1.05rem;
+        }
+
+        .nav a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            right: 0;
+            background-color: var(--accent);
+            transition: width 0.4s ease;
+        }
+
+        .nav a:hover {
+            color: var(--accent);
+        }
+
+        .nav a:hover:after {
+            width: 100%;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--accent);
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            font-family: inherit;
+        }
+
+        .nav-btn:hover {
+            background: var(--accent);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(193, 154, 107, 0.3);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: transparent;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--accent);
+            cursor: pointer;
+        }
+
+        /* ====== صفحة سياسة الخصوصية ====== */
+        .privacy-page {
+            padding: 120px 20px 80px;
+            background: var(--primary-bg);
+            position: relative;
+        }
+
+        .privacy-page:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: url('{% static "images/arabesque-pattern.png" %}') repeat;
+            opacity: 0.03;
+            pointer-events: none;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 70px;
+            position: relative;
+        }
+
+        .page-header h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 20px;
+            font-family: 'Amiri', serif;
+            position: relative;
+            display: inline-block;
+        }
+
+        .page-header h1:after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 4px;
+            bottom: -15px;
+            right: 20%;
+            background: linear-gradient(to left, var(--accent), transparent);
+        }
+
+        .page-header p {
+            max-width: 700px;
+            margin: 30px auto 0;
+            color: var(--secondary-text);
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+
+        /* ====== محتوى السياسة ====== */
+        .privacy-content {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 50px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .privacy-content:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--accent);
+        }
+
+        .intro-section {
+            background: rgba(193, 154, 107, 0.05);
+            padding: 30px;
+            border-radius: 16px;
+            margin-bottom: 40px;
+            border-right: 4px solid var(--accent);
+        }
+
+        .intro-section p {
+            font-size: 1.1rem;
+            color: var(--secondary-text);
+            margin: 0;
+            line-height: 1.8;
+        }
+
+        /* ====== أقسام السياسة ====== */
+        .privacy-sections {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .privacy-section {
+            padding: 30px;
+            background: var(--primary-bg);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .privacy-section:hover {
+            border-color: var(--accent);
+            transform: translateX(-5px);
+            box-shadow: 0 8px 25px var(--shadow-hover);
+        }
+
+        .privacy-section:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--accent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .privacy-section:hover:before {
+            opacity: 1;
+        }
+
+        .privacy-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .privacy-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .privacy-icon i {
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .privacy-header h3 {
+            font-size: 1.5rem;
+            color: var(--accent);
+            font-family: 'Amiri', serif;
+            margin: 0;
+        }
+
+        .privacy-content p {
+            color: var(--secondary-text);
+            margin-bottom: 15px;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .privacy-content ul {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .privacy-content li {
+            padding: 10px 0 10px 40px;
+            position: relative;
+            color: var(--secondary-text);
+            line-height: 1.7;
+        }
+
+        .privacy-content li:before {
+            content: '•';
+            position: absolute;
+            right: -20px;
+            top: 10px;
+            color: var(--accent);
+            font-size: 1.5rem;
+        }
+
+        /* ====== قسم التحديث ====== */
+        .update-section {
+            background: linear-gradient(135deg, rgba(193, 154, 107, 0.1), rgba(140, 107, 79, 0.05));
+            padding: 30px;
+            border-radius: 16px;
+            margin-top: 40px;
+            border: 1px solid var(--border);
+        }
+
+        .update-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .update-header i {
+            color: var(--accent);
+            font-size: 1.3rem;
+        }
+
+        .update-header h4 {
+            color: var(--accent);
+            font-size: 1.3rem;
+            margin: 0;
+            font-family: 'Amiri', serif;
+        }
+
+        .update-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .update-date {
+            background: var(--accent);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .update-note {
+            color: var(--secondary-text);
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        /* ====== التذييل ====== */
+        .footer {
+            background: #2C2C2C;
+            color: #ddd;
+            padding: 60px 20px 30px;
+            margin-top: 80px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h5 {
+            color: var(--accent);
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            font-family: 'Amiri', serif;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-col h5:after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 2px;
+            bottom: -8px;
+            right: 0;
+            background-color: var(--accent);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #aaa;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            transform: translateX(-5px);
+        }
+
+        .footer-links i {
+            font-size: 0.8rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        /* ====== الوسائط المتعددة ====== */
+        @media (max-width: 992px) {
+            .nav {
+                gap: 20px;
+            }
+            
+            .page-header h1 {
+                font-size: 2.4rem;
+            }
+            
+            .privacy-content {
+                padding: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav {
+                position: fixed;
+                top: 70px;
+                right: -100%;
+                background: var(--card-bg);
+                width: 80%;
+                height: calc(100vh - 70px);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 40px;
+                gap: 30px;
+                transition: all 0.5s ease;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+                z-index: 999;
+            }
+            
+            .nav.active {
+                right: 0;
+            }
+            
+            .nav-actions {
+                flex-direction: column;
+                width: 80%;
+                margin-top: 30px;
+            }
+            
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            
+            .privacy-content {
+                padding: 30px;
+            }
+            
+            .privacy-section {
+                padding: 25px;
+            }
+            
+            .privacy-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+            
+            .update-content {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .privacy-content {
+                padding: 25px;
+            }
+            
+            .privacy-section {
+                padding: 20px;
+            }
+            
+            .privacy-icon {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .privacy-icon i {
+                font-size: 1rem;
+            }
+            
+            .privacy-header h3 {
+                font-size: 1.3rem;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- الهيدر -->
+    <header class="header" id="header">
+        <div class="container">
+            <h1 class="logo"><a href="/"><i class="fas fa-feather-alt"></i> الثَّقَف العربي</a></h1>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav class="nav" id="nav">
+                <a href="/">الرئيسية</a>
+                <a href="/articles/">المقالات</a>
+                <a href="/categories/">الأقسام</a>
+                <a href="/gallery/">المعرض</a>
+                <a href="/about/">من نحن</a>
+                <a href="/contact/">اتصل بنا</a>
+                
+                <div class="nav-actions">
+                    <button class="nav-btn"><i class="fas fa-search"></i> بحث</button>
+                    <button class="nav-btn"><i class="fas fa-user"></i> دخول</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- صفحة سياسة الخصوصية -->
+    <section class="privacy-page">
+        <div class="container">
+            <!-- رأس الصفحة -->
+            <div class="page-header">
+                <h1>🛡️ سياسة الخصوصية</h1>
+                <p>نحن في الثَّقَف العربي نعتبر خصوصيتك أمراً بالغ الأهمية. تشرح هذه السياسة كيفية جمعنا واستخدامنا وحماية بياناتك الشخصية</p>
+            </div>
+
+            <!-- محتوى السياسة -->
+            <div class="privacy-content">
+                <!-- المقدمة -->
+                <div class="intro-section">
+                    <p>نحن في <strong>الثَّقَف العربي</strong> نحترم خصوصيتك ونلتزم بحماية بياناتك الشخصية أثناء زيارتك لموقعنا. تهدف هذه الصفحة إلى توضيح كيفية جمع واستخدام وحماية المعلومات التي تزودنا بها، ونعدك بأننا لن نستخدم معلوماتك إلا بالطرق الموصوفة في سياسة الخصوصية هذه.</p>
+                </div>
+
+                <!-- أقسام السياسة -->
+                <div class="privacy-sections">
+                    <!-- القسم 1 -->
+                    <div class="privacy-section">
+                        <div class="privacy-header">
+                            <div class="privacy-icon">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <h3>١. المعلومات التي نقوم بجمعها</h3>
+                        </div>
+                        <div class="privacy-content">
+                            <p>نجمع أنواعاً محدودة من المعلومات لتحسين تجربتك على موقعنا:</p>
+                            <ul>
+                                <li>المعلومات التي تُقدَّم طوعًا عند التواصل معنا عبر نموذج الاتصال أو البريد الإلكتروني (الاسم، البريد الإلكتروني، الرسالة)</li>
+                                <li>البيانات التقنية مثل نوع الجهاز والمتصفح وعنوان IP، وذلك لتحسين تجربة المستخدم وتحليل الأداء</li>
+                                <li>ملفات تعريف الارتباط (Cookies) لتحسين أداء الموقع ومتابعة الإحصائيات وتذكر تفضيلاتك</li>
+                                <li>بيانات الاستخدام مثل الصفحات التي تزورها ومدة الزيارة، لأغراض تحليلية بحتة</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- القسم 2 -->
+                    <div class="privacy-section">
+                        <div class="privacy-header">
+                            <div class="privacy-icon">
+                                <i class="fas fa-cogs"></i>
+                            </div>
+                            <h3>٢. كيفية استخدام المعلومات</h3>
+                        </div>
+                        <div class="privacy-content">
+                            <p>نستخدم المعلومات التي نجمعها حصرياً للأغراض المشروعة والضرورية لتقديم خدماتنا:</p>
+                            <ul>
+                                <li>تحسين جودة المحتوى والخدمات التي نقدمها لتتناسب مع احتياجاتك</li>
+                                <li>الرد على استفسارات المستخدمين واقتراحاتهم وتقديم الدعم الفني</li>
+                                <li>تحليل استخدام الموقع لأغراض إحصائية داخلية لتحسين تجربة المستخدم</li>
+                                <li>الحفاظ على أمان الموقع وحماية حقوقنا ومستخدمينا</li>
+                                <li>تخصيص المحتوى والإعلانات بناءً على اهتماماتك وطريقة استخدامك للموقع</li>
+                            </ul>
+                            <p><strong>ملاحظة:</strong> نحن لا نبيع أو نؤجر أو نتاجر ببياناتك الشخصية لأطراف ثالثة.</p>
+                        </div>
+                    </div>
+
+                    <!-- القسم 3 -->
+                    <div class="privacy-section">
+                        <div class="privacy-header">
+                            <div class="privacy-icon">
+                                <i class="fas fa-cookie-bite"></i>
+                            </div>
+                            <h3>٣. ملفات تعريف الارتباط (Cookies)</h3>
+                        </div>
+                        <div class="privacy-content">
+                            <p>يستخدم موقعنا ملفات تعريف الارتباط لتخزين بعض المعلومات حول تفضيلات المستخدم بهدف:</p>
+                            <ul>
+                                <li>تسهيل التصفح وتذكر إعداداتك المفضلة</li>
+                                <li>تحليل حركة الزوار وتحسين أداء الموقع</li>
+                                <li>تخصيص المحتوى والإعلانات بناءً على اهتماماتك</li>
+                                <li>تمكين بعض الوظائف الأساسية في الموقع</li>
+                            </ul>
+                            <p>يمكنك تعطيل ملفات تعريف الارتباط من إعدادات المتصفح إن رغبت، لكن هذا قد يؤثر على بعض وظائف الموقع.</p>
+                        </div>
+                    </div>
+
+                    <!-- القسم 4 -->
+                    <div class="privacy-section">
+                        <div class="privacy-header">
+                            <div class="privacy-icon">
+                                <i class="fas fa-external-link-alt"></i>
+                            </div>
+                            <h3>٤. الروابط الخارجية</h3>
+                        </div>
+                        <div class="privacy-content">
+                            <p>قد يحتوي موقعنا على روابط لمواقع خارجية لا نتحكم في محتواها أو ممارسات الخصوصية فيها:</p>
+                            <ul>
+                                <li>نحن غير مسؤولين عن ممارسات الخصوصية لتلك المواقع</li>
+                                <li>ننصحك بمراجعة سياسات الخصوصية الخاصة بتلك المواقع بشكل مستقل</li>
+                                <li>الروابط الخارجية مقدمة للراحة والمعلومات فقط وليست توصية بالمحتوى</li>
+                                <li>يتم زيارة المواقع الخارجية على مسؤولية المستخدم الخاصة</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- القسم 5 -->
+                    <div class="privacy-section">
+                        <div class="privacy-header">
+                            <div class="privacy-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h3>٥. حماية المعلومات</h3>
+                        </div>
+                        <div class="privacy-content">
+                            <p>نحن نستخدم إجراءات أمنية مناسبة لحماية بيانات المستخدمين:</p>
+                            <ul>
+                                <li>تشفير البيانات الحساسة أثناء نقلها عبر الإنترنت</li>
+                                <li>الوصول المحدود إلى البيانات الشخصية للموظفين المخولين فقط</li>
+                                <li>مراجعة دورية لإجراءات الأمان والخصوصية</li>
+                                <li>تخزين البيانات على خوادم آمنة مع إجراءات حماية متعددة</li>
+                            </ul>
+                            <p><strong>ملاحظة:</strong> بينما نبذل قصارى جهدنا لحماية بياناتك، لا يمكننا ضمان الأمان المطلق لنقل البيانات عبر الإنترنت.</p>
+                        </div>
+                    </div>
+
+                    <!-- القسم 6 -->
+                    <div class="privacy-section">
+                        <div class="privacy-header">
+                            <div class="privacy-icon">
+                                <i class="fas fa-sync-alt"></i>
+                            </div>
+                            <h3>٦. تعديلات على السياسة</h3>
+                        </div>
+                        <div class="privacy-content">
+                            <p>قد نقوم بتحديث سياسة الخصوصية من وقت لآخر لتعكس التغييرات في ممارساتنا أو المتطلبات القانونية:</p>
+                            <ul>
+                                <li>سيتم نشر أي تحديث جديد في هذه الصفحة</li>
+                                <li>سيتم تحديث تاريخ "آخر تحديث" في أسفل الصفحة</li>
+                                <li>سيتم إخطار المستخدمين بالتغييرات الجوهرية عبر الإعلانات على الموقع</li>
+                                <li>استمرار استخدامك للموقع بعد التعديلات يعني موافقتك على الشروط المحدثة</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- قسم التحديث -->
+                <div class="update-section">
+                    <div class="update-header">
+                        <i class="fas fa-history"></i>
+                        <h4>معلومات التحديث</h4>
+                    </div>
+                    <div class="update-content">
+                        <div class="update-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            آخر تحديث: ٣ نوفمبر ٢٠٢٥
+                        </div>
+                        <p class="update-note">باستخدامك لموقعنا فإنك توافق على جميع بنود هذه السياسة وتقر بأنك قد قرأتها وفهمتها.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- التذييل -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h5>الثقَف العربي</h5>
+                    <p>منصة ثقافية عربية تهدف إلى إثراء المحتوى الثقافي والمعرفي العربي من خلال مقالات وبحوث ومواد متنوعة.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h5>روابط سريعة</h5>
+                    <ul class="footer-links">
+                        <li><a href="/"><i class="fas fa-arrow-left"></i> الرئيسية</a></li>
+                        <li><a href="/articles/"><i class="fas fa-arrow-left"></i> المقالات</a></li>
+                        <li><a href="/categories/"><i class="fas fa-arrow-left"></i> الأقسام</a></li>
+                        <li><a href="/about/"><i class="fas fa-arrow-left"></i> من نحن</a></li>
+                        <li><a href="/contact/"><i class="fas fa-arrow-left"></i> اتصل بنا</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h5>الأقسام</h5>
+                    <ul class="footer-links">
+                        {% for category in categories|slice:":5" %}
+                        <li><a href="{% url 'category_detail' category.slug %}"><i class="fas fa-arrow-left"></i> {{ category.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h5>معلومات</h5>
+                    <ul class="footer-links">
+                        <li><a href="/privacy/"><i class="fas fa-arrow-left"></i> سياسة الخصوصية</a></li>
+                        <li><a href="/terms/"><i class="fas fa-arrow-left"></i> اتفاقية الاستخدام</a></li>
+                        <li><a href="/disclaimer/"><i class="fas fa-arrow-left"></i> إخلاء المسؤولية</a></li>
+                        <li><a href="/sitemap/"><i class="fas fa-arrow-left"></i> خريطة الموقع</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>© 2025 الثَّقَف العربي – جميع الحقوق محفوظة</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const nav = document.getElementById('nav');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            nav.classList.toggle('active');
+            mobileMenuBtn.innerHTML = nav.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Add scroll animations for privacy sections
+        function checkVisibility() {
+            const elements = document.querySelectorAll('.privacy-section');
+            
+            elements.forEach((element, index) => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    setTimeout(() => {
+                        element.style.opacity = '1';
+                        element.style.transform = 'translateX(0)';
+                    }, index * 100);
+                }
+            });
+        }
+        
+        // Initial styles for animations
+        document.querySelectorAll('.privacy-section').forEach(element => {
+            element.style.opacity = '0';
+            element.style.transform = 'translateX(20px)';
+            element.style.transition = 'all 0.5s ease';
+        });
+        
+        // Initial check
+        checkVisibility();
+        
+        // Check on scroll
+        window.addEventListener('scroll', checkVisibility);
+    </script>
+
+</body>
+</html>
