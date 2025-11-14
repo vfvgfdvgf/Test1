@@ -20,16 +20,22 @@ urlpatterns = [
     path('terms/', views.terms, name='terms'),
     path('privacy/', views.privacy, name='privacy'),
     path('disclaimer/', views.disclaimer, name='disclaimer'),
+    path('cookies/', views.cookies_view, name='cookies'),
 
     # 💬 صفحة الاتصال
     path('contact/', views.contact_view, name='contact'),
+    path('robots.txt', views.robots_txt),
 
     # 🎞️ معرض الوسائط
    path('gallery/', views.gallery, name='gallery'),
     path('gallery/<int:pk>/', views.gallery_detail, name='gallery_detail'),
-    
+        path('search/', views.search_view, name='search'),
+
     # ✍️ محرر النصوص CKEditor
     path('ckeditor/', include('ckeditor_uploader.urls')),
+        path('subscribe/', views.subscribe_newsletter, name='subscribe_newsletter'),
+    path('admin/send-newsletter/<int:subscriber_id>/', views.admin_send_newsletter, name='admin_send_newsletter'),
+
 ]
 
 # 🖼️ إعدادات الوسائط في وضع التطوير فقط

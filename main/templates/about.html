@@ -2,15 +2,142 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+    <!-- ================= Favicon ================= -->
+    {% if site_settings.favicon %}
+        <link rel="icon" type="image/png" href="{{ site_settings.favicon.url }}">
+    {% elif site_settings.favicon_url %}
+        <link rel="icon" type="image/png" href="{{ site_settings.favicon_url }}">
+    {% else %}
+        <link rel="icon" type="image/png" href="/static/default/favicon.png">
+    {% endif %}
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon-16x16.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon-32x32.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/apple-touch-icon.png' %}">
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="msapplication-TileColor" content="#ffffff">
+
+    <!-- ================= Meta ================= -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>من نحن - الثَّقَف العربي</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Amiri:wght@400;700&family=Almarai:wght@300;400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>من نحن - منصة الثقافة العربية الرائدة | الثَّقَف العربي</title>
+    <meta name="description" content="تعرف على منصة الثَّقَف العربي - رواد في نشر الثقافة العربية الأصيلة. رسالتنا، رؤيتنا، فريق العمل، وقيمنا في إثراء المحتوى الثقافي العربي">
+    <meta name="keywords" content="من نحن, الثقافة العربية, منصة ثقافية, فريق العمل, رؤية ورسالة, قيم ثقافية">
+    <meta name="author" content="الثَّقَف العربي">
+    <meta name="robots" content="index, follow">
+
+    <!-- ================= Open Graph ================= -->
+    <meta property="og:title" content="من نحن - منصة الثقافة العربية الرائدة | الثَّقَف العربي">
+    <meta property="og:description" content="تعرف على منصة الثَّقَف العربي - رواد في نشر الثقافة العربية الأصيلة">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="/about/">
+    <meta property="og:image" content="{% static 'images/about-og.jpg' %}">
+    <meta property="og:site_name" content="الثَّقَف العربي">
+
+    <!-- ================= Twitter Card ================= -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="من نحن - منصة الثقافة العربية الرائدة">
+    <meta name="twitter:description" content="تعرف على منصة الثَّقَف العربي - رواد في نشر الثقافة العربية الأصيلة">
+    <meta name="twitter:image" content="{% static 'images/about-og.jpg' %}">
+
+    <!-- ================= Structured Data (SEO) ================= -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "AboutPage",
+        "name": "من نحن - الثَّقَف العربي",
+        "description": "منصة ثقافية عربية تهدف إلى إثراء المحتوى الثقافي والمعرفي العربي",
+        "url": "/about/",
+        "publisher": {
+            "@type": "Organization",
+            "name": "الثَّقَف العربي",
+            "description": "منصة ثقافية عربية رائدة في نشر المعرفة والثقافة",
+            "url": "/",
+            "logo": "{% static 'images/logo.png' %}",
+            "foundingDate": "2020",
+            "numberOfEmployees": "10-50",
+            "slogan": "رواد في نشر الثقافة العربية الأصيلة"
+        },
+        "mainEntity": {
+            "@type": "Organization",
+            "name": "الثَّقَف العربي",
+            "mission": "إثراء المحتوى الثقافي العربي من خلال تقديم مواد معرفية متميزة تجمع بين الأصالة والحداثة",
+            "founder": {
+                "@type": "Person",
+                "name": "ياسر أحمد"
+            }
+        }
+    }
+    </script>
+
+    <!-- ================= Preload Resources ================= -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Amiri:wght@400;700&family=Almarai:wght@300;400;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+    <!-- ================= Canonical URL ================= -->
+    <link rel="canonical" href="/about/">
+
+    <!-- ================= Notes ================= -->
+    <!-- ✅ Favicon كامل ومتوافق مع جميع الأجهزة.
+         ✅ Open Graph و Twitter Card مفعلة لمشاركة ممتازة على الشبكات الاجتماعية.
+         ✅ Structured Data محسّن لمحركات البحث.
+         ✅ Preload Fonts و CSS لتسريع تحميل الصفحة. -->
+
     <style>
+          /* ====== 🔍 نموذج البحث المحسن ====== */
+    .header-search {
+        position: relative;
+        max-width: 400px;
+        width: 100%;
+        margin: 0 20px;
+    }
+
+    .header-search input {
+        width: 100%;
+        padding: 12px 50px 12px 20px;
+        border: 1px solid var(--border);
+        border-radius: 50px;
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(10px);
+        font-family: inherit;
+        font-size: 1rem;
+        transition: var(--apple-transition);
+    }
+
+    .header-search input:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(193, 154, 107, 0.2);
+        background: white;
+    }
+
+    .header-search button {
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: var(--accent);
+        color: white;
+        border: none;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: var(--apple-transition);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .header-search button:hover {
+        background: var(--secondary-accent);
+        transform: translateY(-50%) scale(1.1);
+    }
         :root {
             --primary-bg: #F7F4EF;
-            --primary-text: #2C2C2C;
+            --primary-text: #1D1D1F;
             --secondary-text: #6B6B6B;
             --accent: #C19A6B;
             --secondary-accent: #8C6B4F;
@@ -19,84 +146,97 @@
             --shadow: rgba(0, 0, 0, 0.08);
             --shadow-hover: rgba(0, 0, 0, 0.12);
             --border: rgba(193, 154, 107, 0.2);
+            --apple-radius: 12px;
+            --apple-radius-large: 24px;
+            --apple-transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: 'Almarai', 'Cairo', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Almarai', 'Cairo', sans-serif;
             background-color: var(--primary-bg);
             color: var(--primary-text);
             line-height: 1.8;
             overflow-x: hidden;
+            font-size: 16px;
         }
 
         a {
             text-decoration: none;
             color: inherit;
-            transition: all 0.4s ease;
+            transition: var(--apple-transition);
         }
 
         .container {
             width: 90%;
-            max-width: 1300px;
+            max-width: 1400px;
             margin: auto;
         }
 
-        /* ====== الهيدر ====== */
+        /* ====== Enhanced Header ====== */
         .header {
-            background: rgba(247, 244, 239, 0.92);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: rgba(247, 244, 239, 0.95);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
             position: sticky;
             top: 0;
             z-index: 1000;
-            border-bottom: 1px solid var(--border);
-            transition: all 0.5s ease;
-            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            transition: var(--apple-transition);
+            padding: 15px 0;
         }
 
         .header.scrolled {
             background: rgba(247, 244, 239, 0.98);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-            padding: 8px 0;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+            padding: 10px 0;
         }
 
         .header .container {
             display: flex;
             align-items: center;
             justify-content: space-between;
+            max-width: 1400px;
         }
 
         .logo a {
             color: var(--accent);
-            font-size: 1.8rem;
+            font-size: 1.9rem;
             font-weight: 700;
-            font-family: 'Amiri', serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Amiri', serif;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            letter-spacing: -0.5px;
         }
 
         .logo i {
-            font-size: 1.6rem;
+            font-size: 1.7rem;
         }
 
         .nav {
             display: flex;
-            gap: 30px;
+            gap: 35px;
         }
 
         .nav a {
             position: relative;
             color: var(--secondary-text);
             font-weight: 500;
-            padding: 8px 0;
-            font-size: 1.05rem;
+            padding: 10px 0;
+            font-size: 1.08rem;
+            font-family: -apple-system, BlinkMacSystemFont, 'Almarai', sans-serif;
         }
 
         .nav a:after {
@@ -107,7 +247,7 @@
             bottom: 0;
             right: 0;
             background-color: var(--accent);
-            transition: width 0.4s ease;
+            transition: var(--apple-transition);
         }
 
         .nav a:hover {
@@ -120,42 +260,51 @@
 
         .nav-actions {
             display: flex;
-            gap: 15px;
+            gap: 18px;
         }
 
         .nav-btn {
             background: transparent;
             border: 1px solid var(--border);
             color: var(--accent);
-            padding: 10px 20px;
+            padding: 12px 24px;
             border-radius: 50px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.4s ease;
+            transition: var(--apple-transition);
             font-family: inherit;
+            font-size: 1rem;
         }
 
         .nav-btn:hover {
             background: var(--accent);
             color: white;
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(193, 154, 107, 0.3);
+            box-shadow: 0 8px 20px rgba(193, 154, 107, 0.3);
         }
 
         .mobile-menu-btn {
             display: none;
             background: transparent;
             border: none;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             color: var(--accent);
             cursor: pointer;
+            padding: 8px;
+            border-radius: var(--apple-radius);
+            transition: var(--apple-transition);
         }
 
-        /* ====== صفحة من نحن ====== */
+        .mobile-menu-btn:hover {
+            background: rgba(193, 154, 107, 0.1);
+        }
+
+        /* ====== Enhanced About Page ====== */
         .about-page {
-            padding: 120px 20px 80px;
+            padding: 140px 20px 100px;
             background: var(--primary-bg);
             position: relative;
+            min-height: 100vh;
         }
 
         .about-page:before {
@@ -172,18 +321,19 @@
 
         .page-header {
             text-align: center;
-            margin-bottom: 80px;
+            margin-bottom: 90px;
             position: relative;
         }
 
         .page-header h1 {
-            font-size: 3rem;
+            font-size: 3.5rem;
             font-weight: 700;
             color: var(--accent);
-            margin-bottom: 20px;
-            font-family: 'Amiri', serif;
+            margin-bottom: 25px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Amiri', serif;
             position: relative;
             display: inline-block;
+            letter-spacing: -0.5px;
         }
 
         .page-header h1:after {
@@ -191,49 +341,58 @@
             position: absolute;
             width: 60%;
             height: 4px;
-            bottom: -15px;
+            bottom: -18px;
             right: 20%;
             background: linear-gradient(to left, var(--accent), transparent);
+            border-radius: 2px;
         }
 
         .page-header p {
-            max-width: 700px;
+            max-width: 750px;
             margin: 30px auto 0;
             color: var(--secondary-text);
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             line-height: 1.8;
+            font-weight: 300;
         }
 
-        /* ====== قسم المقدمة ====== */
+        /* ====== Enhanced About Hero ====== */
         .about-hero {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 60px;
+            gap: 70px;
             align-items: center;
-            margin-bottom: 100px;
+            margin-bottom: 120px;
         }
 
         .hero-content h2 {
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             color: var(--accent);
-            margin-bottom: 25px;
-            font-family: 'Amiri', serif;
-            line-height: 1.4;
+            margin-bottom: 30px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Amiri', serif;
+            line-height: 1.3;
+            font-weight: 700;
         }
 
         .hero-content p {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             color: var(--secondary-text);
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             line-height: 1.9;
+        }
+
+        .hero-content strong {
+            color: var(--accent);
+            font-weight: 600;
         }
 
         .hero-image {
             position: relative;
-            border-radius: 20px;
+            border-radius: var(--apple-radius-large);
             overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            height: 400px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            height: 450px;
+            border: 1px solid rgba(255, 255, 255, 0.8);
         }
 
         .hero-image img {
@@ -244,31 +403,32 @@
         }
 
         .hero-image:hover img {
-            transform: scale(1.05);
+            transform: scale(1.08);
         }
 
-        /* ====== قسم الرؤية والرسالة ====== */
+        /* ====== Enhanced Mission & Vision ====== */
         .mission-vision {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            margin-bottom: 100px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 45px;
+            margin-bottom: 120px;
         }
 
         .mission-card, .vision-card {
             background: var(--card-bg);
-            border-radius: 20px;
-            padding: 40px 30px;
+            border-radius: var(--apple-radius-large);
+            padding: 50px 40px;
             text-align: center;
-            box-shadow: 0 10px 30px var(--shadow);
-            transition: all 0.4s ease;
+            box-shadow: 0 12px 35px var(--shadow);
+            transition: var(--apple-transition);
             position: relative;
             overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.8);
         }
 
         .mission-card:hover, .vision-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px var(--shadow-hover);
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 25px 50px var(--shadow-hover);
         }
 
         .mission-card:before, .vision-card:before {
@@ -277,93 +437,98 @@
             top: 0;
             right: 0;
             width: 100%;
-            height: 5px;
+            height: 6px;
             background: var(--accent);
         }
 
         .card-icon {
-            width: 80px;
-            height: 80px;
+            width: 90px;
+            height: 90px;
             background: rgba(193, 154, 107, 0.1);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 25px;
-            transition: all 0.4s ease;
+            margin: 0 auto 30px;
+            transition: var(--apple-transition);
         }
 
         .mission-card:hover .card-icon, .vision-card:hover .card-icon {
             background: var(--accent);
-            transform: scale(1.1);
+            transform: scale(1.15) rotate(5deg);
         }
 
         .card-icon i {
-            font-size: 2.2rem;
+            font-size: 2.4rem;
             color: var(--accent);
-            transition: all 0.4s ease;
+            transition: var(--apple-transition);
         }
 
         .mission-card:hover .card-icon i, .vision-card:hover .card-icon i {
             color: white;
+            transform: scale(1.1);
         }
 
         .mission-card h3, .vision-card h3 {
-            font-size: 1.8rem;
+            font-size: 2rem;
             color: var(--accent);
-            margin-bottom: 20px;
-            font-family: 'Amiri', serif;
+            margin-bottom: 25px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Amiri', serif;
+            font-weight: 700;
         }
 
         .mission-card p, .vision-card p {
             color: var(--secondary-text);
             line-height: 1.8;
-            font-size: 1.05rem;
+            font-size: 1.1rem;
         }
 
-        /* ====== قسم الفريق ====== */
+        /* ====== Enhanced Team Section ====== */
         .team-section {
-            margin-bottom: 100px;
+            margin-bottom: 120px;
         }
 
         .section-title {
             text-align: center;
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             color: var(--accent);
-            margin-bottom: 60px;
-            font-family: 'Amiri', serif;
+            margin-bottom: 70px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Amiri', serif;
             position: relative;
             display: inline-block;
             right: 50%;
             transform: translateX(50%);
+            font-weight: 700;
         }
 
         .section-title:after {
             content: '';
             position: absolute;
             width: 60%;
-            height: 3px;
-            bottom: -12px;
+            height: 4px;
+            bottom: -15px;
             right: 20%;
             background: linear-gradient(to left, var(--accent), transparent);
+            border-radius: 2px;
         }
 
         .team-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 35px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
         }
 
         .team-member {
             background: var(--card-bg);
-            border-radius: 20px;
-            padding: 30px;
+            border-radius: var(--apple-radius-large);
+            padding: 35px 30px;
             text-align: center;
-            box-shadow: 0 8px 25px var(--shadow);
-            transition: all 0.5s ease;
+            box-shadow: 0 10px 30px var(--shadow);
+            transition: var(--apple-transition);
             position: relative;
             opacity: 0;
             transform: translateY(30px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
         }
 
         .team-member.visible {
@@ -372,18 +537,19 @@
         }
 
         .team-member:hover {
-            transform: translateY(-12px);
-            box-shadow: 0 15px 35px var(--shadow-hover);
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 20px 40px var(--shadow-hover);
         }
 
         .member-image {
-            width: 120px;
-            height: 120px;
+            width: 140px;
+            height: 140px;
             border-radius: 50%;
-            margin: 0 auto 20px;
+            margin: 0 auto 25px;
             overflow: hidden;
-            border: 3px solid var(--accent);
+            border: 4px solid var(--accent);
             position: relative;
+            box-shadow: 0 8px 25px rgba(193, 154, 107, 0.3);
         }
 
         .member-image img {
@@ -394,73 +560,79 @@
         }
 
         .team-member:hover .member-image img {
-            transform: scale(1.1);
+            transform: scale(1.12);
         }
 
         .member-info h4 {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             color: var(--primary-text);
-            margin-bottom: 8px;
-            font-family: 'Amiri', serif;
+            margin-bottom: 10px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Amiri', serif;
+            font-weight: 700;
         }
 
         .member-role {
             color: var(--accent);
             font-weight: 600;
-            margin-bottom: 15px;
-            font-size: 1rem;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
         }
 
         .member-bio {
             color: var(--secondary-text);
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 20px;
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 25px;
         }
 
         .member-social {
             display: flex;
             justify-content: center;
-            gap: 12px;
+            gap: 15px;
         }
 
         .social-link {
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
             background: var(--primary-bg);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s ease;
+            transition: var(--apple-transition);
             color: var(--secondary-text);
+            border: 1px solid var(--border);
         }
 
         .social-link:hover {
             background: var(--accent);
             color: white;
-            transform: translateY(-3px);
+            transform: translateY(-4px);
+            box-shadow: 0 6px 15px rgba(193, 154, 107, 0.3);
+            border-color: var(--accent);
         }
 
-        /* ====== قسم الإحصائيات ====== */
+        /* ====== Enhanced Stats Section ====== */
         .stats-section {
             background: linear-gradient(135deg, var(--accent), var(--secondary-accent));
-            padding: 80px 40px;
-            border-radius: 24px;
-            margin-bottom: 80px;
+            padding: 100px 50px;
+            border-radius: var(--apple-radius-large);
+            margin-bottom: 100px;
             text-align: center;
             color: white;
+            box-shadow: 0 20px 40px rgba(193, 154, 107, 0.3);
         }
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 45px;
         }
 
         .stat-item {
             opacity: 0;
             transform: translateY(30px);
+            transition: all 0.6s ease;
         }
 
         .stat-item.visible {
@@ -469,63 +641,66 @@
         }
 
         .stat-number {
-            font-size: 3rem;
+            font-size: 3.5rem;
             font-weight: 700;
-            margin-bottom: 10px;
-            font-family: 'Amiri', serif;
+            margin-bottom: 15px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Amiri', serif;
         }
 
         .stat-label {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             opacity: 0.9;
+            font-weight: 300;
         }
 
-        /* ====== قسم القيم ====== */
+        /* ====== Enhanced Values Section ====== */
         .values-section {
-            margin-bottom: 80px;
+            margin-bottom: 100px;
         }
 
         .values-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 35px;
         }
 
         .value-card {
             background: var(--card-bg);
-            border-radius: 16px;
-            padding: 30px 25px;
+            border-radius: var(--apple-radius-large);
+            padding: 35px 30px;
             text-align: center;
-            transition: all 0.4s ease;
+            transition: var(--apple-transition);
             border: 1px solid var(--border);
+            box-shadow: 0 8px 25px var(--shadow);
         }
 
         .value-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 30px var(--shadow-hover);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 35px var(--shadow-hover);
             border-color: var(--accent);
         }
 
         .value-icon {
-            width: 70px;
-            height: 70px;
+            width: 80px;
+            height: 80px;
             background: rgba(193, 154, 107, 0.1);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 20px;
-            transition: all 0.4s ease;
+            margin: 0 auto 25px;
+            transition: var(--apple-transition);
         }
 
         .value-card:hover .value-icon {
             background: var(--accent);
+            transform: scale(1.1);
         }
 
         .value-icon i {
-            font-size: 1.8rem;
+            font-size: 2rem;
             color: var(--accent);
-            transition: all 0.4s ease;
+            transition: var(--apple-transition);
         }
 
         .value-card:hover .value-icon i {
@@ -533,37 +708,39 @@
         }
 
         .value-card h4 {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: var(--accent);
-            margin-bottom: 15px;
-            font-family: 'Amiri', serif;
+            margin-bottom: 18px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Amiri', serif;
+            font-weight: 700;
         }
 
         .value-card p {
             color: var(--secondary-text);
             line-height: 1.7;
-            font-size: 0.95rem;
+            font-size: 1.05rem;
         }
 
-        /* ====== التذييل ====== */
+        /* ====== Enhanced Footer ====== */
         .footer {
-            background: #2C2C2C;
+            background: #1D1D1F;
             color: #ddd;
-            padding: 60px 20px 30px;
+            padding: 80px 20px 40px;
+            margin-top: 120px;
         }
 
         .footer-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 45px;
+            margin-bottom: 50px;
         }
 
         .footer-col h5 {
             color: var(--accent);
-            font-size: 1.3rem;
-            margin-bottom: 20px;
-            font-family: 'Amiri', serif;
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Amiri', serif;
             position: relative;
             display: inline-block;
         }
@@ -571,11 +748,12 @@
         .footer-col h5:after {
             content: '';
             position: absolute;
-            width: 40px;
+            width: 45px;
             height: 2px;
-            bottom: -8px;
+            bottom: -10px;
             right: 0;
             background-color: var(--accent);
+            border-radius: 1px;
         }
 
         .footer-links {
@@ -583,73 +761,120 @@
         }
 
         .footer-links li {
-            margin-bottom: 12px;
+            margin-bottom: 15px;
         }
 
         .footer-links a {
             color: #aaa;
-            transition: all 0.3s ease;
+            transition: var(--apple-transition);
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            font-size: 1rem;
         }
 
         .footer-links a:hover {
             color: var(--accent);
-            transform: translateX(-5px);
+            transform: translateX(-8px);
         }
 
         .footer-links i {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
         }
 
         .social-links {
             display: flex;
-            gap: 15px;
-            margin-top: 20px;
+            gap: 18px;
+            margin-top: 25px;
         }
 
         .social-links a {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
             background: rgba(255, 255, 255, 0.05);
             border-radius: 50%;
-            transition: all 0.3s ease;
+            transition: var(--apple-transition);
         }
 
         .social-links a:hover {
             background: var(--accent);
-            transform: translateY(-5px);
+            transform: translateY(-5px) scale(1.1);
         }
 
         .copyright {
             text-align: center;
-            padding-top: 30px;
+            padding-top: 40px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             color: #888;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
         }
 
-        /* ====== الوسائط المتعددة ====== */
-        @media (max-width: 992px) {
-            .nav {
-                gap: 20px;
+        /* ====== Skip to Main Content for Accessibility ====== */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--accent);
+            color: white;
+            padding: 12px 20px;
+            text-decoration: none;
+            border-radius: 0 0 4px 0;
+            z-index: 1001;
+            transition: top 0.3s;
+            font-weight: 600;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* ====== Enhanced Responsive Design ====== */
+        @media (max-width: 1200px) {
+            .container {
+                width: 95%;
+                max-width: 1200px;
             }
             
             .page-header h1 {
-                font-size: 2.5rem;
+                font-size: 3rem;
+            }
+            
+            .about-hero {
+                gap: 50px;
+            }
+            
+            .hero-content h2 {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .nav {
+                gap: 25px;
+            }
+            
+            .page-header h1 {
+                font-size: 2.6rem;
             }
             
             .about-hero {
                 grid-template-columns: 1fr;
-                gap: 40px;
+                gap: 45px;
             }
             
             .hero-content h2 {
                 font-size: 2rem;
+            }
+            
+            .mission-vision {
+                grid-template-columns: 1fr;
+            }
+            
+            .team-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             }
         }
 
@@ -660,19 +885,22 @@
             
             .nav {
                 position: fixed;
-                top: 70px;
+                top: 80px;
                 right: -100%;
                 background: var(--card-bg);
-                width: 80%;
-                height: calc(100vh - 70px);
+                backdrop-filter: blur(25px);
+                -webkit-backdrop-filter: blur(25px);
+                width: 85%;
+                height: calc(100vh - 80px);
                 flex-direction: column;
                 align-items: center;
                 justify-content: flex-start;
-                padding-top: 40px;
-                gap: 30px;
-                transition: all 0.5s ease;
-                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+                padding-top: 50px;
+                gap: 35px;
+                transition: var(--apple-transition);
+                box-shadow: -8px 0 25px rgba(0, 0, 0, 0.1);
                 z-index: 999;
+                border-left: 1px solid var(--border);
             }
             
             .nav.active {
@@ -682,67 +910,284 @@
             .nav-actions {
                 flex-direction: column;
                 width: 80%;
-                margin-top: 30px;
+                margin-top: 40px;
+            }
+            
+            .about-page {
+                padding: 120px 20px 80px;
             }
             
             .page-header h1 {
-                font-size: 2.2rem;
+                font-size: 2.4rem;
             }
             
-            .mission-vision {
-                grid-template-columns: 1fr;
-            }
-            
-            .team-grid {
-                grid-template-columns: 1fr;
+            .stats-section {
+                padding: 70px 30px;
             }
             
             .stats-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
+            
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 576px) {
             .page-header h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
+            }
+            
+            .page-header p {
+                font-size: 1.1rem;
             }
             
             .stats-grid {
                 grid-template-columns: 1fr;
             }
             
-            .values-grid {
-                grid-template-columns: 1fr;
-            }
-            
             .footer-grid {
                 grid-template-columns: 1fr;
-                gap: 30px;
+                gap: 35px;
+            }
+            
+            .mission-card, .vision-card {
+                padding: 35px 25px;
+            }
+            
+            .team-member {
+                padding: 30px 25px;
+            }
+        }
+
+        /* ====== Print Styles ====== */
+        @media print {
+            .header, .footer, .nav-actions, .mobile-menu-btn, .member-social {
+                display: none;
+            }
+            
+            body {
+                background: white;
+                color: black;
+                font-size: 12pt;
+                line-height: 1.6;
+            }
+            
+            .container {
+                width: 100%;
+                max-width: none;
+            }
+            
+            .about-page {
+                padding: 20px 0;
+            }
+            
+            .about-hero, .mission-vision, .team-section, .stats-section, .values-section {
+                margin-bottom: 40px;
+            }
+            
+            .mission-card, .vision-card, .team-member, .value-card {
+                box-shadow: none;
+                border: 1px solid #ddd;
+                break-inside: avoid;
+            }
+            
+            a {
+                color: black;
+                text-decoration: underline;
+            }
+            
+            .nav-btn {
+                display: none;
             }
         }
     </style>
 </head>
 <body>
+   <!-- Loading Overlay -->
+<div class="loading-overlay" id="loadingOverlay">
+    <div class="loader-container">
+        <div class="ball">
+            <div class="inner">
+                <div class="line"></div>
+                <div class="line line--two"></div>
+                <div class="oval"></div>
+                <div class="oval oval--two"></div>
+            </div>
+        </div>
+        <div class="shadow"></div>
+    </div>
+</div>
+
+<style>
+/* الغطاء الكامل */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(247, 244, 239, 0.95);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+/* لتوسيط الكرة والظل داخل شاشة التحميل فقط */
+.loader-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Ball Loader Styles */
+/* From Uiverse.io by Mahmoud-walid */
+@keyframes rotateBall {
+  0% { transform: rotateY(0deg) rotateX(0deg) rotateZ(0deg); }
+  50% { transform: rotateY(360deg) rotateX(360deg) rotateZ(0deg); }
+  100% { transform: rotateY(720deg) rotateX(720deg) rotateZ(360deg); }
+}
+
+@keyframes bounceBall {
+  0% { transform: translateY(-70px) scale(1, 1); }
+  15% { transform: translateY(-56px) scale(1, 1); }
+  45% { transform: translateY(70px) scale(1, 1); }
+  50% { transform: translateY(73.5px) scale(1, 0.92); }
+  55% { transform: translateY(70px) scale(1, 0.95); }
+  85% { transform: translateY(-56px) scale(1, 1); }
+  95% { transform: translateY(-70px) scale(1, 1); }
+  100% { transform: translateY(-70px) scale(1, 1); }
+}
+
+.ball {
+  animation-name: bounceBall;
+  animation-duration: 1.2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
+  border-radius: 50%;
+  height: 60px;
+  position: relative;
+  transform: translateY(-70px);
+  transform-style: preserve-3d;
+  width: 60px;
+  z-index: 1;
+}
+
+.ball::before {
+  background: radial-gradient(circle at 36px 20px, #ff8c16, #b35100);
+  border: 2px solid #333333;
+  border-radius: 50%;
+  content: "";
+  height: calc(100% + 6px);
+  left: -6px;
+  position: absolute;
+  top: -3px;
+  transform: translateZ(1vmin);
+  width: calc(100% + 6px);
+}
+
+.ball .inner {
+  animation-name: rotateBall;
+  animation-duration: 25s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  border-radius: 50%;
+  height: 100%;
+  position: absolute;
+  transform-style: preserve-3d;
+  width: 100%;
+}
+
+.ball .line::before,
+.ball .line::after {
+  border: 2px solid #333333;
+  border-radius: 50%;
+  content: "";
+  height: 99%;
+  position: absolute;
+  width: 99%;
+}
+
+.ball .line::before { transform: rotate3d(0, 0, 0, 0); }
+.ball .line::after { transform: rotate3d(1, 0, 0, 90deg); }
+.ball .line--two::before { transform: rotate3d(0, 0, 0, 2deg); }
+.ball .line--two::after { transform: rotate3d(1, 0, 0, 88deg); }
+
+.ball .oval::before,
+.ball .oval::after {
+  border-top: 4px solid #333333;
+  border-radius: 50%;
+  content: "";
+  height: 99%;
+  position: absolute;
+  width: 99%;
+}
+
+.ball .oval::before { transform: rotate3d(1, 0, 0, 45deg) translate3d(0, 0, 6px); }
+.ball .oval::after { transform: rotate3d(1, 0, 0, -45deg) translate3d(0, 0, -6px); }
+.ball .oval--two::before { transform: rotate3d(1, 0, 0, 135deg) translate3d(0, 0, -6px); }
+.ball .oval--two::after { transform: rotate3d(1, 0, 0, -135deg) translate3d(0, 0, 6px); }
+
+@keyframes bounceShadow {
+  0% { filter: blur(3px); opacity: 0.6; transform: translateY(73px) scale(0.5, 0.5); }
+  45% { filter: blur(1px); opacity: 0.9; transform: translateY(73px) scale(1, 1); }
+  55% { filter: blur(1px); opacity: 0.9; transform: translateY(73px) scale(1, 1); }
+  100% { filter: blur(3px); opacity: 0.6; transform: translateY(73px) scale(0.5, 0.5); }
+}
+
+.shadow {
+  animation-name: bounceShadow;
+  animation-duration: 1.2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
+  background: black;
+  filter: blur(2px);
+  border-radius: 50%;
+  height: 6px;
+  transform: translateY(73px);
+  width: 54px;
+}
+</style>
+
+<script>
+// إخفاء شاشة التحميل بعد تحميل الصفحة
+window.addEventListener('load', function() {
+    const overlay = document.getElementById('loadingOverlay');
+    overlay.style.transition = 'opacity 0.5s ease';
+    overlay.style.opacity = '0';
+    setTimeout(() => overlay.style.display = 'none', 500);
+});
+</script>
 
     <!-- الهيدر -->
     <header class="header" id="header">
         <div class="container">
             <h1 class="logo"><a href="/"><i class="fas fa-feather-alt"></i> الثَّقَف العربي</a></h1>
+                     <!-- نموذج البحث في الهيدر -->
+            <form action="{% url 'search' %}" method="get" class="header-search">
+                <input type="text" name="q" placeholder="ابحث هنا..." required aria-label="بحث">
+                <button type="submit" aria-label="تنفيذ البحث"><i class="fas fa-search"></i></button>
+            </form>
             
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="فتح القائمة">
+                <i class="fas fa-bars"></i>
+            </button>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="فتح القائمة">
                 <i class="fas fa-bars"></i>
             </button>
             
-            <nav class="nav" id="nav">
+            <nav class="nav" id="nav" aria-label="القائمة الرئيسية">
                 <a href="/">الرئيسية</a>
                 <a href="/articles/">المقالات</a>
                 <a href="/categories/">الأقسام</a>
                 <a href="/gallery/">المعرض</a>
-                <a href="/about/">من نحن</a>
+                <a href="/about/" aria-current="page">من نحن</a>
                 <a href="/contact/">اتصل بنا</a>
                 
                 <div class="nav-actions">
-                    <button class="nav-btn"><i class="fas fa-search"></i> بحث</button>
                     <button class="nav-btn"><i class="fas fa-user"></i> دخول</button>
                 </div>
             </nav>
@@ -750,7 +1195,7 @@
     </header>
 
     <!-- صفحة من نحن -->
-    <section class="about-page">
+    <section class="about-page" id="main-content">
         <div class="container">
             <!-- رأس الصفحة -->
             <div class="page-header">
@@ -767,7 +1212,7 @@
                     <p>بدأت فكرة المشروع من إيماننا العميق بأن الثقافة والمعرفة هما الطريق نحو مستقبل أفضل، وأن نشر العلم مسؤولية مشتركة بين الجميع.</p>
                 </div>
                 <div class="hero-image">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Moorish_women_making_Arab_carpets%2C_Algiers%2C_Algeria-LCCN2001697844.jpg/330px-Moorish_women_making_Arab_carpets%2C_Algiers%2C_Algeria-LCCN2001697844.jpg" alt="الثقافة العربية">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Moorish_women_making_Arab_carpets%2C_Algiers%2C_Algeria-LCCN2001697844.jpg/330px-Moorish_women_making_Arab_carpets%2C_Algiers%2C_Algeria-LCCN2001697844.jpg" alt="الثقافة العربية" loading="lazy">
                 </div>
             </div>
 
@@ -795,46 +1240,46 @@
                 <div class="team-grid">
                     <div class="team-member">
                         <div class="member-image">
-                            <img src="{% static 'images/team1.jpg' %}" alt="ياسر أحمد">
+                            <img src="{% static 'images/team1.jpg' %}" alt="ياسر أحمد - المؤسس والمدير العام" loading="lazy">
                         </div>
                         <div class="member-info">
                             <h4>ياسر أحمد</h4>
                             <div class="member-role">المؤسس والمدير العام</div>
                             <p class="member-bio">كاتب وباحث في الشؤون الثقافية، حاصل على ماجستير في الأدب العربي وله عدة مؤلفات في مجال الثقافة العربية.</p>
                             <div class="member-social">
-                                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                                <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                                <a href="#" class="social-link" aria-label="تويتر"><i class="fab fa-twitter"></i></a>
+                                <a href="#" class="social-link" aria-label="لينكد إن"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#" class="social-link" aria-label="إنستغرام"><i class="fab fa-instagram"></i></a>
                             </div>
                         </div>
                     </div>
                     <div class="team-member">
                         <div class="member-image">
-                            <img src="{% static 'images/team2.jpg' %}" alt="فريق التحرير">
+                            <img src="{% static 'images/team2.jpg' %}" alt="فريق التحرير - كتاب ومحررون" loading="lazy">
                         </div>
                         <div class="member-info">
                             <h4>فريق التحرير</h4>
                             <div class="member-role">كتاب ومحررون</div>
                             <p class="member-bio">مجموعة من الكتاب والمحررين المتخصصين في مختلف المجالات الثقافية، يعملون على إعداد وتدقيق المحتوى المقدم للقراء.</p>
                             <div class="member-social">
-                                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                                <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+                                <a href="#" class="social-link" aria-label="تويتر"><i class="fab fa-twitter"></i></a>
+                                <a href="#" class="social-link" aria-label="لينكد إن"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#" class="social-link" aria-label="البريد الإلكتروني"><i class="fas fa-envelope"></i></a>
                             </div>
                         </div>
                     </div>
                     <div class="team-member">
                         <div class="member-image">
-                            <img src="{% static 'images/team3.jpg' %}" alt="فريق التصميم">
+                            <img src="{% static 'images/team3.jpg' %}" alt="فريق التصميم - مصممون ومطورون" loading="lazy">
                         </div>
                         <div class="member-info">
                             <h4>فريق التصميم</h4>
                             <div class="member-role">مصممون ومطورون</div>
                             <p class="member-bio">فريق متخصص في التصميم الجرافيكي وتطوير الويب، يعمل على تقديم تجربة مستخدم متميزة وواجهة جذابة للقراء.</p>
                             <div class="member-social">
-                                <a href="#" class="social-link"><i class="fab fa-behance"></i></a>
-                                <a href="#" class="social-link"><i class="fab fa-dribbble"></i></a>
-                                <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                                <a href="#" class="social-link" aria-label="بيهانس"><i class="fab fa-behance"></i></a>
+                                <a href="#" class="social-link" aria-label="درابل"><i class="fab fa-dribbble"></i></a>
+                                <a href="#" class="social-link" aria-label="جيت هاب"><i class="fab fa-github"></i></a>
                             </div>
                         </div>
                     </div>
@@ -908,10 +1353,10 @@
                     <h5>الثقَف العربي</h5>
                     <p>منصة ثقافية عربية تهدف إلى إثراء المحتوى الثقافي والمعرفي العربي من خلال مقالات وبحوث ومواد متنوعة.</p>
                     <div class="social-links">
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#" aria-label="تويتر"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="فيسبوك"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="إنستغرام"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="يوتيوب"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
                 
@@ -938,6 +1383,7 @@
                 <div class="footer-col">
                     <h5>معلومات</h5>
                     <ul class="footer-links">
+                     <li><a href="/cookies/"><i class="fas fa-arrow-left"></i> ملفات تعريف الارتباط </a></li>
                         <li><a href="/privacy/"><i class="fas fa-arrow-left"></i> سياسة الخصوصية</a></li>
                         <li><a href="/terms/"><i class="fas fa-arrow-left"></i> اتفاقية الاستخدام</a></li>
                         <li><a href="/disclaimer/"><i class="fas fa-arrow-left"></i> إخلاء المسؤولية</a></li>
@@ -971,6 +1417,17 @@
             nav.classList.toggle('active');
             mobileMenuBtn.innerHTML = nav.classList.contains('active') ? 
                 '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+            mobileMenuBtn.setAttribute('aria-label', 
+                nav.classList.contains('active') ? 'إغلاق القائمة' : 'فتح القائمة');
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!nav.contains(event.target) && !mobileMenuBtn.contains(event.target) && nav.classList.contains('active')) {
+                nav.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                mobileMenuBtn.setAttribute('aria-label', 'فتح القائمة');
+            }
         });
 
         // Scroll animations
@@ -1011,6 +1468,32 @@
                     });
                 }
             });
+        });
+
+        // Lazy loading for images
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        img.classList.remove('lazy');
+                        imageObserver.unobserve(img);
+                    }
+                });
+            });
+
+            document.querySelectorAll('img[data-src]').forEach(img => {
+                imageObserver.observe(img);
+            });
+        }
+
+        // Performance optimization
+        window.addEventListener('load', function() {
+            // Load non-critical resources after page load
+            setTimeout(() => {
+                // Any additional scripts or resources can be loaded here
+            }, 1000);
         });
     </script>
 

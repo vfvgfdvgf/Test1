@@ -1,0 +1,1810 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    {% if site_settings.favicon %}
+    <link rel="icon" type="image/png" href="{{ site_settings.favicon.url }}">
+    {% elif site_settings.favicon_url %}
+    <link rel="icon" type="image/png" href="{{ site_settings.favicon_url }}">
+    {% else %}
+    <link rel="icon" type="image/png" href="/static/default/favicon.png">
+    {% endif %}
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سياسة ملفات تعريف الارتباط (الكوكيز) | الثَّقَف العربي</title>
+    <meta name="description" content="تعرف على سياسة استخدام ملفات تعريف الارتباط (الكوكيز) في منصة الثقافة العربية وكيف نحمي خصوصيتك">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="سياسة ملفات تعريف الارتباط (الكوكيز) | الثَّقَف العربي">
+    <meta property="og:description" content="تعرف على سياسة استخدام ملفات تعريف الارتباط في منصة الثقافة العربية">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="سياسة ملفات تعريف الارتباط (الكوكيز) | الثَّقَف العربي">
+    <meta name="twitter:description" content="تعرف على سياسة استخدام ملفات تعريف الارتباط في منصة الثقافة العربية">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "سياسة ملفات تعريف الارتباط",
+        "description": "صفحة سياسة استخدام ملفات تعريف الارتباط في منصة الثقافة العربية",
+        "url": "{{ request.build_absolute_uri }}",
+        "publisher": {
+            "@type": "Organization",
+            "name": "الثَّقَف العربي",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://thaqaf-arabi.site/static/images/logo.png"
+            }
+        }
+    }
+    </script>
+
+    <!-- تحميل الخطوط والأيقونات -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Amiri:wght@400;700&family=Almarai:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+    /* ====== CSS Variables with Enhanced Apple Design ====== */
+    :root {
+        --primary-bg: #F7F4EF;
+        --primary-text: #1D1D1F;
+        --secondary-text: #6B6B6B;
+        --accent: #C19A6B;
+        --secondary-accent: #8C6B4F;
+        --card-bg: #FFFFFF;
+        --hover: rgba(193, 154, 107, 0.1);
+        --shadow: rgba(0, 0, 0, 0.08);
+        --shadow-hover: rgba(0, 0, 0, 0.15);
+        --border: rgba(193, 154, 107, 0.2);
+        --glass-bg: rgba(255, 255, 255, 0.7);
+        --glass-border: rgba(255, 255, 255, 0.2);
+        --apple-radius: 16px;
+        --apple-radius-large: 24px;
+        --apple-transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        --gradient-primary: linear-gradient(135deg, #C19A6B 0%, #8C6B4F 100%);
+        --gradient-gold: linear-gradient(135deg, #C19A6B 0%, #D4AF37 50%, #8C6B4F 100%);
+        --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 100%);
+    }
+
+    /* ====== Base Styles ====== */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Almarai', 'Cairo', sans-serif;
+        background: linear-gradient(135deg, #F7F4EF 0%, #f0ebe3 50%, #e8e2d6 100%);
+        color: var(--primary-text);
+        line-height: 1.8;
+        overflow-x: hidden;
+        font-size: 16px;
+        position: relative;
+    }
+
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: 
+            radial-gradient(circle at 20% 80%, rgba(193, 154, 107, 0.05) 0%, transparent 50%),
+            radial-gradient(circle at 80% 20%, rgba(139, 107, 76, 0.03) 0%, transparent 50%),
+            url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(193,154,107,0.02)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+        pointer-events: none;
+        z-index: -1;
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+        transition: var(--apple-transition);
+    }
+
+    .container {
+        width: 90%;
+        max-width: 1400px;
+        margin: auto;
+    }
+
+    /* ====== 🔹 Enhanced Glass Header with Floating Effect ====== */
+    .header {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(30px) saturate(200%);
+        -webkit-backdrop-filter: blur(30px) saturate(200%);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        border: none;
+        transition: var(--apple-transition);
+        padding: 8px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        overflow: hidden;
+    }
+
+    .header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+        pointer-events: none;
+        z-index: -1;
+    }
+
+    .header.scrolled {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(40px) saturate(200%);
+        -webkit-backdrop-filter: blur(40px) saturate(200%);
+        box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        transform: translateY(0);
+    }
+
+    .header .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 30px;
+    }
+
+    .logo a {
+        color: var(--accent);
+        font-size: 2rem;
+        font-weight: 700;
+        font-family: -apple-system, BlinkMacSystemFont, 'Amiri', serif;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        letter-spacing: -0.5px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .logo a::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 0;
+        height: 2px;
+        background: var(--gradient-gold);
+        transition: var(--apple-transition);
+    }
+
+    .logo a:hover::before {
+        width: 100%;
+    }
+
+    .logo i {
+        font-size: 1.8rem;
+        animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-5px); }
+    }
+
+    .nav {
+        display: flex;
+        gap: 40px;
+    }
+
+    .nav a {
+        position: relative;
+        color: var(--secondary-text);
+        font-weight: 500;
+        padding: 12px 0;
+        font-size: 1.1rem;
+        text-decoration: none;
+        transition: var(--apple-transition);
+        font-family: -apple-system, BlinkMacSystemFont, 'Almarai', sans-serif;
+    }
+
+    .nav a::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 0;
+        height: 2px;
+        background: var(--gradient-gold);
+        transition: var(--apple-transition);
+    }
+
+    .nav a:hover {
+        color: var(--accent);
+        transform: translateY(-2px);
+    }
+
+    .nav a:hover::before {
+        width: 100%;
+    }
+
+    .mobile-menu-btn {
+        display: none;
+        background: transparent;
+        border: none;
+        font-size: 1.6rem;
+        color: var(--accent);
+        cursor: pointer;
+        padding: 10px;
+        border-radius: var(--apple-radius);
+        transition: var(--apple-transition);
+        backdrop-filter: blur(10px);
+    }
+
+    .mobile-menu-btn:hover {
+        background: rgba(193, 154, 107, 0.1);
+        transform: scale(1.1);
+    }
+
+    /* ====== 🍪 Enhanced Cookies Page ====== */
+    .cookies-page {
+        padding: 160px 20px 80px;
+        min-height: 100vh;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .cookies-header {
+        text-align: center;
+        margin-bottom: 80px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .cookies-title {
+        font-size: 3.5rem;
+        color: var(--primary-text);
+        margin-bottom: 25px;
+        font-family: -apple-system, BlinkMacSystemFont, 'Amiri', serif;
+        position: relative;
+        display: inline-block;
+        background: var(--gradient-gold);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: titleEntrance 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    @keyframes titleEntrance {
+        0% {
+            opacity: 0;
+            transform: translateY(30px) scale(0.9);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    .cookies-title::after {
+        content: '';
+        position: absolute;
+        bottom: -15px;
+        right: 50%;
+        transform: translateX(50%);
+        width: 150px;
+        height: 4px;
+        background: var(--gradient-gold);
+        border-radius: 2px;
+        animation: lineExpand 1s ease-out 0.5s both;
+    }
+
+    @keyframes lineExpand {
+        0% {
+            width: 0;
+            opacity: 0;
+        }
+        100% {
+            width: 150px;
+            opacity: 1;
+        }
+    }
+
+    .cookies-subtitle {
+        font-size: 1.4rem;
+        color: var(--secondary-text);
+        max-width: 700px;
+        margin: 30px auto 0;
+        line-height: 1.7;
+        opacity: 0;
+        animation: fadeInUp 0.8s ease-out 0.8s both;
+    }
+
+    /* ====== 🎯 Enhanced Content Sections ====== */
+    .cookies-content {
+        position: relative;
+        z-index: 1;
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+
+    .cookies-card {
+        background: var(--gradient-glass);
+        backdrop-filter: blur(20px) saturate(180%);
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        border-radius: var(--apple-radius-large);
+        padding: 60px;
+        margin-bottom: 50px;
+        box-shadow: 
+            0 20px 60px rgba(0, 0, 0, 0.1),
+            0 8px 25px rgba(0, 0, 0, 0.05),
+            inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        transition: var(--apple-transition);
+        position: relative;
+        overflow: hidden;
+        opacity: 0;
+        transform: translateY(40px);
+        animation: cardEntrance 0.8s ease-out forwards;
+    }
+
+    .cookies-card:nth-child(1) { animation-delay: 0.3s; }
+    .cookies-card:nth-child(2) { animation-delay: 0.5s; }
+    .cookies-card:nth-child(3) { animation-delay: 0.7s; }
+    .cookies-card:nth-child(4) { animation-delay: 0.9s; }
+
+    @keyframes cardEntrance {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .cookies-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(193, 154, 107, 0.03) 0%, transparent 50%);
+        pointer-events: none;
+    }
+
+    .cookies-card:hover {
+        transform: translateY(-8px) scale(1.01);
+        box-shadow: 
+            0 30px 80px rgba(0, 0, 0, 0.15),
+            0 15px 35px rgba(0, 0, 0, 0.08),
+            inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    }
+
+    .section-title {
+        font-size: 2.2rem;
+        color: var(--primary-text);
+        margin-bottom: 35px;
+        font-family: -apple-system, BlinkMacSystemFont, 'Amiri', serif;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        position: relative;
+    }
+
+    .section-title::before {
+        content: '';
+        width: 6px;
+        height: 30px;
+        background: var(--gradient-gold);
+        border-radius: 3px;
+        animation: slideInLeft 0.6s ease-out;
+    }
+
+    @keyframes slideInLeft {
+        0% {
+            opacity: 0;
+            transform: translateX(20px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    .section-title i {
+        font-size: 2rem;
+        color: var(--accent);
+        animation: iconPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes iconPulse {
+        0%, 100% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.1);
+        }
+    }
+
+    .content-text {
+        color: var(--secondary-text);
+        line-height: 1.8;
+        margin-bottom: 25px;
+        font-size: 1.15rem;
+        position: relative;
+        padding-right: 20px;
+    }
+
+    .content-text::before {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 10px;
+        width: 6px;
+        height: 6px;
+        background: var(--accent);
+        border-radius: 50%;
+        opacity: 0.6;
+    }
+
+    /* ====== 📊 Enhanced Cookies Table ====== */
+    .cookies-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 40px 0;
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(10px);
+        border-radius: var(--apple-radius);
+        overflow: hidden;
+        box-shadow: 0 15px 35px var(--shadow);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        animation: tableEntrance 0.8s ease-out 1.1s both;
+    }
+
+    @keyframes tableEntrance {
+        0% {
+            opacity: 0;
+            transform: translateY(30px) scale(0.95);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    .cookies-table th {
+        background: var(--gradient-primary);
+        color: white;
+        padding: 25px;
+        text-align: right;
+        font-weight: 600;
+        font-size: 1.15rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .cookies-table th::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%);
+    }
+
+    .cookies-table td {
+        padding: 25px;
+        border-bottom: 1px solid rgba(193, 154, 107, 0.1);
+        color: var(--secondary-text);
+        transition: var(--apple-transition);
+        position: relative;
+    }
+
+    .cookies-table tr:last-child td {
+        border-bottom: none;
+    }
+
+    .cookies-table tr:hover td {
+        background: rgba(193, 154, 107, 0.05);
+        transform: translateX(-5px);
+    }
+
+    .cookie-type {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: rgba(193, 154, 107, 0.1);
+        color: var(--accent);
+        padding: 10px 20px;
+        border-radius: 25px;
+        font-weight: 600;
+        font-size: 0.95rem;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(193, 154, 107, 0.2);
+        transition: var(--apple-transition);
+    }
+
+    .cookie-type:hover {
+        background: rgba(193, 154, 107, 0.15);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(193, 154, 107, 0.2);
+    }
+
+    /* ====== ⚙️ Enhanced Cookie Settings ====== */
+    .cookie-settings {
+        background: var(--gradient-glass);
+        backdrop-filter: blur(25px) saturate(180%);
+        -webkit-backdrop-filter: blur(25px) saturate(180%);
+        border-radius: var(--apple-radius-large);
+        padding: 50px;
+        margin: 60px 0;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        box-shadow: 
+            0 25px 60px rgba(0, 0, 0, 0.12),
+            inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        position: relative;
+        overflow: hidden;
+        opacity: 0;
+        animation: settingsEntrance 0.8s ease-out 1.3s both;
+    }
+
+    @keyframes settingsEntrance {
+        0% {
+            opacity: 0;
+            transform: translateY(40px) rotateX(10deg);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0) rotateX(0);
+        }
+    }
+
+    .cookie-settings::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none"><defs><pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(193,154,107,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/></svg>');
+        opacity: 0.5;
+        pointer-events: none;
+    }
+
+    .settings-title {
+        font-size: 1.8rem;
+        color: var(--primary-text);
+        margin-bottom: 40px;
+        text-align: center;
+        font-family: -apple-system, BlinkMacSystemFont, 'Amiri', serif;
+        position: relative;
+        display: inline-block;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .settings-title::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        right: 50%;
+        transform: translateX(50%);
+        width: 80px;
+        height: 3px;
+        background: var(--gradient-gold);
+        border-radius: 2px;
+    }
+
+    .settings-options {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 30px;
+        margin-bottom: 50px;
+    }
+
+    .setting-option {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(10px);
+        padding: 30px;
+        border-radius: var(--apple-radius);
+        border: 2px solid rgba(193, 154, 107, 0.2);
+        transition: var(--apple-transition);
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .setting-option::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(193, 154, 107, 0.1), transparent);
+        transition: var(--apple-transition);
+    }
+
+    .setting-option:hover::before {
+        left: 100%;
+    }
+
+    .setting-option.active {
+        border-color: var(--accent);
+        background: rgba(193, 154, 107, 0.08);
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(193, 154, 107, 0.15);
+    }
+
+    .setting-option:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .option-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+
+    .option-title {
+        font-size: 1.3rem;
+        color: var(--primary-text);
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .option-title i {
+        color: var(--accent);
+        font-size: 1.4rem;
+        transition: var(--apple-transition);
+    }
+
+    .setting-option.active .option-title i {
+        transform: scale(1.2);
+    }
+
+    .toggle-switch {
+        position: relative;
+        width: 60px;
+        height: 30px;
+        background: rgba(193, 154, 107, 0.2);
+        border-radius: 25px;
+        transition: var(--apple-transition);
+        cursor: pointer;
+    }
+
+    .toggle-switch::after {
+        content: '';
+        position: absolute;
+        top: 3px;
+        right: 3px;
+        width: 24px;
+        height: 24px;
+        background: white;
+        border-radius: 50%;
+        transition: var(--apple-transition);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .setting-option.active .toggle-switch {
+        background: var(--gradient-primary);
+    }
+
+    .setting-option.active .toggle-switch::after {
+        right: 33px;
+        transform: scale(1.1);
+    }
+
+    .option-description {
+        color: var(--secondary-text);
+        line-height: 1.7;
+        font-size: 1rem;
+        padding-right: 10px;
+    }
+
+    /* ====== 🎛️ Enhanced Glass Buttons ====== */
+    .settings-actions {
+        display: flex;
+        gap: 25px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 15px;
+        background: var(--gradient-glass);
+        backdrop-filter: blur(20px);
+        color: var(--accent);
+        padding: 18px 35px;
+        border-radius: 50px;
+        font-weight: 600;
+        transition: var(--apple-transition);
+        border: 2px solid rgba(193, 154, 107, 0.3);
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 1.1rem;
+        text-decoration: none;
+        box-shadow: 
+            0 8px 25px rgba(193, 154, 107, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: var(--gradient-primary);
+        transition: var(--apple-transition);
+        z-index: -1;
+    }
+
+    .btn::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+        transition: var(--apple-transition);
+    }
+
+    .btn:hover {
+        color: white;
+        transform: translateY(-5px) scale(1.05);
+        box-shadow: 
+            0 15px 35px rgba(193, 154, 107, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.5);
+        border-color: transparent;
+    }
+
+    .btn:hover::before {
+        left: 0;
+    }
+
+    .btn:hover::after {
+        left: 100%;
+    }
+
+    .btn i {
+        font-size: 1.2rem;
+        transition: var(--apple-transition);
+    }
+
+    .btn:hover i {
+        transform: scale(1.2);
+    }
+
+    /* ====== ❓ Enhanced FAQ Section ====== */
+    .faq-section {
+        margin: 80px 0;
+        opacity: 0;
+        animation: fadeInUp 0.8s ease-out 1.5s both;
+    }
+
+    @keyframes fadeInUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .faq-item {
+        background: var(--gradient-glass);
+        backdrop-filter: blur(20px);
+        border-radius: var(--apple-radius);
+        margin-bottom: 25px;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        overflow: hidden;
+        box-shadow: 0 10px 30px var(--shadow);
+        transition: var(--apple-transition);
+        position: relative;
+    }
+
+    .faq-item::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background: var(--gradient-gold);
+        transform: scaleY(0);
+        transition: var(--apple-transition);
+    }
+
+    .faq-item:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 40px var(--shadow-hover);
+    }
+
+    .faq-item:hover::before {
+        transform: scaleY(1);
+    }
+
+    .faq-item.active {
+        background: rgba(255, 255, 255, 0.8);
+    }
+
+    .faq-question {
+        padding: 30px;
+        background: transparent;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--primary-text);
+        transition: var(--apple-transition);
+        position: relative;
+    }
+
+    .faq-question:hover {
+        background: rgba(193, 154, 107, 0.05);
+    }
+
+    .faq-question i {
+        color: var(--accent);
+        transition: var(--apple-transition);
+        font-size: 1.3rem;
+    }
+
+    .faq-answer {
+        padding: 0 30px;
+        max-height: 0;
+        overflow: hidden;
+        transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        color: var(--secondary-text);
+        line-height: 1.7;
+        background: rgba(255, 255, 255, 0.5);
+    }
+
+    .faq-item.active .faq-answer {
+        padding: 0 30px 30px;
+        max-height: 500px;
+    }
+
+    .faq-item.active .faq-question i {
+        transform: rotate(180deg);
+    }
+
+    /* ====== 🦶 Enhanced Footer ====== */
+    .footer {
+        background: linear-gradient(135deg, #1D1D1F 0%, #2D2D2F 100%);
+        color: #ddd;
+        padding: 80px 20px 40px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .footer::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: 
+            radial-gradient(circle at 20% 80%, rgba(193, 154, 107, 0.1) 0%, transparent 50%),
+            radial-gradient(circle at 80% 20%, rgba(139, 107, 76, 0.05) 0%, transparent 50%);
+        pointer-events: none;
+    }
+
+    .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 60px;
+        margin-bottom: 60px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .footer-col h5 {
+        color: var(--accent);
+        font-size: 1.5rem;
+        margin-bottom: 30px;
+        font-family: -apple-system, BlinkMacSystemFont, 'Amiri', serif;
+        position: relative;
+        display: inline-block;
+    }
+
+    .footer-col h5::after {
+        content: '';
+        position: absolute;
+        width: 50px;
+        height: 2px;
+        bottom: -12px;
+        right: 0;
+        background: var(--gradient-gold);
+        border-radius: 1px;
+    }
+
+    .footer-links {
+        list-style: none;
+    }
+
+    .footer-links li {
+        margin-bottom: 18px;
+    }
+
+    .footer-links a {
+        color: #aaa;
+        transition: var(--apple-transition);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 1.05rem;
+        position: relative;
+        padding: 5px 0;
+    }
+
+    .footer-links a::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 0;
+        height: 1px;
+        background: var(--accent);
+        transition: var(--apple-transition);
+    }
+
+    .footer-links a:hover {
+        color: var(--accent);
+        transform: translateX(-10px);
+    }
+
+    .footer-links a:hover::before {
+        width: 100%;
+    }
+
+    .social-links {
+        display: flex;
+        gap: 20px;
+        margin-top: 30px;
+    }
+
+    .social-links a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 50px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 50%;
+        transition: var(--apple-transition);
+        position: relative;
+        overflow: hidden;
+        backdrop-filter: blur(10px);
+    }
+
+    .social-links a::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: var(--gradient-primary);
+        transition: var(--apple-transition);
+        z-index: -1;
+    }
+
+    .social-links a:hover {
+        transform: translateY(-5px) scale(1.1);
+        box-shadow: 0 8px 20px rgba(193, 154, 107, 0.3);
+    }
+
+    .social-links a:hover::before {
+        left: 0;
+    }
+
+    .copyright {
+        text-align: center;
+        padding-top: 50px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: #888;
+        font-size: 1rem;
+        position: relative;
+        z-index: 1;
+    }
+
+    /* ====== 📱 Responsive Design ====== */
+    @media (max-width: 1200px) {
+        .cookies-title {
+            font-size: 3rem;
+        }
+        
+        .cookies-card {
+            padding: 50px 40px;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+        }
+    }
+
+    @media (max-width: 992px) {
+        .nav {
+            gap: 30px;
+        }
+        
+        .cookies-title {
+            font-size: 2.6rem;
+        }
+        
+        .cookies-subtitle {
+            font-size: 1.2rem;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+        }
+        
+        .settings-options {
+            grid-template-columns: 1fr;
+        }
+        
+        .cookie-settings {
+            padding: 40px 30px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .mobile-menu-btn {
+            display: block;
+        }
+        
+        .nav {
+            position: fixed;
+            top: 80px;
+            right: -100%;
+            background: var(--gradient-glass);
+            backdrop-filter: blur(30px);
+            width: 85%;
+            height: calc(100vh - 80px);
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 60px;
+            gap: 40px;
+            transition: var(--apple-transition);
+            box-shadow: -10px 0 40px rgba(0, 0, 0, 0.15);
+            z-index: 999;
+            border-left: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .nav.active {
+            right: 0;
+        }
+        
+        .cookies-page {
+            padding: 140px 15px 60px;
+        }
+        
+        .cookies-title {
+            font-size: 2.3rem;
+        }
+        
+        .cookies-card {
+            padding: 40px 30px;
+            margin-bottom: 35px;
+        }
+        
+        .cookies-table {
+            display: block;
+            overflow-x: auto;
+        }
+        
+        .settings-actions {
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .btn {
+            width: 100%;
+            max-width: 320px;
+            justify-content: center;
+        }
+        
+        .footer-grid {
+            grid-template-columns: 1fr;
+            gap: 50px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .cookies-title {
+            font-size: 2rem;
+        }
+        
+        .cookies-subtitle {
+            font-size: 1.1rem;
+            margin-top: 20px;
+        }
+        
+        .section-title {
+            font-size: 1.6rem;
+            gap: 12px;
+        }
+        
+        .section-title i {
+            font-size: 1.6rem;
+        }
+        
+        .cookies-card {
+            padding: 35px 25px;
+        }
+        
+        .cookies-table th,
+        .cookies-table td {
+            padding: 20px 15px;
+            font-size: 0.9rem;
+        }
+        
+        .cookie-settings {
+            padding: 35px 25px;
+            margin: 40px 0;
+        }
+        
+        .setting-option {
+            padding: 25px;
+        }
+        
+        .option-title {
+            font-size: 1.2rem;
+        }
+        
+        .faq-question {
+            padding: 25px;
+            font-size: 1.1rem;
+        }
+        
+        .faq-answer {
+            padding: 0 25px;
+        }
+        
+        .faq-item.active .faq-answer {
+            padding: 0 25px 25px;
+        }
+    }
+
+    /* ====== ♿ Accessibility ====== */
+    .skip-link {
+        position: absolute;
+        top: -40px;
+        left: 0;
+        background: var(--accent);
+        color: white;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 0 0 8px 0;
+        z-index: 1001;
+        transition: top 0.3s;
+        font-weight: 600;
+    }
+
+    .skip-link:focus {
+        top: 0;
+    }
+
+    /* ====== ⚡ Performance Optimizations ====== */
+    .loading-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--primary-bg);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    .loading-overlay.hidden {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    .loading-spinner {
+        width: 70px;
+        height: 70px;
+        border: 4px solid rgba(193, 154, 107, 0.2);
+        border-top: 4px solid var(--accent);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        box-shadow: 0 0 20px rgba(193, 154, 107, 0.3);
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    /* ====== 🎨 Custom Scrollbar ====== */
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: rgba(193, 154, 107, 0.1);
+        border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: var(--gradient-primary);
+        border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: var(--secondary-accent);
+    }
+    </style>
+</head>
+
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Skip to Main Content -->
+    <a href="#main-content" class="skip-link">انتقل إلى المحتوى الرئيسي</a>
+
+    <!-- الهيدر -->
+    <header class="header" id="header">
+        <div class="container">
+            <h1 class="logo">
+                <a href="/"><i class="fas fa-feather-alt"></i> الثَّقَف العربي</a>
+            </h1>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="فتح القائمة">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav class="nav" id="nav" aria-label="القائمة الرئيسية">
+                <a href="/">الرئيسية</a>
+                <a href="/articles/">المقالات</a>
+                <a href="/categories/">الأقسام</a>
+                <a href="/gallery/">المعرض</a>
+                <a href="/about/">من نحن</a>
+                <a href="/contact/">اتصل بنا</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- محتوى صفحة سياسة الكوكيز -->
+    <main class="cookies-page" id="main-content">
+        <div class="container">
+            <!-- رأس الصفحة -->
+            <div class="cookies-header">
+                <h1 class="cookies-title">سياسة ملفات تعريف الارتباط</h1>
+                <p class="cookies-subtitle">
+                    نؤمن بشفافية حماية البيانات. تعرف على كيفية استخدامنا لملفات تعريف الارتباط 
+                    وكيف يمكنك التحكم في تفضيلاتك.
+                </p>
+            </div>
+
+            <!-- المحتوى الرئيسي -->
+            <div class="cookies-content">
+                <!-- ما هي ملفات تعريف الارتباط -->
+                <section class="cookies-card">
+                    <h2 class="section-title">
+                        <i class="fas fa-info-circle"></i>
+                        ما هي ملفات تعريف الارتباط؟
+                    </h2>
+                    <div class="content-text">
+                        ملفات تعريف الارتباط (الكوكيز) هي ملفات نصية صغيرة يتم تخزينها على جهازك 
+                        عندما تزور موقعنا الإلكتروني. تساعدنا هذه الملفات في تذكر تفضيلاتك وتحسين 
+                        تجربتك على الموقع.
+                    </div>
+                    <div class="content-text">
+                        نستخدم ملفات تعريف الارتباط لجعل موقعنا يعمل بشكل صحيح، ولتحسين تجربة 
+                        المستخدم، ولتحليل كيفية استخدام الزوار لموقعنا.
+                    </div>
+                </section>
+
+                <!-- أنواع ملفات تعريف الارتباط -->
+                <section class="cookies-card">
+                    <h2 class="section-title">
+                        <i class="fas fa-cookie-bite"></i>
+                        أنواع ملفات تعريف الارتباط التي نستخدمها
+                    </h2>
+                    
+                    <table class="cookies-table">
+                        <thead>
+                            <tr>
+                                <th>النوع</th>
+                                <th>الغرض</th>
+                                <th>المدة</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <span class="cookie-type">
+                                        <i class="fas fa-cog"></i>
+                                        أساسية
+                                    </span>
+                                </td>
+                                <td>ضرورية لتشغيل الموقع بشكل صحيح</td>
+                                <td>جلسة التصفح</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="cookie-type">
+                                        <i class="fas fa-chart-line"></i>
+                                        تحليلية
+                                    </span>
+                                </td>
+                                <td>فهم كيفية استخدام الزوار للموقع</td>
+                                <td>سنتان</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="cookie-type">
+                                        <i class="fas fa-user-cog"></i>
+                                        تفضيلات
+                                    </span>
+                                </td>
+                                <td>تذكر إعداداتك واختياراتك</td>
+                                <td>سنة واحدة</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="cookie-type">
+                                        <i class="fas fa-ad"></i>
+                                        إعلانية
+                                    </span>
+                                </td>
+                                <td>عرض إعلانات مخصصة وقياس فعاليتها</td>
+                                <td>90 يومًا</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+             
+                <!-- الأسئلة الشائعة -->
+                <section class="faq-section">
+                    <h2 class="section-title" style="text-align: center; margin-bottom: 50px;">
+                        <i class="fas fa-question-circle"></i>
+                        الأسئلة الشائعة
+                    </h2>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            كيف يمكنني إدارة ملفات تعريف الارتباط في متصفي؟
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            يمكنك إدارة ملفات تعريف الارتباط من خلال إعدادات المتصفح. في معظم المتصفحات، 
+                            يمكنك العثور على هذه الإعدادات تحت قسم "الخصوصية" أو "الأمان". يمكنك حذف 
+                            ملفات تعريف الارتباط الموجودة أو منع تخزين ملفات جديدة.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            هل تشاركون ملفات تعريف الارتباط مع أطراف ثالثة؟
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            نشارك بيانات مجمعة وغير شخصية مع شركائنا لتحليل الأداء وتحسين الخدمات. 
+                            لا نبيع أو نشارك بياناتك الشخصية مع أطراف ثالثة لأغراض تسويقية بدون موافقتك.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            ما هي مدة بقاء ملفات تعريف الارتباط على جهازي؟
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            تختلف مدة بقاء ملفات تعريف الارتباط حسب نوعها. بعضها يبقى فقط خلال جلسة 
+                            التصفح الحالية، بينما قد يبقى البعض الآخر لمدة تصل إلى سنتين. يمكنك الاطلاع 
+                            على الجدول أعلاه للحصول على تفاصيل عن مدة كل نوع.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            ماذا يحدث إذا قمت بتعطيل جميع ملفات تعريف الارتباط؟
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            إذا قمت بتعطيل جميع ملفات تعريف الارتباط، فقد لا يعمل الموقع بشكل صحيح. 
+                            بعض الميزات مثل حفظ التفضيلات وتسجيل الدخول قد تتوقف عن العمل. نوصي 
+                            بالاحتفاظ بملفات تعريف الارتباط الأساسية مفعلة.
+                        </div>
+                    </div>
+                </section>
+
+             
+            </div>
+        </div>
+    </main>
+
+    <!-- الفوتر -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h5>الثقَف العربي</h5>
+                    <p>منصة ثقافية عربية تهدف إلى إثراء المحتوى الثقافي والمعرفي العربي من خلال مقالات وبحوث ومواد متنوعة.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="فيسبوك"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="تويتر"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="إنستغرام"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="يوتيوب"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h5>روابط سريعة</h5>
+                    <ul class="footer-links">
+                        <li><a href="/"><i class="fas fa-arrow-left"></i> الرئيسية</a></li>
+                        <li><a href="/articles/"><i class="fas fa-arrow-left"></i> المقالات</a></li>
+                        <li><a href="/categories/"><i class="fas fa-arrow-left"></i> الأقسام</a></li>
+                        <li><a href="/gallery/"><i class="fas fa-arrow-left"></i> المعرض</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h5>المعلومات القانونية</h5>
+                    <ul class="footer-links">
+                        <li><a href="/privacy/"><i class="fas fa-arrow-left"></i> سياسة الخصوصية</a></li>
+                        <li><a href="/cookies/"><i class="fas fa-arrow-left"></i> سياسة الكوكيز</a></li>
+                        <li><a href="/terms/"><i class="fas fa-arrow-left"></i> شروط الاستخدام</a></li>
+                        <li><a href="/disclaimer/"><i class="fas fa-arrow-left"></i> إخلاء المسؤولية</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>© 2025 الثَّقَف العربي – جميع الحقوق محفوظة</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // إخفاء شاشة التحميل
+        setTimeout(() => {
+            document.getElementById('loadingOverlay').classList.add('hidden');
+        }, 1000);
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const nav = document.getElementById('nav');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            nav.classList.toggle('active');
+            mobileMenuBtn.innerHTML = nav.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+            mobileMenuBtn.setAttribute('aria-label', 
+                nav.classList.contains('active') ? 'إغلاق القائمة' : 'فتح القائمة');
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!nav.contains(event.target) && !mobileMenuBtn.contains(event.target) && nav.classList.contains('active')) {
+                nav.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                mobileMenuBtn.setAttribute('aria-label', 'فتح القائمة');
+            }
+        });
+
+        // FAQ Accordion
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                item.classList.toggle('active');
+            });
+        });
+
+        // Cookie Settings Toggle
+        const settingOptions = document.querySelectorAll('.setting-option');
+        settingOptions.forEach(option => {
+            if (option.dataset.type === 'essential') {
+                const toggle = option.querySelector('.toggle-switch');
+                if (toggle) {
+                    toggle.style.cursor = 'not-allowed';
+                    toggle.style.opacity = '0.6';
+                }
+            }
+            
+            option.addEventListener('click', function() {
+                if (this.dataset.type !== 'essential') {
+                    this.classList.toggle('active');
+                }
+            });
+        });
+
+        // Save Settings
+        document.getElementById('saveSettings').addEventListener('click', function() {
+            const settings = {};
+            settingOptions.forEach(option => {
+                settings[option.dataset.type] = option.classList.contains('active');
+            });
+            
+            // Simulate saving settings
+            this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الحفظ...';
+            this.disabled = true;
+            
+            setTimeout(() => {
+                this.innerHTML = '<i class="fas fa-check"></i> تم الحفظ!';
+                setTimeout(() => {
+                    this.innerHTML = '<i class="fas fa-save"></i> حفظ التفضيلات';
+                    this.disabled = false;
+                }, 1500);
+                
+                // Show success message
+                showNotification('تم حفظ تفضيلات ملفات تعريف الارتباط بنجاح!', 'success');
+            }, 1000);
+        });
+
+        // Accept All
+        document.getElementById('acceptAll').addEventListener('click', function() {
+            settingOptions.forEach(option => {
+                option.classList.add('active');
+            });
+            showNotification('تم قبول جميع ملفات تعريف الارتباط', 'success');
+        });
+
+        // Reject All
+        document.getElementById('rejectAll').addEventListener('click', function() {
+            settingOptions.forEach(option => {
+                if (option.dataset.type !== 'essential') {
+                    option.classList.remove('active');
+                }
+            });
+            showNotification('تم رفض ملفات تعريف الارتباط غير الأساسية', 'info');
+        });
+
+        // Notification Function
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <i class="fas fa-${type === 'success' ? 'check' : 'info'}-circle"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            // Add styles for notification
+            const styles = `
+                .notification {
+                    position: fixed;
+                    top: 120px;
+                    right: 30px;
+                    background: var(--gradient-glass);
+                    backdrop-filter: blur(20px);
+                    padding: 25px;
+                    border-radius: var(--apple-radius);
+                    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+                    border: 1px solid rgba(255, 255, 255, 0.4);
+                    z-index: 10000;
+                    animation: slideInRight 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                    max-width: 400px;
+                    border-left: 4px solid var(--accent);
+                }
+                .notification-success {
+                    border-left-color: #10B981;
+                }
+                .notification-info {
+                    border-left-color: #3B82F6;
+                }
+                .notification-content {
+                    display: flex;
+                    align-items: center;
+                    gap: 15px;
+                    color: var(--primary-text);
+                    font-weight: 500;
+                }
+                .notification-content i {
+                    font-size: 1.4rem;
+                }
+                .notification-success .notification-content i {
+                    color: #10B981;
+                }
+                .notification-info .notification-content i {
+                    color: #3B82F6;
+                }
+                @keyframes slideInRight {
+                    from {
+                        transform: translateX(100%);
+                        opacity: 0;
+                    }
+                    to {
+                        transform: translateX(0);
+                        opacity: 1;
+                    }
+                }
+            `;
+            
+            const styleSheet = document.createElement('style');
+            styleSheet.textContent = styles;
+            document.head.appendChild(styleSheet);
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideInRight 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse';
+                setTimeout(() => {
+                    notification.remove();
+                }, 400);
+            }, 4000);
+        }
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.cookies-card, .cookie-settings, .faq-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 120,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Load saved preferences
+        function loadSavedPreferences() {
+            const savedSettings = localStorage.getItem('cookiePreferences');
+            if (savedSettings) {
+                const settings = JSON.parse(savedSettings);
+                settingOptions.forEach(option => {
+                    if (settings[option.dataset.type] !== undefined) {
+                        if (settings[option.dataset.type]) {
+                            option.classList.add('active');
+                        } else {
+                            option.classList.remove('active');
+                        }
+                    }
+                });
+            }
+        }
+
+        // Save preferences to localStorage
+        function savePreferences() {
+            const settings = {};
+            settingOptions.forEach(option => {
+                settings[option.dataset.type] = option.classList.contains('active');
+            });
+            localStorage.setItem('cookiePreferences', JSON.stringify(settings));
+        }
+
+        // Initialize
+        loadSavedPreferences();
+
+        // Update save function to use localStorage
+        const originalSave = document.getElementById('saveSettings').onclick;
+        document.getElementById('saveSettings').onclick = function() {
+            savePreferences();
+            if (originalSave) originalSave.call(this);
+        };
+
+        // Add ripple effect to buttons
+        function createRipple(event) {
+            const button = event.currentTarget;
+            const circle = document.createElement("span");
+            const diameter = Math.max(button.clientWidth, button.clientHeight);
+            const radius = diameter / 2;
+
+            circle.style.width = circle.style.height = `${diameter}px`;
+            circle.style.left = `${event.clientX - button.getBoundingClientRect().left - radius}px`;
+            circle.style.top = `${event.clientY - button.getBoundingClientRect().top - radius}px`;
+            circle.classList.add("ripple");
+
+            const ripple = button.getElementsByClassName("ripple")[0];
+            if (ripple) {
+                ripple.remove();
+            }
+
+            button.appendChild(circle);
+        }
+
+        const buttons = document.querySelectorAll('.btn');
+        buttons.forEach(button => {
+            button.addEventListener('click', createRipple);
+        });
+
+        // Add ripple styles
+        const rippleStyles = `
+            .ripple {
+                position: absolute;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.6);
+                transform: scale(0);
+                animation: ripple-animation 0.6s linear;
+                pointer-events: none;
+            }
+            @keyframes ripple-animation {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        const rippleStyleSheet = document.createElement('style');
+        rippleStyleSheet.textContent = rippleStyles;
+        document.head.appendChild(rippleStyleSheet);
+    });
+    </script>
+</body>
+</html>

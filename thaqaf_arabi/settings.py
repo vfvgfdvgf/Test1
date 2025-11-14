@@ -19,7 +19,7 @@ SECRET_KEY = 'django-insecure-(pb#7pof3f!*qwlhw(ls4v-i1t$ks(l-4e-_l$jv*)oa6z)kuo
 
 DEBUG = False
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["https://atyafdec.com/"]
 
 
 # ==============================
@@ -75,6 +75,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'main.context_processors.active_notifications',
+'main.context_processors.site_settings',
+
             ],
         },
     },
@@ -89,8 +92,12 @@ WSGI_APPLICATION = 'thaqaf_arabi.wsgi.application'
 # ==============================
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'tqf',  # اسم قاعدة البيانات
+        'USER': 'tqf_user',  # اسم المستخدم
+        'PASSWORD': 'yJv7FOyJ8O3766qhkoxv5UoXqOXyJi2B',  # كلمة المرور
+        'HOST': 'dpg-d4bqd57gi27c73bjm7a0-a.oregon-postgres.render.com',  # External Host
+        'PORT': '5432',
     }
 }
 
@@ -140,4 +147,11 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'halax.7y7@gmail.com'
 EMAIL_HOST_PASSWORD = 'bfrb vchm zxys ivmi'
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+DEFAULT_FROM_EMAIL = 'الثقَف العربي <halax.7y7@gmail.com>'
+
+
+INSTALLED_APPS += ['django_crontab']
+
+CRONJOBS = [
+    ('0 8 * * *', 'main.tasks.send_daily_newsletter')
+]

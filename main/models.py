@@ -31,13 +31,19 @@ class SiteSettings(models.Model):
         return '/static/images/default_hero.jpg'
 
 
-# 📚 الأقسام
+from django.db import models
+
 class Category(models.Model):
     name = models.CharField(max_length=100, unique=True, verbose_name="اسم القسم")
     slug = models.SlugField(unique=True, verbose_name="رابط القسم (slug)")
     description = models.TextField(blank=True, null=True, verbose_name="وصف القسم")
     image = models.ImageField(upload_to="category_images/", blank=True, null=True, verbose_name="صورة القسم")
     image_url = models.URLField(blank=True, null=True, verbose_name="رابط الصورة (URL)")
+
+    # حقول SEO
+    seo_title = models.CharField(max_length=200, blank=True, null=True, verbose_name="عنوان SEO")
+    seo_description = models.TextField(blank=True, null=True, verbose_name="وصف SEO")
+    seo_keywords = models.CharField(max_length=300, blank=True, null=True, verbose_name="كلمات مفتاحية SEO (مفصولة بفواصل)")
 
     class Meta:
         verbose_name = "قسم"
@@ -54,7 +60,10 @@ class Category(models.Model):
         return '/static/images/default_category.png'
 
 
-# 📰 المقالات
+from django.db import models
+from django.urls import reverse
+from ckeditor_uploader.fields import RichTextUploadingField
+
 class Article(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="articles", verbose_name="القسم")
     title = models.CharField(max_length=200, verbose_name="عنوان المقال")
@@ -63,6 +72,12 @@ class Article(models.Model):
     content = RichTextUploadingField(verbose_name="محتوى المقال")
     image = models.ImageField(upload_to="articles/", blank=True, null=True, verbose_name="صورة المقال")
     image_url = models.URLField(blank=True, null=True, verbose_name="رابط الصورة (URL)")
+    
+    # حقول SEO
+    seo_title = models.CharField(max_length=200, blank=True, null=True, verbose_name="عنوان SEO")
+    seo_description = models.TextField(blank=True, null=True, verbose_name="وصف SEO")
+    seo_keywords = models.CharField(max_length=300, blank=True, null=True, verbose_name="كلمات مفتاحية SEO (مفصولة بفواصل)")
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_published = models.BooleanField(default=True, verbose_name="منشور؟")
@@ -84,6 +99,7 @@ class Article(models.Model):
 
     def get_absolute_url(self):
         return reverse('article_detail', kwargs={'slug': self.slug})
+
 
 
 # 🎞️ معرض الوسائط
@@ -142,8 +158,20 @@ class GalleryItem(models.Model):
     title = models.CharField(max_length=200, verbose_name="عنوان العنصر")
     description = models.TextField(blank=True, null=True, verbose_name="الوصف")
     type = models.CharField(max_length=10, choices=TYPE_CHOICES, default='image', verbose_name="نوع العنصر")
+
+    # ملفات الوسائط
     media_file = models.FileField(upload_to="gallery_media/", blank=True, null=True, verbose_name="ملف الوسائط")
     media_url = models.URLField(blank=True, null=True, verbose_name="رابط خارجي للوسائط")
+
+    # صورة الغلاف
+    cover_image = models.ImageField(upload_to="news_covers/", blank=True, null=True, verbose_name="رفع صورة الغلاف")
+    cover_image_url = models.URLField(blank=True, null=True, verbose_name="رابط خارجي لصورة الغلاف")
+
+    # حقول SEO
+    seo_title = models.CharField(max_length=200, blank=True, null=True, verbose_name="عنوان SEO")
+    seo_description = models.TextField(blank=True, null=True, verbose_name="وصف SEO")
+    seo_keywords = models.CharField(max_length=300, blank=True, null=True, verbose_name="كلمات مفتاحية SEO (مفصولة بفواصل)")
+
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -155,9 +183,71 @@ class GalleryItem(models.Model):
         return self.title
 
     def get_media(self):
-        """إرجاع الرابط الصحيح للوسائط"""
         if self.media_file:
             return self.media_file.url
         elif self.media_url:
             return self.media_url
         return '/static/images/default_media.jpg'
+
+    def get_cover(self):
+        if self.cover_image:
+            return self.cover_image.url
+        elif self.cover_image_url:
+            return self.cover_image_url
+        return '/static/images/default_cover.jpg'
+
+
+# 📨 النشرة البريدية
+class NewsletterSubscriber(models.Model):
+    email = models.EmailField(unique=True, verbose_name="البريد الإلكتروني")
+    subscribed_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "مشترك في النشرة البريدية"
+        verbose_name_plural = "المشتركين في النشرة البريدية"
+
+    def __str__(self):
+        return self.email
+from django.db import models
+
+class NewsletterSubscriber(models.Model):
+    email = models.EmailField(unique=True)
+    date_subscribed = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.email
+from django.db import models
+
+class Subscriber(models.Model):
+    email = models.EmailField(unique=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.email
+
+from django.db import models
+
+class Notification(models.Model):
+    title = models.CharField(max_length=200, verbose_name="عنوان الإشعار")
+    message = models.TextField(verbose_name="تفاصيل الإشعار")
+    is_active = models.BooleanField(default=True, verbose_name="مفعّل")
+    start_date = models.DateTimeField(auto_now_add=True, verbose_name="تاريخ الإنشاء")
+    end_date = models.DateTimeField(null=True, blank=True, verbose_name="تاريخ الانتهاء")
+    
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = "إشعار"
+        verbose_name_plural = "الإشعارات"
+class SiteSettings(models.Model):
+    site_name = models.CharField(max_length=200, default="موقعي")
+    favicon = models.ImageField(upload_to="favicon/", null=True, blank=True)
+    favicon_url = models.URLField(max_length=500, null=True, blank=True, help_text="ضع رابط Favicon إذا رغبت")
+
+    def __str__(self):
+        return "إعدادات الموقع"
+
+    class Meta:
+        verbose_name = "إعدادات الموقع"
+        verbose_name_plural = "إعدادات الموقع"

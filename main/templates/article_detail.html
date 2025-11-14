@@ -2,15 +2,130 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+    
+     {% if site_settings.favicon %}
+    <link rel="icon" type="image/png" href="{{ site_settings.favicon.url }}">
+{% elif site_settings.favicon_url %}
+    <link rel="icon" type="image/png" href="{{ site_settings.favicon_url }}">
+{% else %}
+    <link rel="icon" type="image/png" href="/static/default/favicon.png">
+{% endif %}
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ article.title }} - الثَّقَف العربي</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Amiri:wght@400;700&family=Almarai:wght@300;400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>{{ article.seo_title|default:article.title }}</title>
+    <meta name="description" content="{{ article.seo_description|default:article.content|truncatewords:25 }}">
+    <meta name="keywords" content="{{ article.seo_keywords }}">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="{{ article.author|default:'الثَّقَف العربي' }}">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="{{ article.seo_title|default:article.title }}">
+    <meta property="og:description" content="{{ article.seo_description|default:article.content|truncatewords:25 }}">
+    <meta property="og:image" content="{{ article.get_image }}">
+    <meta property="og:url" content="{{ article.get_absolute_url }}">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="الثَّقَف العربي">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ article.seo_title|default:article.title }}">
+    <meta name="twitter:description" content="{{ article.seo_description|default:article.content|truncatewords:25 }}">
+    <meta name="twitter:image" content="{{ article.get_image }}">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "{{ article.title }}",
+        "description": "{{ article.seo_description|default:article.content|truncatewords:25 }}",
+        "image": "{{ article.get_image }}",
+        "datePublished": "{{ article.publish_date|date:'c' }}",
+        "dateModified": "{{ article.updated_at|date:'c' }}",
+        "author": {
+            "@type": "Person",
+            "name": "{{ article.author|default:'الثَّقَف العربي' }}"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "الثَّقَف العربي",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "{% static 'images/logo.png' %}"
+            }
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "{{ article.get_absolute_url }}"
+        }
+    }
+    </script>
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Amiri:wght@400;700&family=Almarai:wght@300;400;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/apple-touch-icon.png' %}">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{{ article.get_absolute_url }}">
+    
     <style>
+          /* ====== 🔍 نموذج البحث المحسن ====== */
+    .header-search {
+        position: relative;
+        max-width: 400px;
+        width: 100%;
+        margin: 0 20px;
+    }
+
+    .header-search input {
+        width: 100%;
+        padding: 12px 50px 12px 20px;
+        border: 1px solid var(--border);
+        border-radius: 50px;
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(10px);
+        font-family: inherit;
+        font-size: 1rem;
+        transition: var(--apple-transition);
+    }
+
+    .header-search input:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(193, 154, 107, 0.2);
+        background: white;
+    }
+
+    .header-search button {
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: var(--accent);
+        color: white;
+        border: none;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: var(--apple-transition);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .header-search button:hover {
+        background: var(--secondary-accent);
+        transform: translateY(-50%) scale(1.1);
+    }
         :root {
             --primary-bg: #F7F4EF;
-            --primary-text: #2C2C2C;
+            --primary-text: #1D1D1F;
             --secondary-text: #6B6B6B;
             --accent: #C19A6B;
             --secondary-accent: #8C6B4F;
@@ -19,84 +134,97 @@
             --shadow: rgba(0, 0, 0, 0.08);
             --shadow-hover: rgba(0, 0, 0, 0.12);
             --border: rgba(193, 154, 107, 0.2);
+            --apple-radius: 12px;
+            --apple-radius-large: 24px;
+            --apple-transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: 'Almarai', 'Cairo', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Almarai', 'Cairo', sans-serif;
             background-color: var(--primary-bg);
             color: var(--primary-text);
             line-height: 1.8;
             overflow-x: hidden;
+            font-size: 16px;
         }
 
         a {
             text-decoration: none;
             color: inherit;
-            transition: all 0.4s ease;
+            transition: var(--apple-transition);
         }
 
         .container {
             width: 90%;
-            max-width: 1300px;
+            max-width: 1400px;
             margin: auto;
         }
 
-        /* ====== الهيدر ====== */
+        /* ====== Enhanced Header ====== */
         .header {
-            background: rgba(247, 244, 239, 0.92);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: rgba(247, 244, 239, 0.95);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
             position: sticky;
             top: 0;
             z-index: 1000;
-            border-bottom: 1px solid var(--border);
-            transition: all 0.5s ease;
-            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            transition: var(--apple-transition);
+            padding: 15px 0;
         }
 
         .header.scrolled {
             background: rgba(247, 244, 239, 0.98);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-            padding: 8px 0;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+            padding: 10px 0;
         }
 
         .header .container {
             display: flex;
             align-items: center;
             justify-content: space-between;
+            max-width: 1400px;
         }
 
         .logo a {
             color: var(--accent);
-            font-size: 1.8rem;
+            font-size: 1.9rem;
             font-weight: 700;
-            font-family: 'Amiri', serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Amiri', serif;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            letter-spacing: -0.5px;
         }
 
         .logo i {
-            font-size: 1.6rem;
+            font-size: 1.7rem;
         }
 
         .nav {
             display: flex;
-            gap: 30px;
+            gap: 35px;
         }
 
         .nav a {
             position: relative;
             color: var(--secondary-text);
             font-weight: 500;
-            padding: 8px 0;
-            font-size: 1.05rem;
+            padding: 10px 0;
+            font-size: 1.08rem;
+            font-family: -apple-system, BlinkMacSystemFont, 'Almarai', sans-serif;
         }
 
         .nav a:after {
@@ -107,7 +235,7 @@
             bottom: 0;
             right: 0;
             background-color: var(--accent);
-            transition: width 0.4s ease;
+            transition: var(--apple-transition);
         }
 
         .nav a:hover {
@@ -120,42 +248,51 @@
 
         .nav-actions {
             display: flex;
-            gap: 15px;
+            gap: 18px;
         }
 
         .nav-btn {
             background: transparent;
             border: 1px solid var(--border);
             color: var(--accent);
-            padding: 10px 20px;
+            padding: 12px 24px;
             border-radius: 50px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.4s ease;
+            transition: var(--apple-transition);
             font-family: inherit;
+            font-size: 1rem;
         }
 
         .nav-btn:hover {
             background: var(--accent);
             color: white;
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(193, 154, 107, 0.3);
+            box-shadow: 0 8px 20px rgba(193, 154, 107, 0.3);
         }
 
         .mobile-menu-btn {
             display: none;
             background: transparent;
             border: none;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             color: var(--accent);
             cursor: pointer;
+            padding: 8px;
+            border-radius: var(--apple-radius);
+            transition: var(--apple-transition);
         }
 
-        /* ====== صفحة المقال ====== */
+        .mobile-menu-btn:hover {
+            background: rgba(193, 154, 107, 0.1);
+        }
+
+        /* ====== Enhanced Article Page ====== */
         .article-page {
-            padding: 120px 20px 80px;
+            padding: 140px 20px 100px;
             background: var(--primary-bg);
             position: relative;
+            min-height: 100vh;
         }
 
         .article-page:before {
@@ -174,16 +311,17 @@
             max-width: 900px;
             margin: 0 auto;
             background: var(--card-bg);
-            border-radius: 24px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            border-radius: var(--apple-radius-large);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
             overflow: hidden;
             position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.8);
         }
 
-        /* ====== رأس المقال ====== */
+        /* ====== Enhanced Article Hero ====== */
         .article-hero {
             position: relative;
-            height: 400px;
+            height: 450px;
             overflow: hidden;
         }
 
@@ -195,7 +333,7 @@
         }
 
         .article-hero:hover .article-hero-image {
-            transform: scale(1.05);
+            transform: scale(1.08);
         }
 
         .article-hero-overlay {
@@ -204,54 +342,71 @@
             right: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to bottom, transparent 40%, rgba(44, 44, 44, 0.8));
+            background: linear-gradient(to bottom, transparent 40%, rgba(29, 29, 31, 0.85));
             display: flex;
             align-items: flex-end;
-            padding: 40px;
+            padding: 45px;
         }
 
         .article-category {
             background: var(--accent);
             color: white;
-            padding: 8px 20px;
+            padding: 10px 25px;
             border-radius: 50px;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             font-weight: 600;
+            box-shadow: 0 4px 15px rgba(193, 154, 107, 0.3);
+            transition: var(--apple-transition);
         }
 
-        /* ====== محتوى المقال ====== */
+        .article-category:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(193, 154, 107, 0.4);
+        }
+
+        /* ====== Enhanced Article Content ====== */
         .article-content {
-            padding: 50px;
+            padding: 60px;
         }
 
         .article-header {
-            margin-bottom: 40px;
+            margin-bottom: 50px;
             text-align: center;
         }
 
         .article-title {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             font-weight: 700;
             color: var(--primary-text);
-            margin-bottom: 20px;
-            line-height: 1.4;
-            font-family: 'Amiri', serif;
+            margin-bottom: 25px;
+            line-height: 1.3;
+            font-family: -apple-system, BlinkMacSystemFont, 'Amiri', serif;
+            letter-spacing: -0.5px;
         }
 
         .article-meta {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 30px;
+            gap: 35px;
             flex-wrap: wrap;
             color: var(--secondary-text);
-            font-size: 0.95rem;
+            font-size: 1rem;
         }
 
         .meta-item {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            padding: 8px 16px;
+            background: rgba(193, 154, 107, 0.05);
+            border-radius: var(--apple-radius);
+            transition: var(--apple-transition);
+        }
+
+        .meta-item:hover {
+            background: rgba(193, 154, 107, 0.1);
+            transform: translateY(-2px);
         }
 
         .meta-item i {
@@ -259,93 +414,130 @@
         }
 
         .article-body {
-            font-size: 1.15rem;
-            line-height: 1.9;
+            font-size: 1.2rem;
+            line-height: 2;
             color: var(--primary-text);
         }
 
-        .article-body h2, .article-body h3 {
+        .article-body h2 {
             color: var(--accent);
+            margin: 50px 0 25px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Amiri', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .article-body h3 {
+            color: var(--secondary-accent);
             margin: 40px 0 20px;
-            font-family: 'Amiri', serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Amiri', serif;
+            font-size: 1.6rem;
+            font-weight: 600;
+            line-height: 1.4;
         }
 
         .article-body p {
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             text-align: justify;
+            font-size: 1.15rem;
         }
 
         .article-body blockquote {
             border-right: 4px solid var(--accent);
-            padding: 20px 30px;
-            margin: 30px 0;
+            padding: 25px 35px;
+            margin: 40px 0;
             background: rgba(193, 154, 107, 0.05);
-            border-radius: 0 12px 12px 0;
+            border-radius: 0 var(--apple-radius) var(--apple-radius) 0;
             font-style: italic;
             color: var(--secondary-accent);
+            font-size: 1.25rem;
+            line-height: 1.7;
+            position: relative;
         }
 
-        /* ====== إجراءات المقال ====== */
+        .article-body blockquote:before {
+            content: '"';
+            font-size: 4rem;
+            color: rgba(193, 154, 107, 0.2);
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            line-height: 1;
+        }
+
+        .article-body img {
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--apple-radius);
+            margin: 30px 0;
+            box-shadow: 0 8px 25px var(--shadow);
+        }
+
+        /* ====== Enhanced Article Actions ====== */
         .article-actions {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 30px 50px;
+            padding: 35px 60px;
             border-top: 1px solid var(--border);
             border-bottom: 1px solid var(--border);
-            margin: 40px 0;
+            margin: 50px 0;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 25px;
         }
 
         .social-share {
             display: flex;
-            gap: 15px;
+            gap: 18px;
         }
 
         .share-btn {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 45px;
-            height: 45px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             background: var(--primary-bg);
             color: var(--secondary-text);
-            transition: all 0.3s ease;
+            transition: var(--apple-transition);
+            border: 1px solid var(--border);
         }
 
         .share-btn:hover {
             background: var(--accent);
             color: white;
-            transform: translateY(-3px);
+            transform: translateY(-4px);
+            box-shadow: 0 6px 15px rgba(193, 154, 107, 0.3);
+            border-color: var(--accent);
         }
 
         .action-buttons {
             display: flex;
-            gap: 15px;
+            gap: 18px;
         }
 
         .btn {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             background: var(--accent);
             color: white;
-            padding: 12px 25px;
+            padding: 14px 28px;
             border-radius: 50px;
             font-weight: 600;
-            transition: all 0.5s ease;
+            transition: var(--apple-transition);
             border: none;
             cursor: pointer;
             font-family: inherit;
-            font-size: 1rem;
-            box-shadow: 0 4px 15px rgba(193, 154, 107, 0.3);
+            font-size: 1.05rem;
+            box-shadow: 0 6px 20px rgba(193, 154, 107, 0.3);
         }
 
         .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(193, 154, 107, 0.4);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 12px 30px rgba(193, 154, 107, 0.4);
             background: #b08a5d;
         }
 
@@ -361,105 +553,123 @@
             color: white;
         }
 
-        /* ====== مقالات مشابهة ====== */
+        /* ====== Enhanced Related Articles ====== */
         .related-articles {
-            padding: 60px 50px 40px;
+            padding: 60px 60px 40px;
         }
 
         .section-title {
-            font-size: 1.8rem;
+            font-size: 2rem;
             color: var(--accent);
-            margin-bottom: 30px;
-            font-family: 'Amiri', serif;
+            margin-bottom: 40px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Amiri', serif;
             position: relative;
             display: inline-block;
+            font-weight: 700;
         }
 
         .section-title:after {
             content: '';
             position: absolute;
             width: 60%;
-            height: 3px;
-            bottom: -8px;
+            height: 4px;
+            bottom: -12px;
             right: 0;
             background: linear-gradient(to left, var(--accent), transparent);
+            border-radius: 2px;
         }
 
         .related-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
         }
 
         .related-card {
             background: var(--primary-bg);
-            border-radius: 16px;
-            padding: 25px;
-            transition: all 0.4s ease;
+            border-radius: var(--apple-radius-large);
+            padding: 30px;
+            transition: var(--apple-transition);
             border: 1px solid var(--border);
         }
 
         .related-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 10px 25px var(--shadow-hover);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 35px var(--shadow-hover);
             border-color: var(--accent);
         }
 
         .related-card h4 {
-            font-size: 1.1rem;
-            margin-bottom: 10px;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
             line-height: 1.5;
-            font-family: 'Amiri', serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Amiri', serif;
+            font-weight: 600;
         }
 
         .related-card p {
             color: var(--secondary-text);
-            font-size: 0.9rem;
-            line-height: 1.6;
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 15px;
         }
 
         .related-meta {
             display: flex;
-            gap: 15px;
-            margin-top: 15px;
-            font-size: 0.8rem;
+            gap: 20px;
+            margin-top: 20px;
+            font-size: 0.9rem;
             color: var(--secondary-text);
         }
 
-        /* ====== حالة عدم وجود مقالات مشابهة ====== */
+        .related-meta span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .related-meta i {
+            color: var(--accent);
+        }
+
+        /* ====== Enhanced Empty Related ====== */
         .empty-related {
             text-align: center;
-            padding: 40px 20px;
+            padding: 60px 20px;
             color: var(--secondary-text);
         }
 
         .empty-related i {
-            font-size: 3rem;
+            font-size: 3.5rem;
             color: var(--accent);
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             opacity: 0.7;
         }
 
-        /* ====== التذييل ====== */
+        .empty-related p {
+            font-size: 1.1rem;
+        }
+
+        /* ====== Enhanced Footer ====== */
         .footer {
-            background: #2C2C2C;
+            background: #1D1D1F;
             color: #ddd;
-            padding: 60px 20px 30px;
-            margin-top: 80px;
+            padding: 80px 20px 40px;
+            margin-top: 100px;
         }
 
         .footer-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 45px;
+            margin-bottom: 50px;
         }
 
         .footer-col h5 {
             color: var(--accent);
-            font-size: 1.3rem;
-            margin-bottom: 20px;
-            font-family: 'Amiri', serif;
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Amiri', serif;
             position: relative;
             display: inline-block;
         }
@@ -467,11 +677,12 @@
         .footer-col h5:after {
             content: '';
             position: absolute;
-            width: 40px;
+            width: 45px;
             height: 2px;
-            bottom: -8px;
+            bottom: -10px;
             right: 0;
             background-color: var(--accent);
+            border-radius: 1px;
         }
 
         .footer-links {
@@ -479,60 +690,95 @@
         }
 
         .footer-links li {
-            margin-bottom: 12px;
+            margin-bottom: 15px;
         }
 
         .footer-links a {
             color: #aaa;
-            transition: all 0.3s ease;
+            transition: var(--apple-transition);
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            font-size: 1rem;
         }
 
         .footer-links a:hover {
             color: var(--accent);
-            transform: translateX(-5px);
+            transform: translateX(-8px);
         }
 
         .footer-links i {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
         }
 
         .social-links {
             display: flex;
-            gap: 15px;
-            margin-top: 20px;
+            gap: 18px;
+            margin-top: 25px;
         }
 
         .social-links a {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
             background: rgba(255, 255, 255, 0.05);
             border-radius: 50%;
-            transition: all 0.3s ease;
+            transition: var(--apple-transition);
         }
 
         .social-links a:hover {
             background: var(--accent);
-            transform: translateY(-5px);
+            transform: translateY(-5px) scale(1.1);
         }
 
         .copyright {
             text-align: center;
-            padding-top: 30px;
+            padding-top: 40px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             color: #888;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
         }
 
-        /* ====== الوسائط المتعددة ====== */
+        /* ====== Skip to Main Content for Accessibility ====== */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--accent);
+            color: white;
+            padding: 12px 20px;
+            text-decoration: none;
+            border-radius: 0 0 4px 0;
+            z-index: 1001;
+            transition: top 0.3s;
+            font-weight: 600;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* ====== Enhanced Responsive Design ====== */
+        @media (max-width: 1200px) {
+            .container {
+                width: 95%;
+                max-width: 1200px;
+            }
+            
+            .article-title {
+                font-size: 2.4rem;
+            }
+            
+            .article-content {
+                padding: 50px;
+            }
+        }
+
         @media (max-width: 992px) {
             .nav {
-                gap: 20px;
+                gap: 25px;
             }
             
             .article-title {
@@ -541,6 +787,14 @@
             
             .article-content {
                 padding: 40px;
+            }
+            
+            .article-hero {
+                height: 380px;
+            }
+            
+            .related-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             }
         }
 
@@ -551,19 +805,22 @@
             
             .nav {
                 position: fixed;
-                top: 70px;
+                top: 80px;
                 right: -100%;
                 background: var(--card-bg);
-                width: 80%;
-                height: calc(100vh - 70px);
+                backdrop-filter: blur(25px);
+                -webkit-backdrop-filter: blur(25px);
+                width: 85%;
+                height: calc(100vh - 80px);
                 flex-direction: column;
                 align-items: center;
                 justify-content: flex-start;
-                padding-top: 40px;
-                gap: 30px;
-                transition: all 0.5s ease;
-                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+                padding-top: 50px;
+                gap: 35px;
+                transition: var(--apple-transition);
+                box-shadow: -8px 0 25px rgba(0, 0, 0, 0.1);
                 z-index: 999;
+                border-left: 1px solid var(--border);
             }
             
             .nav.active {
@@ -573,15 +830,19 @@
             .nav-actions {
                 flex-direction: column;
                 width: 80%;
-                margin-top: 30px;
+                margin-top: 40px;
+            }
+            
+            .article-page {
+                padding: 120px 20px 80px;
             }
             
             .article-hero {
-                height: 300px;
+                height: 320px;
             }
             
             .article-title {
-                font-size: 1.8rem;
+                font-size: 2rem;
             }
             
             .article-content {
@@ -591,6 +852,11 @@
             .article-actions {
                 flex-direction: column;
                 text-align: center;
+                padding: 30px;
+            }
+            
+            .related-articles {
+                padding: 40px 30px 30px;
             }
             
             .related-grid {
@@ -600,7 +866,7 @@
 
         @media (max-width: 576px) {
             .article-title {
-                font-size: 1.6rem;
+                font-size: 1.8rem;
             }
             
             .article-meta {
@@ -608,26 +874,247 @@
                 gap: 15px;
             }
             
+            .meta-item {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .article-body {
+                font-size: 1.1rem;
+            }
+            
+            .article-body h2 {
+                font-size: 1.6rem;
+            }
+            
+            .article-body h3 {
+                font-size: 1.4rem;
+            }
+            
             .footer-grid {
                 grid-template-columns: 1fr;
-                gap: 30px;
+                gap: 35px;
+            }
+        }
+
+        /* ====== Print Styles ====== */
+        @media print {
+            .header, .footer, .article-actions, .related-articles, .nav-actions, .mobile-menu-btn {
+                display: none;
+            }
+            
+            body {
+                background: white;
+                color: black;
+                font-size: 12pt;
+                line-height: 1.6;
+            }
+            
+            .container {
+                width: 100%;
+                max-width: none;
+            }
+            
+            .article-page {
+                padding: 20px 0;
+            }
+            
+            .article-container {
+                box-shadow: none;
+                border: none;
+            }
+            
+            .article-hero {
+                height: 200px;
+            }
+            
+            a {
+                color: black;
+                text-decoration: underline;
+            }
+            
+            .btn, .nav-btn {
+                display: none;
             }
         }
     </style>
 </head>
 <body>
+<!-- Loading Overlay -->
+<div class="loading-overlay" id="loadingOverlay">
+    <div class="loader-container">
+        <div class="ball">
+            <div class="inner">
+                <div class="line"></div>
+                <div class="line line--two"></div>
+                <div class="oval"></div>
+                <div class="oval oval--two"></div>
+            </div>
+        </div>
+        <div class="shadow"></div>
+    </div>
+</div>
 
+<style>
+/* الغطاء الكامل */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(247, 244, 239, 0.95);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+/* لتوسيط الكرة والظل داخل شاشة التحميل فقط */
+.loader-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Ball Loader Styles */
+/* From Uiverse.io by Mahmoud-walid */
+@keyframes rotateBall {
+  0% { transform: rotateY(0deg) rotateX(0deg) rotateZ(0deg); }
+  50% { transform: rotateY(360deg) rotateX(360deg) rotateZ(0deg); }
+  100% { transform: rotateY(720deg) rotateX(720deg) rotateZ(360deg); }
+}
+
+@keyframes bounceBall {
+  0% { transform: translateY(-70px) scale(1, 1); }
+  15% { transform: translateY(-56px) scale(1, 1); }
+  45% { transform: translateY(70px) scale(1, 1); }
+  50% { transform: translateY(73.5px) scale(1, 0.92); }
+  55% { transform: translateY(70px) scale(1, 0.95); }
+  85% { transform: translateY(-56px) scale(1, 1); }
+  95% { transform: translateY(-70px) scale(1, 1); }
+  100% { transform: translateY(-70px) scale(1, 1); }
+}
+
+.ball {
+  animation-name: bounceBall;
+  animation-duration: 1.2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
+  border-radius: 50%;
+  height: 60px;
+  position: relative;
+  transform: translateY(-70px);
+  transform-style: preserve-3d;
+  width: 60px;
+  z-index: 1;
+}
+
+.ball::before {
+  background: radial-gradient(circle at 36px 20px, #ff8c16, #b35100);
+  border: 2px solid #333333;
+  border-radius: 50%;
+  content: "";
+  height: calc(100% + 6px);
+  left: -6px;
+  position: absolute;
+  top: -3px;
+  transform: translateZ(1vmin);
+  width: calc(100% + 6px);
+}
+
+.ball .inner {
+  animation-name: rotateBall;
+  animation-duration: 25s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  border-radius: 50%;
+  height: 100%;
+  position: absolute;
+  transform-style: preserve-3d;
+  width: 100%;
+}
+
+.ball .line::before,
+.ball .line::after {
+  border: 2px solid #333333;
+  border-radius: 50%;
+  content: "";
+  height: 99%;
+  position: absolute;
+  width: 99%;
+}
+
+.ball .line::before { transform: rotate3d(0, 0, 0, 0); }
+.ball .line::after { transform: rotate3d(1, 0, 0, 90deg); }
+.ball .line--two::before { transform: rotate3d(0, 0, 0, 2deg); }
+.ball .line--two::after { transform: rotate3d(1, 0, 0, 88deg); }
+
+.ball .oval::before,
+.ball .oval::after {
+  border-top: 4px solid #333333;
+  border-radius: 50%;
+  content: "";
+  height: 99%;
+  position: absolute;
+  width: 99%;
+}
+
+.ball .oval::before { transform: rotate3d(1, 0, 0, 45deg) translate3d(0, 0, 6px); }
+.ball .oval::after { transform: rotate3d(1, 0, 0, -45deg) translate3d(0, 0, -6px); }
+.ball .oval--two::before { transform: rotate3d(1, 0, 0, 135deg) translate3d(0, 0, -6px); }
+.ball .oval--two::after { transform: rotate3d(1, 0, 0, -135deg) translate3d(0, 0, 6px); }
+
+@keyframes bounceShadow {
+  0% { filter: blur(3px); opacity: 0.6; transform: translateY(73px) scale(0.5, 0.5); }
+  45% { filter: blur(1px); opacity: 0.9; transform: translateY(73px) scale(1, 1); }
+  55% { filter: blur(1px); opacity: 0.9; transform: translateY(73px) scale(1, 1); }
+  100% { filter: blur(3px); opacity: 0.6; transform: translateY(73px) scale(0.5, 0.5); }
+}
+
+.shadow {
+  animation-name: bounceShadow;
+  animation-duration: 1.2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
+  background: black;
+  filter: blur(2px);
+  border-radius: 50%;
+  height: 6px;
+  transform: translateY(73px);
+  width: 54px;
+}
+</style>
+
+<script>
+// إخفاء شاشة التحميل بعد تحميل الصفحة
+window.addEventListener('load', function() {
+    const overlay = document.getElementById('loadingOverlay');
+    overlay.style.transition = 'opacity 0.5s ease';
+    overlay.style.opacity = '0';
+    setTimeout(() => overlay.style.display = 'none', 500);
+});
+</script>
     <!-- الهيدر -->
     <header class="header" id="header">
         <div class="container">
             <h1 class="logo"><a href="/"><i class="fas fa-feather-alt"></i> الثَّقَف العربي</a></h1>
+                     <!-- نموذج البحث في الهيدر -->
+            <form action="{% url 'search' %}" method="get" class="header-search">
+                <input type="text" name="q" placeholder="ابحث هنا..." required aria-label="بحث">
+                <button type="submit" aria-label="تنفيذ البحث"><i class="fas fa-search"></i></button>
+            </form>
             
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="فتح القائمة">
+                <i class="fas fa-bars"></i>
+            </button>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="فتح القائمة">
                 <i class="fas fa-bars"></i>
             </button>
             
-            <nav class="nav" id="nav">
-               <a href="/">الرئيسية</a>
+            <nav class="nav" id="nav" aria-label="القائمة الرئيسية">
+                <a href="/">الرئيسية</a>
                 <a href="/articles/">المقالات</a>
                 <a href="/categories/">الأقسام</a>
                 <a href="/gallery/">المعرض</a>
@@ -635,131 +1122,130 @@
                 <a href="/contact/">اتصل بنا</a>
                 
                 <div class="nav-actions">
-                    <button class="nav-btn"><i class="fas fa-search"></i> بحث</button>
                     <button class="nav-btn"><i class="fas fa-user"></i> دخول</button>
                 </div>
             </nav>
         </div>
     </header>
 
-<!-- 📰 صفحة المقال -->
-<section class="article-page">
-    <div class="article-container">
+    <!-- 📰 صفحة المقال -->
+    <section class="article-page" id="main-content">
+        <div class="article-container">
 
-        <!-- رأس المقال -->
-        <div class="article-hero">
-            {% if article.image %}
-                <img src="{{ article.image.url }}" alt="{{ article.title }}" class="article-hero-image">
-            {% elif article.image_url %}
-                <img src="{{ article.image_url }}" alt="{{ article.title }}" class="article-hero-image">
-            {% else %}
-                <img src="{% static 'images/default-article.jpg' %}" alt="{{ article.title }}" class="article-hero-image">
-            {% endif %}
-
-            <div class="article-hero-overlay">
-                {% if article.category %}
-                <a href="{% url 'category_detail' article.category.slug %}" class="article-category">
-                    {{ article.category.name }}
-                </a>
+            <!-- رأس المقال -->
+            <div class="article-hero">
+                {% if article.image %}
+                    <img src="{{ article.image.url }}" alt="{{ article.title }}" class="article-hero-image" loading="lazy">
+                {% elif article.image_url %}
+                    <img src="{{ article.image_url }}" alt="{{ article.title }}" class="article-hero-image" loading="lazy">
                 {% else %}
-                <span class="article-category">ثقافة</span>
+                    <img src="{% static 'images/default-article.jpg' %}" alt="{{ article.title }}" class="article-hero-image" loading="lazy">
                 {% endif %}
-            </div>
-        </div>
 
-        <!-- محتوى المقال -->
-        <div class="article-content">
-            <div class="article-header">
-                <h1 class="article-title">{{ article.title }}</h1>
-
-                <div class="article-meta">
-                    {% if article.publish_date %}
-                    <div class="meta-item">
-                        <i class="far fa-calendar"></i>
-                        <span>{{ article.publish_date|date:"Y-m-d" }}</span>
-                    </div>
-                    {% endif %}
-
-                    {% if article.read_time %}
-                    <div class="meta-item">
-                        <i class="far fa-clock"></i>
-                        <span>{{ article.read_time }} دقيقة قراءة</span>
-                    </div>
-                    {% endif %}
-
-                    <div class="meta-item">
-                        <i class="far fa-eye"></i>
-                        <span>{{ article.views|default:0 }} مشاهدة</span>
-                    </div>
-
-                    {% if article.author %}
-                    <div class="meta-item">
-                        <i class="far fa-user"></i>
-                        <span>بواسطة {{ article.author }}</span>
-                    </div>
+                <div class="article-hero-overlay">
+                    {% if article.category %}
+                    <a href="{% url 'category_detail' article.category.slug %}" class="article-category">
+                        {{ article.category.name }}
+                    </a>
+                    {% else %}
+                    <span class="article-category">ثقافة</span>
                     {% endif %}
                 </div>
             </div>
 
-            <div class="article-body">
-                {{ article.content|safe }}
-            </div>
+            <!-- محتوى المقال -->
+            <div class="article-content">
+                <div class="article-header">
+                    <h1 class="article-title">{{ article.title }}</h1>
 
-            <!-- إجراءات المقال -->
-            <div class="article-actions">
-                <div class="social-share">
-                    <a href="https://twitter.com/intent/tweet?text={{ article.title }}&url={{ request.build_absolute_uri }}" target="_blank" class="share-btn">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" target="_blank" class="share-btn">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri }}&title={{ article.title }}" target="_blank" class="share-btn">
-                        <i class="fab fa-linkedin-in"></i>
-                    </a>
-                    <a href="https://wa.me/?text={{ article.title }} - {{ request.build_absolute_uri }}" target="_blank" class="share-btn">
-                        <i class="fab fa-whatsapp"></i>
-                    </a>
-                </div>
-
-                <div class="action-buttons">
-                    <button class="btn btn-outline">
-                        <i class="far fa-bookmark"></i> حفظ
-                    </button>
-                    <button class="btn">
-                        <i class="fas fa-share-alt"></i> مشاركة
-                    </button>
-                </div>
-            </div>
-
-            <!-- مقالات مشابهة -->
-            <div class="related-articles">
-                <h3 class="section-title">📚 مقالات مشابهة</h3>
-                {% if related_articles %}
-                <div class="related-grid">
-                    {% for related in related_articles %}
-                    <a href="{% url 'article_detail' related.slug %}" class="related-card">
-                        <h4>{{ related.title }}</h4>
-                        <p>{{ related.content|striptags|truncatewords:20 }}</p>
-                        <div class="related-meta">
-                            <span><i class="far fa-calendar"></i> {{ related.publish_date|date:"Y-m-d" }}</span>
-                            {% if related.read_time %}
-                            <span><i class="far fa-clock"></i> {{ related.read_time }} دقيقة</span>
-                            {% endif %}
+                    <div class="article-meta">
+                        {% if article.publish_date %}
+                        <div class="meta-item">
+                            <i class="far fa-calendar"></i>
+                            <span>{{ article.publish_date|date:"Y-m-d" }}</span>
                         </div>
-                    </a>
-                    {% endfor %}
+                        {% endif %}
+
+                        {% if article.read_time %}
+                        <div class="meta-item">
+                            <i class="far fa-clock"></i>
+                            <span>{{ article.read_time }} دقيقة قراءة</span>
+                        </div>
+                        {% endif %}
+
+                        <div class="meta-item">
+                            <i class="far fa-eye"></i>
+                            <span>{{ article.views|default:0 }} مشاهدة</span>
+                        </div>
+
+                        {% if article.author %}
+                        <div class="meta-item">
+                            <i class="far fa-user"></i>
+                            <span>بواسطة {{ article.author }}</span>
+                        </div>
+                        {% endif %}
+                    </div>
                 </div>
-                {% else %}
-                <div class="empty-related">
-                    <i class="fas fa-book-open"></i>
-                    <p>لا توجد مقالات مشابهة حالياً</p>
+
+                <article class="article-body">
+                    {{ article.content|safe }}
+                </article>
+
+                <!-- إجراءات المقال -->
+                <div class="article-actions">
+                    <div class="social-share">
+                        <a href="https://twitter.com/intent/tweet?text={{ article.title }}&url={{ request.build_absolute_uri }}" target="_blank" class="share-btn" aria-label="مشاركة على تويتر">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" target="_blank" class="share-btn" aria-label="مشاركة على فيسبوك">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri }}&title={{ article.title }}" target="_blank" class="share-btn" aria-label="مشاركة على لينكد إن">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://wa.me/?text={{ article.title }} - {{ request.build_absolute_uri }}" target="_blank" class="share-btn" aria-label="مشاركة على واتساب">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn btn-outline" id="bookmarkBtn">
+                            <i class="far fa-bookmark"></i> حفظ
+                        </button>
+                        <button class="btn" id="shareBtn">
+                            <i class="fas fa-share-alt"></i> مشاركة
+                        </button>
+                    </div>
                 </div>
-                {% endif %}
+
+                <!-- مقالات مشابهة -->
+                <div class="related-articles">
+                    <h2 class="section-title">📚 مقالات مشابهة</h2>
+                    {% if related_articles %}
+                    <div class="related-grid">
+                        {% for related in related_articles %}
+                        <a href="{% url 'article_detail' related.slug %}" class="related-card">
+                            <h3>{{ related.title }}</h3>
+                            <p>{{ related.content|striptags|truncatewords:25 }}</p>
+                            <div class="related-meta">
+                                <span><i class="far fa-calendar"></i> {{ related.publish_date|date:"Y-m-d" }}</span>
+                                {% if related.read_time %}
+                                <span><i class="far fa-clock"></i> {{ related.read_time }} دقيقة</span>
+                                {% endif %}
+                            </div>
+                        </a>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <div class="empty-related">
+                        <i class="fas fa-book-open"></i>
+                        <p>لا توجد مقالات مشابهة حالياً</p>
+                    </div>
+                    {% endif %}
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
     <!-- التذييل -->
     <footer class="footer">
@@ -769,10 +1255,10 @@
                     <h5>الثقَف العربي</h5>
                     <p>منصة ثقافية عربية تهدف إلى إثراء المحتوى الثقافي والمعرفي العربي من خلال مقالات وبحوث ومواد متنوعة.</p>
                     <div class="social-links">
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#" aria-label="تويتر"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="فيسبوك"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="إنستغرام"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="يوتيوب"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
                 
@@ -799,6 +1285,7 @@
                 <div class="footer-col">
                     <h5>معلومات</h5>
                     <ul class="footer-links">
+                       <li><a href="/cookies/"><i class="fas fa-arrow-left"></i> ملفات تعريف الارتباط </a></li>
                         <li><a href="/privacy/"><i class="fas fa-arrow-left"></i> سياسة الخصوصية</a></li>
                         <li><a href="/terms/"><i class="fas fa-arrow-left"></i> اتفاقية الاستخدام</a></li>
                         <li><a href="/disclaimer/"><i class="fas fa-arrow-left"></i> إخلاء المسؤولية</a></li>
@@ -832,6 +1319,17 @@
             nav.classList.toggle('active');
             mobileMenuBtn.innerHTML = nav.classList.contains('active') ? 
                 '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+            mobileMenuBtn.setAttribute('aria-label', 
+                nav.classList.contains('active') ? 'إغلاق القائمة' : 'فتح القائمة');
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!nav.contains(event.target) && !mobileMenuBtn.contains(event.target) && nav.classList.contains('active')) {
+                nav.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                mobileMenuBtn.setAttribute('aria-label', 'فتح القائمة');
+            }
         });
 
         // Smooth scrolling for anchor links
@@ -859,10 +1357,11 @@
             top: 0;
             right: 0;
             width: 0;
-            height: 3px;
+            height: 4px;
             background: var(--accent);
             z-index: 1001;
             transition: width 0.3s ease;
+            box-shadow: 0 2px 10px rgba(193, 154, 107, 0.3);
         `;
         document.body.appendChild(progressBar);
 
@@ -872,6 +1371,70 @@
             const scrollTop = window.pageYOffset;
             const scrollPercent = (scrollTop / (docHeight - winHeight)) * 100;
             progressBar.style.width = scrollPercent + '%';
+        });
+
+        // Bookmark functionality
+        const bookmarkBtn = document.getElementById('bookmarkBtn');
+        bookmarkBtn.addEventListener('click', function() {
+            const icon = this.querySelector('i');
+            if (icon.classList.contains('far')) {
+                icon.classList.replace('far', 'fas');
+                this.style.background = 'var(--accent)';
+                this.style.color = 'white';
+                // Add actual bookmark logic here
+                console.log('Article bookmarked');
+            } else {
+                icon.classList.replace('fas', 'far');
+                this.style.background = 'transparent';
+                this.style.color = 'var(--accent)';
+                // Add actual unbookmark logic here
+                console.log('Article unbookmarked');
+            }
+        });
+
+        // Share functionality
+        const shareBtn = document.getElementById('shareBtn');
+        shareBtn.addEventListener('click', function() {
+            if (navigator.share) {
+                navigator.share({
+                    title: '{{ article.title }}',
+                    text: '{{ article.content|striptags|truncatewords:20 }}',
+                    url: window.location.href
+                }).then(() => {
+                    console.log('Article shared successfully');
+                }).catch(console.error);
+            } else {
+                // Fallback for browsers that don't support Web Share API
+                navigator.clipboard.writeText(window.location.href).then(() => {
+                    alert('تم نسخ رابط المقال إلى الحافظة');
+                });
+            }
+        });
+
+        // Lazy loading for images
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        img.classList.remove('lazy');
+                        imageObserver.unobserve(img);
+                    }
+                });
+            });
+
+            document.querySelectorAll('img[data-src]').forEach(img => {
+                imageObserver.observe(img);
+            });
+        }
+
+        // Performance optimization
+        window.addEventListener('load', function() {
+            // Load non-critical resources after page load
+            setTimeout(() => {
+                // Any additional scripts or resources can be loaded here
+            }, 1000);
         });
     </script>
 

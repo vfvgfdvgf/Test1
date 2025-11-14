@@ -1,18 +1,92 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+    <!-- 🧠 الترميز والتهيئة المتقدمة -->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الرئيسية - الثَّقَف العربي</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Amiri:wght@400;700&family=Almarai:wght@300;400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-<style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>الثَّقَف العربي - منصة الثقافة العربية الشاملة | مقالات ثقافية | تاريخ وأدب عربي</title>
+    <meta name="description" content="اكتشف كنوز الثقافة العربية عبر العصور. منصة عربية شاملة تقدم محتوى ثقافي ومعرفي مميز في التاريخ، الأدب، الفنون والتراث العربي. مقالات متعمقة وبحوث ثقافية أصيلة.">
+    <meta name="keywords" content="ثقافة عربية, أدب عربي, تاريخ عربي, فنون عربية, تراث عربي, مقالات ثقافية, منصة ثقافية, أدب عربي قديم, تاريخ العرب, فنون إسلامية">
+    <meta name="author" content="الثَّقَف العربي">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    
+    <!-- 🏷️ Open Graph محسن -->
+    <meta property="og:title" content="الثَّقَف العربي - منصة الثقافة العربية الشاملة">
+    <meta property="og:description" content="اكتشف كنوز الثقافة العربية عبر العصور. منصة عربية شاملة تقدم محتوى ثقافي ومعرفي مميز في التاريخ، الأدب، الفنون والتراث العربي.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://thaqaf-arabi.site/">
+    <meta property="og:image" content="{% static 'images/og-image.jpg' %}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="الثَّقَف العربي">
+    <meta property="og:locale" content="ar_AR">
+    
+    <!-- 🐦 Twitter Card محسن -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="الثَّقَف العربي - منصة الثقافة العربية الشاملة">
+    <meta name="twitter:description" content="اكتشف كنوز الثقافة العربية عبر العصور. منصة عربية شاملة تقدم محتوى ثقافي ومعرفي مميز.">
+    <meta name="twitter:image" content="{% static 'images/twitter-image.jpg' %}">
+    <meta name="twitter:site" content="@thaqaf_arabi">
+    
+    <!-- 🔗 Canonical URL -->
+    <link rel="canonical" href="https://thaqaf-arabi.site/">
+    
+    <!-- 🧭 Structured Data محسن -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "الثَّقَف العربي",
+        "description": "منصة ثقافية عربية تقدم محتوى ثقافي ومعرفي مميز في التاريخ، الأدب، الفنون والتراث العربي.",
+        "url": "https://thaqaf-arabi.site/",
+        "publisher": {
+            "@type": "Organization",
+            "name": "الثَّقَف العربي",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://thaqaf-arabi.site/static/images/logo.png",
+                "width": 200,
+                "height": 60
+            }
+        },
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://thaqaf-arabi.site/search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
+    
+    <!-- 🖼️ Favicon محسن -->
+    {% if site_settings.favicon %}
+        <link rel="icon" type="image/png" href="{{ site_settings.favicon.url }}">
+    {% elif site_settings.favicon_url %}
+        <link rel="icon" type="image/png" href="{{ site_settings.favicon_url }}">
+    {% else %}
+        <link rel="icon" type="image/png" href="{% static 'default/favicon.png' %}">
+    {% endif %}
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'default/favicon-16x16.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'default/favicon-32x32.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'default/apple-touch-icon.png' %}">
+    <link rel="shortcut icon" href="{% static 'default/favicon.ico' %}">
+    <meta name="theme-color" content="#C19A6B">
+    <meta name="msapplication-TileColor" content="#C19A6B">
+    <meta name="msapplication-config" content="{% static 'default/browserconfig.xml' %}">
+    
+    <!-- ⚡️ تحميل الموارد الأساسية مسبقًا -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Amiri:wght@400;700&family=Almarai:wght@300;400;700&display=swap" as="style">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/lucide-static@0.263.0/font/lucide.css" as="style">
+    
+    <!-- 🎨 CSS الأساسي -->
+    <style>
+    /* ====== CSS Variables with Apple-inspired Design ====== */
     :root {
         --primary-bg: #F7F4EF;
-        --primary-text: #2C2C2C;
+        --primary-text: #1D1D1F;
         --secondary-text: #6B6B6B;
         --accent: #C19A6B;
         --secondary-accent: #8C6B4F;
@@ -21,492 +95,501 @@
         --shadow: rgba(0, 0, 0, 0.08);
         --shadow-hover: rgba(0, 0, 0, 0.12);
         --border: rgba(193, 154, 107, 0.2);
+        --glass-bg: rgba(255, 255, 255, 0.7);
+        --glass-border: rgba(255, 255, 255, 0.2);
+        --apple-radius: 12px;
+        --apple-radius-large: 20px;
+        --apple-transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        --gradient-primary: linear-gradient(135deg, #C19A6B 0%, #8C6B4F 100%);
+        --gradient-hero: linear-gradient(135deg, rgba(29, 29, 31, 0.85) 0%, rgba(108, 92, 76, 0.85) 100%);
     }
 
+    /* ====== Base Styles ====== */
     * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    html {
+        scroll-behavior: smooth;
     }
 
     body {
-        font-family: 'Almarai', 'Cairo', sans-serif;
+        font-family: -apple-system, BlinkMacSystemFont, 'Almarai', 'Cairo', sans-serif;
         background-color: var(--primary-bg);
         color: var(--primary-text);
         line-height: 1.8;
         overflow-x: hidden;
+        font-size: 16px;
     }
 
     a {
         text-decoration: none;
         color: inherit;
-        transition: all 0.4s ease;
+        transition: var(--apple-transition);
     }
 
     .container {
         width: 90%;
-        max-width: 1300px;
+        max-width: 1400px;
         margin: auto;
     }
 
-/* ====== 🔹 الهيدر الزجاجي ====== */
-.header {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    border: none;
-    transition: all 0.4s ease;
-    padding: 20px 0;
-}
-
-.header.scrolled {
-    background: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    padding: 14px 0;
-}
-
-/* حاوية المحتوى داخل الهيدر */
-.header .container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-/* الشعار */
-.logo a {
-    color: var(--accent);
-    font-size: 1.8rem;
-    font-weight: 700;
-    font-family: 'Amiri', serif;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    text-decoration: none;
-}
-
-.logo i {
-    font-size: 1.6rem;
-}
-
-/* التنقل */
-.nav {
-    display: flex;
-    gap: 30px;
-}
-
-.nav a {
-    position: relative;
-    color: var(--secondary-text);
-    font-weight: 500;
-    padding: 8px 0;
-    font-size: 1.05rem;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.nav a:after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: 0;
-    right: 0;
-    background-color: var(--accent);
-    transition: width 0.4s ease;
-}
-
-.nav a:hover {
-    color: var(--accent);
-}
-
-.nav a:hover:after {
-    width: 100%;
-}
-
-/* أزرار */
-.nav-actions {
-    display: flex;
-    gap: 15px;
-}
-
-.nav-btn {
-    background: transparent;
-    border: 1px solid var(--border);
-    color: var(--accent);
-    padding: 10px 20px;
-    border-radius: 50px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.4s ease;
-    font-family: inherit;
-}
-
-.nav-btn:hover {
-    background: var(--accent);
-    color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(193, 154, 107, 0.3);
-}
-
-/* زر الموبايل */
-.mobile-menu-btn {
-    display: none;
-    background: transparent;
-    border: none;
-    font-size: 1.5rem;
-    color: var(--accent);
-    cursor: pointer;
-}
-
-/* ====== 🎥 المقدمة بخلفية فيديو ====== */
-.hero {
-    position: relative;
-    text-align: center;
-    color: var(--primary-text);
-    overflow: hidden;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* الفيديو الخلفي */
-.hero video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 0;
-}
-
-/* التعتيم فوق الفيديو */
-.hero::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5));
-    z-index: 1;
-}
-
-/* المحتوى الأمامي */
-.hero-content {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    padding: 0 20px;
-    animation: fadeInUp 1.2s ease;
-}
-
-.hero h2 {
-    font-size: 3.2rem;
-    font-weight: 700;
-    margin-bottom: 20px;
-    font-family: 'Amiri', serif;
-    line-height: 1.3;
-    color: #fff;
-}
-
-.hero h2 span {
-    color: var(--accent);
-    position: relative;
-    display: inline-block;
-}
-
-.hero h2 span:after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 8px;
-    bottom: 8px;
-    right: 0;
-    background-color: rgba(193, 154, 107, 0.3);
-    z-index: -1;
-    transform: skewX(-15deg);
-}
-
-.hero p {
-    max-width: 700px;
-    margin: 20px auto 30px;
-    font-size: 1.2rem;
-    color: #F7F4EF;
-    opacity: 0.9;
-    line-height: 1.8;
-}
-
-.hero-btns {
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-    margin-top: 30px;
-}
-
-/* الأزرار */
-.btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: var(--accent);
-    color: white;
-    padding: 14px 32px;
-    border-radius: 50px;
-    font-weight: 600;
-    transition: all 0.5s ease;
-    border: none;
-    cursor: pointer;
-    font-family: inherit;
-    font-size: 1.05rem;
-    box-shadow: 0 4px 15px rgba(193, 154, 107, 0.3);
-}
-
-.btn:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(193, 154, 107, 0.4);
-    background: #b08a5d;
-}
-
-.btn-secondary {
-    background: transparent;
-    border: 1px solid rgba(247, 244, 239, 0.7);
-    color: #F7F4EF;
-    box-shadow: none;
-}
-
-.btn-secondary:hover {
-    background: rgba(247, 244, 239, 0.1);
-    border-color: #F7F4EF;
-    transform: translateY(-5px);
-}
-
-/* أنميشن ناعم */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* 📱 استجابة للجوال */
-@media (max-width: 768px) {
-    .nav {
-        display: none;
+    /* ====== 🔹 Enhanced Glass Header with Arabic Patterns ====== */
+    .header {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(20px) saturate(180%);
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        border: none;
+        transition: var(--apple-transition);
+        padding: 5px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        overflow: hidden;
     }
 
-    .mobile-menu-btn {
-        display: block;
-    }
-
-    .hero h2 {
-        font-size: 2.2rem;
-    }
-
-    .hero p {
-        font-size: 1rem;
-    }
-
-    .btn {
-        padding: 12px 26px;
-    }
-}
-
-    /* ====== أحدث المقالات ====== */
-    .latest-articles {
-        padding: 100px 20px;
-        background: var(--primary-bg);
-    }
-
-    .section-header {
-        text-align: center;
-        margin-bottom: 70px;
-    }
-
-    .section-header h3 {
-        font-size: 2.4rem;
-        font-weight: 700;
-        color: var(--accent);
-        margin-bottom: 15px;
-        font-family: 'Amiri', serif;
-        position: relative;
-        display: inline-block;
-    }
-
-    .section-header h3:after {
+    .header::before {
         content: '';
         position: absolute;
-        width: 60%;
-        height: 3px;
-        bottom: -10px;
-        right: 20%;
-        background: linear-gradient(to left, var(--accent), transparent);
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none"><defs><pattern id="arabesque" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M10,0 C15,5 15,15 10,20 C5,15 5,5 10,0Z" fill="rgba(193,154,107,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23arabesque)"/></svg>');
+        opacity: 0.3;
+        pointer-events: none;
+        z-index: -1;
     }
 
-    .section-header p {
-        max-width: 600px;
+    .header.scrolled {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(30px) saturate(180%);
+        -webkit-backdrop-filter: blur(30px) saturate(180%);
+        box-shadow: 0 2px 30px rgba(0,0,0,0.08);
+        padding: 15px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .header .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 1400px;
         margin: 0 auto;
-        color: var(--secondary-text);
-        font-size: 1.1rem;
+        padding: 0 25px;
     }
 
-    .articles-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    .logo a {
+        color: var(--accent);
+        font-size: 1.9rem;
+        font-weight: 700;
+        font-family: -apple-system, BlinkMacSystemFont, 'Amiri', serif;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        letter-spacing: -0.5px;
+    }
+
+    .logo i {
+        font-size: 1.7rem;
+    }
+
+    .nav {
+        display: flex;
         gap: 35px;
     }
 
-    .article-card {
-        background: var(--card-bg);
-        border-radius: 20px;
-        overflow: hidden;
-        box-shadow: 0 6px 20px var(--shadow);
-        transition: all 0.5s ease;
+    .nav a {
         position: relative;
-        opacity: 0;
-        transform: translateY(30px);
-    }
-
-    .article-card.visible {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    .article-card:hover {
-        transform: translateY(-12px);
-        box-shadow: 0 12px 30px var(--shadow-hover);
-    }
-
-    .article-image {
-        position: relative;
-        overflow: hidden;
-        height: 220px;
-    }
-
-    .article-image img {
-         width: 100%;
-            height: 50%;
-        object-fit: cover;
-        transition: transform 0.8s ease;
-    }
-
-    .article-card:hover .article-image img {
-        transform: scale(1.08);
-    }
-
-    .article-category {
-        position: absolute;
-        top: 15px;
-        right: 15px;
-        background: var(--accent);
-        color: white;
-        padding: 6px 15px;
-        border-radius: 50px;
-        font-size: 0.85rem;
-        font-weight: 600;
-        z-index: 2;
-    }
-
-    .article-info {
-        padding: 25px;
-    }
-
-    .article-info h4 {
-        margin: 0 0 12px;
-        font-size: 1.3rem;
-        font-family: 'Amiri', serif;
-        line-height: 1.5;
-        transition: color 0.3s ease;
-    }
-
-    .article-card:hover .article-info h4 {
-        color: var(--accent);
-    }
-
-    .article-meta {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        margin-bottom: 15px;
-        font-size: 0.9rem;
         color: var(--secondary-text);
+        font-weight: 500;
+        padding: 10px 0;
+        font-size: 1.08rem;
+        text-decoration: none;
+        transition: var(--apple-transition);
+        font-family: -apple-system, BlinkMacSystemFont, 'Almarai', sans-serif;
     }
 
-    .article-meta i {
-        margin-left: 5px;
-        color: var(--accent);
-    }
-
-    .article-summary {
-        margin: 15px 0;
-        color: var(--secondary-text);
-        line-height: 1.7;
-    }
-
-    .read-more {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        margin-top: 15px;
-        color: var(--accent);
-        font-weight: 600;
-        transition: all 0.4s ease;
-        position: relative;
-    }
-
-    .read-more:after {
+    .nav a:after {
         content: '';
         position: absolute;
         width: 0;
         height: 2px;
-        bottom: -4px;
+        bottom: 0;
         right: 0;
         background-color: var(--accent);
-        transition: width 0.4s ease;
+        transition: var(--apple-transition);
     }
 
-    .read-more:hover {
-        gap: 12px;
+    .nav a:hover {
+        color: var(--accent);
     }
 
-    .read-more:hover:after {
+    .nav a:hover:after {
         width: 100%;
     }
 
-    /* ====== الأقسام ====== */
-    .categories {
-        padding: 100px 20px;
-        background: linear-gradient(to bottom, var(--primary-bg), #f0ebe3);
+    .nav-actions {
+        display: flex;
+        gap: 18px;
     }
 
+    .nav-btn {
+        background: transparent;
+        border: 1px solid var(--border);
+        color: var(--accent);
+        padding: 12px 24px;
+        border-radius: 50px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--apple-transition);
+        font-family: inherit;
+        font-size: 1rem;
+    }
+
+    .nav-btn:hover {
+        background: var(--accent);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(193, 154, 107, 0.3);
+    }
+
+    .mobile-menu-btn {
+        display: none;
+        background: transparent;
+        border: none;
+        font-size: 1.6rem;
+        color: var(--accent);
+        cursor: pointer;
+        padding: 8px;
+        border-radius: var(--apple-radius);
+        transition: var(--apple-transition);
+    }
+
+    .mobile-menu-btn:hover {
+        background: rgba(193, 154, 107, 0.1);
+    }
+
+    /* ====== 🔍 نموذج البحث المحسن ====== */
+    .header-search {
+        position: relative;
+        max-width: 400px;
+        width: 100%;
+        margin: 0 20px;
+    }
+
+    .header-search input {
+        width: 100%;
+        padding: 12px 50px 12px 20px;
+        border: 1px solid var(--border);
+        border-radius: 50px;
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(10px);
+        font-family: inherit;
+        font-size: 1rem;
+        transition: var(--apple-transition);
+    }
+
+    .header-search input:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(193, 154, 107, 0.2);
+        background: white;
+    }
+
+    .header-search button {
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: var(--accent);
+        color: white;
+        border: none;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: var(--apple-transition);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .header-search button:hover {
+        background: var(--secondary-accent);
+        transform: translateY(-50%) scale(1.1);
+    }
+
+    /* ====== 🎥 Enhanced Hero Section with Floating Arabic Icons ====== */
+    .hero {
+        position: relative;
+        text-align: center;
+        color: var(--primary-text);
+        overflow: hidden;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .hero-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 0;
+    }
+    
+    .hero-content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        padding: 0 30px;
+        animation: fadeInUp 1.2s ease;
+        max-width: 900px;
+    }
+
+    .hero h1 {
+        font-size: 3.8rem;
+        font-weight: 700;
+        margin-bottom: 25px;
+        font-family: -apple-system, BlinkMacSystemFont, 'Amiri', serif;
+        line-height: 1.2;
+        color: #F7F4EF;
+        letter-spacing: -0.5px;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+
+    .hero h1 span {
+        color: var(--accent);
+        position: relative;
+        display: inline-block;
+    }
+
+    .hero h1 span:after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 8px;
+        bottom: 8px;
+        right: 0;
+        background-color: rgba(193, 154, 107, 0.3);
+        z-index: -1;
+        transform: skewX(-15deg);
+    }
+
+    .hero p {
+        max-width: 750px;
+        margin: 25px auto 35px;
+        font-size: 1.4rem;
+        color: #F7F4EF;
+        opacity: 0.9;
+        line-height: 1.8;
+        font-weight: 300;
+        text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .hero-btns {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        margin-top: 35px;
+    }
+
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        background: var(--accent);
+        color: white;
+        padding: 18px 40px;
+        border-radius: 50px;
+        font-weight: 600;
+        transition: var(--apple-transition);
+        border: none;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 1.1rem;
+        box-shadow: 0 6px 20px rgba(193, 154, 107, 0.3);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+        transition: left 0.5s;
+    }
+
+    .btn:hover::before {
+        left: 100%;
+    }
+
+    .btn:hover {
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: 0 12px 30px rgba(193, 154, 107, 0.4);
+        background: #b08a5d;
+    }
+
+    .btn-secondary {
+        background: transparent;
+        border: 2px solid rgba(247, 244, 239, 0.7);
+        color: #F7F4EF;
+        box-shadow: none;
+    }
+
+    .btn-secondary:hover {
+        background: rgba(247, 244, 239, 0.1);
+        border-color: #F7F4EF;
+        transform: translateY(-5px) scale(1.02);
+    }
+
+    /* Floating Arabic Icons */
+    .floating-icons {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    .floating-icon {
+        position: absolute;
+        font-size: 2.5rem;
+        color: rgba(255, 255, 255, 0.3);
+        animation: float 15s infinite ease-in-out;
+        filter: drop-shadow(0 2px 5px rgba(0,0,0,0.2));
+    }
+
+    .floating-icon:nth-child(1) {
+        top: 15%;
+        left: 10%;
+        animation-delay: 0s;
+    }
+
+    .floating-icon:nth-child(2) {
+        top: 25%;
+        right: 15%;
+        animation-delay: 2s;
+    }
+
+    .floating-icon:nth-child(3) {
+        bottom: 20%;
+        left: 20%;
+        animation-delay: 4s;
+    }
+
+    .floating-icon:nth-child(4) {
+        bottom: 30%;
+        right: 10%;
+        animation-delay: 6s;
+    }
+
+    .floating-icon:nth-child(5) {
+        top: 40%;
+        left: 5%;
+        animation-delay: 8s;
+    }
+
+    .floating-icon:nth-child(6) {
+        top: 60%;
+        right: 5%;
+        animation-delay: 10s;
+    }
+
+    @keyframes float {
+        0%, 100% {
+            transform: translateY(0) rotate(0deg);
+        }
+        33% {
+            transform: translateY(-20px) rotate(5deg);
+        }
+        66% {
+            transform: translateY(10px) rotate(-5deg);
+        }
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* ====== 🧭 Enhanced Categories Section with Arabic Patterns ====== */
+    .categories {
+        position: relative;
+        padding: 120px 20px;
+        background: linear-gradient(to bottom, var(--primary-bg), #f0ebe3);
+        overflow: hidden;
+    }
+
+    /* 🟠 الشبكة الهندسية فوق الخلفية */
+    .categories::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(193,154,107,0.05)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+        opacity: 0.5;
+        pointer-events: none;
+        z-index: 0;
+        animation: slowMove 60s linear infinite;
+    }
+
+    /* حركة خفيفة للشبكة */
+    @keyframes slowMove {
+        0% { transform: translate(0, 0) scale(1); }
+        50% { transform: translate(20px, 15px) scale(1.05); }
+        100% { transform: translate(0, 0) scale(1); }
+    }
+
+    /* تأكيد أن المحتوى فوق الزخرفة */
+    .categories * {
+        position: relative;
+        z-index: 1;
+    }
+
+    /* ====== شبكة البطاقات ====== */
     .categories-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 30px;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 35px;
     }
 
+    /* ====== تصميم البطاقات ====== */
     .category-card {
         background: var(--card-bg);
-        border-radius: 18px;
+        border-radius: var(--apple-radius-large);
         overflow: hidden;
-        box-shadow: 0 6px 20px var(--shadow);
-        transition: all 0.5s ease;
+        box-shadow: 0 8px 25px var(--shadow);
+        transition: var(--apple-transition);
         text-align: center;
-        padding: 30px 20px;
+        padding: 45px 30px;
         opacity: 0;
         transform: translateY(30px);
+        position: relative;
+        border: 1px solid rgba(255, 255, 255, 0.8);
     }
 
     .category-card.visible {
@@ -515,67 +598,425 @@
     }
 
     .category-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 12px 30px var(--shadow-hover);
+        transform: translateY(-12px) scale(1.02);
+        box-shadow: 0 20px 40px var(--shadow-hover);
     }
 
+    /* ====== الأيقونة ====== */
     .category-icon {
-        width: 80px;
-        height: 80px;
+        width: 100px;
+        height: 100px;
         background: rgba(193, 154, 107, 0.1);
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin: 0 auto 20px;
-        transition: all 0.5s ease;
+        margin: 0 auto 30px;
+        transition: var(--apple-transition);
+        position: relative;
+        overflow: hidden;
     }
 
     .category-card:hover .category-icon {
         background: var(--accent);
-        transform: scale(1.1) rotate(5deg);
+        transform: scale(1.15) translateY(-5px);
     }
 
-    .category-icon i {
-        font-size: 2rem;
+    .category-icon i, .category-icon .lucide {
+        font-size: 2.4rem;
         color: var(--accent);
-        transition: all 0.5s ease;
+        transition: var(--apple-transition);
     }
 
-    .category-card:hover .category-icon i {
+    .category-card:hover .category-icon i,
+    .category-card:hover .category-icon .lucide {
         color: white;
+        transform: scale(1.1);
     }
 
+    /* ====== العناوين والنصوص ====== */
     .category-info h4 {
+        color: var(--primary-text);
+        margin-bottom: 18px;
+        font-size: 1.5rem;
+        font-family: -apple-system, BlinkMacSystemFont, 'Amiri', serif;
+        font-weight: 700;
+        transition: var(--apple-transition);
+    }
+
+    .category-card:hover .category-info h4 {
         color: var(--accent);
-        margin-bottom: 12px;
-        font-size: 1.3rem;
-        font-family: 'Amiri', serif;
     }
 
     .category-info p {
         opacity: 0.8;
+        font-size: 1.05rem;
+        line-height: 1.7;
+        color: var(--secondary-text);
+    }
+
+    /* ====== 📀 Enhanced Latest Releases ====== */
+    .latest-releases {
+        position: relative;
+        padding: 120px 20px;
+        background: linear-gradient(to bottom, var(--primary-bg), #f0ebe3);
+        overflow: hidden;
+    }
+
+    /* 🟢 الزخرفة التراثية الخلفية */
+    .latest-releases::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none"><defs><pattern id="arabic-pattern" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M10,0 C15,5 15,15 10,20 C5,15 5,5 10,0Z" fill="rgba(193,154,107,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23arabic-pattern)"/></svg>');
+        opacity: 0.3;
+        pointer-events: none;
+        mix-blend-mode: soft-light;
+        animation: slowMove 60s linear infinite;
+        z-index: 0;
+    }
+
+    /* 🟠 الشبكة الهندسية فوق الزخرفة */
+    .latest-releases::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(193,154,107,0.05)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+        opacity: 0.5;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    /* ==== البطاقات ==== */
+    .releases-carousel {
+        position: relative;
+        overflow: hidden;
+        padding: 40px 0;
+    }
+
+    .releases-track {
+        display: flex;
+        gap: 35px;
+        transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        padding: 20px;
+    }
+
+    .release-card {
+        min-width: 350px;
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(15px) saturate(180%);
+        -webkit-backdrop-filter: blur(15px) saturate(180%);
+        border-radius: var(--apple-radius-large);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        transition: var(--apple-transition);
+        flex-shrink: 0;
+        position: relative;
+        overflow: hidden;
+        opacity: 0;
+        transform: translateY(40px);
+        transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .release-card.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .release-card:hover {
+        transform: translateY(-15px) scale(1.03);
+        box-shadow: 0 25px 45px rgba(0, 0, 0, 0.12);
+        border-color: rgba(193, 154, 107, 0.35);
+    }
+
+    /* ==== الصورة ==== */
+    .release-image {
+        position: relative;
+        overflow: hidden;
+        height: 240px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .release-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.9s ease;
+    }
+
+    .release-card:hover .release-image img {
+        transform: scale(1.1) rotate(1deg);
+    }
+
+    /* ==== المعلومات ==== */
+    .release-info {
+        padding: 30px;
+        text-align: center;
+    }
+
+    .release-info h4 {
+        margin: 0 0 15px;
+        font-size: 1.5rem;
+        font-family: -apple-system, BlinkMacSystemFont, 'Amiri', serif;
+        line-height: 1.5;
+        color: var(--primary-text);
+        font-weight: 700;
+        transition: var(--apple-transition);
+        text-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .release-card:hover .release-info h4 {
+        color: var(--accent);
+    }
+
+    .release-meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
         font-size: 0.95rem;
+        color: var(--secondary-text);
+        opacity: 0.9;
+    }
+
+    .release-date {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .release-date i {
+        color: var(--accent);
+        font-size: 1.1rem;
+    }
+
+    /* ==== زر القراءة ==== */
+    .read-more-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: transparent;
+        color: var(--accent);
+        border: 1px solid var(--accent);
+        padding: 10px 24px;
+        border-radius: 50px;
+        font-weight: 600;
+        transition: var(--apple-transition);
+        font-size: 0.95rem;
+    }
+
+    .read-more-btn:hover {
+        background: var(--accent);
+        color: #fff;
+        transform: translateY(-4px);
+        box-shadow: 0 6px 15px rgba(193, 154, 107, 0.3);
+    }
+
+    /* ==== أزرار السلايدر ==== */
+    .carousel-controls {
+        display: flex;
+        justify-content: center;
+        gap: 18px;
+        margin-top: 40px;
+    }
+
+    .carousel-btn {
+        width: 55px;
+        height: 55px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.6);
+        border: 1px solid rgba(193, 154, 107, 0.25);
+        color: var(--accent);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: var(--apple-transition);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        backdrop-filter: blur(12px);
+    }
+
+    .carousel-btn:hover {
+        background: var(--accent);
+        color: white;
+        transform: translateY(-4px) scale(1.05);
+        box-shadow: 0 10px 25px rgba(193, 154, 107, 0.3);
+    }
+
+    /* ====== 📰 Apple-Style Enhanced Latest News Section ====== */
+    .latest-news {
+        padding: 120px 20px;
+        background: linear-gradient(to bottom right, #f8f6f2, #f4f0ea);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .latest-news::before {
+        content: "";
+        position: absolute;
+        top: -50px;
+        left: -50px;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle at top left, rgba(255,255,255,0.3), transparent 70%);
+        z-index: 0;
+    }
+
+    .news-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 40px;
+        position: relative;
+        z-index: 1;
+    }
+
+    /* ====== Main News Card ====== */
+    .main-news {
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(25px);
+        border-radius: var(--apple-radius-large);
+        overflow: hidden;
+        box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+        display: flex;
+        flex-direction: column;
+        transition: all 0.4s ease;
+    }
+
+    .main-news:hover {
+        transform: translateY(-10px) scale(1.01);
+        box-shadow: 0 15px 45px rgba(0,0,0,0.1);
+    }
+
+    .main-news-image img {
+        width: 100%;
+        height: 340px;
+        object-fit: cover;
+        transition: transform 0.6s ease;
+    }
+
+    .main-news:hover img {
+        transform: scale(1.05);
+    }
+
+    .main-news-content {
+        padding: 35px;
+    }
+
+    .main-news-content h4 {
+        font-size: 1.7rem;
+        margin-bottom: 18px;
+        color: var(--primary-text);
+        font-weight: 600;
+        letter-spacing: -0.5px;
+        font-family: "SF Pro Display", "Amiri", serif;
+    }
+
+    .news-summary {
+        color: var(--secondary-text);
+        line-height: 1.75;
+        font-size: 1.08rem;
+    }
+
+    /* ====== Side News Cards ====== */
+    .side-news {
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+        gap: 30px;
+    }
+
+    .side-item {
+        position: relative;
+        border-radius: var(--apple-radius-large);
+        overflow: hidden;
+        background: rgba(255,255,255,0.6);
+        backdrop-filter: blur(20px);
+        box-shadow: 0 6px 25px rgba(0,0,0,0.07);
+        transition: all 0.4s ease;
+    }
+
+    .side-item img,
+    .side-item video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s ease;
+    }
+
+    .side-item .overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0,0,0,0.45);
+        color: #fff;
+        padding: 20px;
+        font-size: 1.05rem;
+        text-align: center;
+        backdrop-filter: blur(8px);
+    }
+
+    .side-item:hover {
+        transform: translateY(-8px) scale(1.02);
+    }
+
+    .side-item:hover img,
+    .side-item:hover video {
+        transform: scale(1.1);
+    }
+
+    /* ====== Enhanced Section Headers ====== */
+    .section-header {
+        text-align: center;
+        margin-bottom: 80px;
+    }
+
+    .section-header h3 {
+        font-size: 2.6rem;
+        font-weight: 700;
+        color: var(--accent);
+        margin-bottom: 20px;
+        font-family: -apple-system, BlinkMacSystemFont, 'Amiri', serif;
+        position: relative;
+        display: inline-block;
+    }
+
+    .section-header h3:after {
+        content: '';
+        position: absolute;
+        width: 60%;
+        height: 4px;
+        bottom: -12px;
+        right: 20%;
+        background: linear-gradient(to left, var(--accent), transparent);
+        border-radius: 2px;
+    }
+
+    .section-header p {
+        max-width: 650px;
+        margin: 0 auto;
+        color: var(--secondary-text);
+        font-size: 1.15rem;
         line-height: 1.7;
     }
 
-    /* ====== إحصائيات ====== */
+    /* ====== Enhanced Stats Section ====== */
     .stats {
-        padding: 80px 20px;
-        background: linear-gradient(135deg, var(--accent), var(--secondary-accent));
+        padding: 100px 20px;
+        background: var(--gradient-primary);
         color: white;
         text-align: center;
     }
 
     .stats-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 30px;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 35px;
     }
 
     .stat-item {
         opacity: 0;
         transform: translateY(30px);
+        transition: all 0.6s ease;
     }
 
     .stat-item.visible {
@@ -584,21 +1025,22 @@
     }
 
     .stat-number {
-        font-size: 3rem;
+        font-size: 3.2rem;
         font-weight: 700;
-        margin-bottom: 10px;
-        font-family: 'Amiri', serif;
+        margin-bottom: 12px;
+        font-family: -apple-system, BlinkMacSystemFont, 'Amiri', serif;
     }
 
     .stat-label {
-        font-size: 1.1rem;
+        font-size: 1.15rem;
         opacity: 0.9;
+        font-weight: 300;
     }
 
-    /* ====== عن الموقع ====== */
+    /* ====== Enhanced About Section ====== */
     .about-short {
         text-align: center;
-        padding: 120px 20px;
+        padding: 140px 20px;
         background: var(--primary-bg);
         position: relative;
     }
@@ -610,16 +1052,16 @@
         right: 0;
         width: 100%;
         height: 100%;
-        background: url('{% static "images/arabesque-pattern.png" %}') repeat;
-        opacity: 0.03;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none"><defs><pattern id="pattern" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(193,154,107,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23pattern)"/></svg>') repeat;
+        opacity: 0.5;
         pointer-events: none;
     }
 
     .about-short h3 {
         color: var(--accent);
-        font-size: 2.4rem;
-        margin-bottom: 25px;
-        font-family: 'Amiri', serif;
+        font-size: 2.6rem;
+        margin-bottom: 30px;
+        font-family: -apple-system, BlinkMacSystemFont, 'Amiri', serif;
         position: relative;
         display: inline-block;
     }
@@ -628,93 +1070,98 @@
         content: '';
         position: absolute;
         width: 60%;
-        height: 3px;
-        bottom: -10px;
+        height: 4px;
+        bottom: -15px;
         right: 20%;
         background: linear-gradient(to left, var(--accent), transparent);
+        border-radius: 2px;
     }
 
     .about-short p {
-        max-width: 800px;
-        margin: 30px auto 0;
+        max-width: 850px;
+        margin: 35px auto 0;
         opacity: 0.85;
-        font-size: 1.15rem;
+        font-size: 1.2rem;
         line-height: 1.9;
+        font-weight: 300;
     }
 
-    /* ====== النشرة البريدية ====== */
+    /* ====== Enhanced Newsletter Section ====== */
     .newsletter {
-        padding: 80px 20px;
+        padding: 100px 20px;
         background: linear-gradient(to right, #f0ebe3, var(--primary-bg));
         text-align: center;
     }
 
     .newsletter-box {
         background: var(--card-bg);
-        border-radius: 20px;
-        padding: 50px 40px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-        max-width: 700px;
+        border-radius: var(--apple-radius-large);
+        padding: 60px 50px;
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+        max-width: 750px;
         margin: 0 auto;
     }
 
     .newsletter h4 {
         color: var(--accent);
-        font-size: 1.8rem;
-        margin-bottom: 15px;
-        font-family: 'Amiri', serif;
+        font-size: 2rem;
+        margin-bottom: 20px;
+        font-family: -apple-system, BlinkMacSystemFont, 'Amiri', serif;
     }
 
     .newsletter p {
         color: var(--secondary-text);
-        margin-bottom: 30px;
-        max-width: 500px;
+        margin-bottom: 35px;
+        max-width: 550px;
         margin-left: auto;
         margin-right: auto;
+        font-size: 1.1rem;
     }
 
     .newsletter-form {
         display: flex;
-        gap: 10px;
-        max-width: 500px;
+        gap: 12px;
+        max-width: 550px;
         margin: 0 auto;
     }
 
     .newsletter-input {
         flex: 1;
-        padding: 15px 20px;
+        padding: 18px 25px;
         border: 1px solid var(--border);
         border-radius: 50px;
         font-family: inherit;
-        font-size: 1rem;
-        transition: all 0.3s ease;
+        font-size: 1.05rem;
+        transition: var(--apple-transition);
+        background: rgba(255, 255, 255, 0.8);
     }
 
     .newsletter-input:focus {
         outline: none;
         border-color: var(--accent);
-        box-shadow: 0 0 0 3px rgba(193, 154, 107, 0.2);
+        box-shadow: 0 0 0 4px rgba(193, 154, 107, 0.2);
+        background: white;
     }
 
-    /* ====== التذييل ====== */
+    /* ====== Enhanced Footer ====== */
     .footer {
-        background: #2C2C2C;
+        background: #1D1D1F;
         color: #ddd;
-        padding: 60px 20px 30px;
+        padding: 80px 20px 40px;
     }
 
     .footer-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 40px;
-        margin-bottom: 40px;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 45px;
+        margin-bottom: 50px;
     }
 
     .footer-col h5 {
         color: var(--accent);
-        font-size: 1.3rem;
-        margin-bottom: 20px;
-        font-family: 'Amiri', serif;
+        font-size: 1.4rem;
+        margin-bottom: 25px;
+        font-family: -apple-system, BlinkMacSystemFont, 'Amiri', serif;
         position: relative;
         display: inline-block;
     }
@@ -722,11 +1169,12 @@
     .footer-col h5:after {
         content: '';
         position: absolute;
-        width: 40px;
+        width: 45px;
         height: 2px;
-        bottom: -8px;
+        bottom: -10px;
         right: 0;
         background-color: var(--accent);
+        border-radius: 1px;
     }
 
     .footer-links {
@@ -734,61 +1182,62 @@
     }
 
     .footer-links li {
-        margin-bottom: 12px;
+        margin-bottom: 15px;
     }
 
     .footer-links a {
         color: #aaa;
-        transition: all 0.3s ease;
+        transition: var(--apple-transition);
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 10px;
+        font-size: 1rem;
     }
 
     .footer-links a:hover {
         color: var(--accent);
-        transform: translateX(-5px);
+        transform: translateX(-8px);
     }
 
     .footer-links i {
-        font-size: 0.8rem;
+        font-size: 0.85rem;
     }
 
     .social-links {
         display: flex;
-        gap: 15px;
-        margin-top: 20px;
+        gap: 18px;
+        margin-top: 25px;
     }
 
     .social-links a {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 40px;
-        height: 40px;
+        width: 45px;
+        height: 45px;
         background: rgba(255, 255, 255, 0.05);
         border-radius: 50%;
-        transition: all 0.3s ease;
+        transition: var(--apple-transition);
     }
 
     .social-links a:hover {
         background: var(--accent);
-        transform: translateY(-5px);
+        transform: translateY(-5px) scale(1.1);
     }
 
     .copyright {
         text-align: center;
-        padding-top: 30px;
+        padding-top: 40px;
         border-top: 1px solid rgba(255, 255, 255, 0.1);
         color: #888;
-        font-size: 0.9rem;
+        font-size: 0.95rem;
     }
 
-    /* ====== الرسوم المتحركة ====== */
+    /* ====== Enhanced Animations ====== */
     @keyframes fadeInUp {
         from {
             opacity: 0;
-            transform: translateY(40px);
+            transform: translateY(50px);
         }
         to {
             opacity: 1;
@@ -805,18 +1254,124 @@
         }
     }
 
-    /* ====== الوسائط المتعددة ====== */
-    @media (max-width: 992px) {
-        .nav {
-            gap: 20px;
+    /* ====== Enhanced News Slider ====== */
+    .hero-news-slider {
+        position: absolute;
+        bottom: 25px;
+        width: 100%;
+        overflow: hidden;
+        padding: 20px 0;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 10;
+        backdrop-filter: blur(10px);
+    }
+
+    .news-track {
+        display: flex;
+        gap: 25px;
+        animation: scrollNews 50s linear infinite;
+    }
+
+    .news-card {
+        display: flex;
+        flex-direction: column;
+        min-width: 280px;
+        max-width: 300px;
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: var(--apple-radius);
+        overflow: hidden;
+        transition: var(--apple-transition);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .news-card:hover {
+        transform: scale(1.1);
+        background: rgba(255, 255, 255, 0.12);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    }
+
+    .news-card-img img {
+        width: 100%;
+        height: 160px;
+        object-fit: cover;
+    }
+
+    .news-card-content {
+        padding: 15px;
+        background: rgba(0,0,0,0.4);
+        text-align: center;
+    }
+
+    .news-title {
+        font-size: 17px;
+        color: #fff;
+        font-weight: 600;
+        margin-bottom: 8px;
+        line-height: 1.4;
+    }
+
+    .news-date {
+        font-size: 13px;
+        color: #ddd;
+    }
+
+    .hero-news-slider:hover .news-track {
+        animation-play-state: paused;
+    }
+
+    @keyframes scrollNews {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-100%); }
+    }
+
+    /* ====== Enhanced Responsive Design ====== */
+    @media (max-width: 1200px) {
+        .container {
+            width: 95%;
+            max-width: 1200px;
         }
         
-        .hero h2 {
+        .hero h1 {
+            font-size: 3rem;
+        }
+        
+        .section-header h3 {
+            font-size: 2.3rem;
+        }
+        
+        .header-search {
+            max-width: 300px;
+        }
+    }
+
+    @media (max-width: 992px) {
+        .nav {
+            gap: 25px;
+        }
+        
+        .hero h1 {
             font-size: 2.6rem;
         }
         
         .section-header h3 {
             font-size: 2rem;
+        }
+        
+        .news-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .side-news {
+            grid-template-rows: 1fr 1fr;
+        }
+        
+        .categories-grid {
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+        
+        .header-search {
+            display: none;
         }
     }
 
@@ -827,19 +1382,21 @@
         
         .nav {
             position: fixed;
-            top: 70px;
+            top: 80px;
             right: -100%;
             background: var(--card-bg);
-            width: 80%;
-            height: calc(100vh - 70px);
+            width: 85%;
+            height: calc(100vh - 80px);
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
-            padding-top: 40px;
-            gap: 30px;
-            transition: all 0.5s ease;
-            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            padding-top: 50px;
+            gap: 35px;
+            transition: var(--apple-transition);
+            box-shadow: -8px 0 25px rgba(0, 0, 0, 0.1);
             z-index: 999;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
         }
         
         .nav.active {
@@ -849,454 +1406,997 @@
         .nav-actions {
             flex-direction: column;
             width: 80%;
-            margin-top: 30px;
+            margin-top: 40px;
         }
         
         .hero {
-            padding: 140px 20px;
+            padding: 160px 20px;
+            min-height: 600px;
         }
         
-        .hero h2 {
+        .hero h1 {
             font-size: 2.2rem;
+        }
+        
+        .hero p {
+            font-size: 1.1rem;
         }
         
         .hero-btns {
             flex-direction: column;
             align-items: center;
+            gap: 15px;
         }
         
         .btn {
             width: 100%;
-            max-width: 280px;
+            max-width: 300px;
             justify-content: center;
-        }
-        
-        .newsletter-form {
-            flex-direction: column;
-        }
-    }
-
-    @media (max-width: 576px) {
-        .hero h2 {
-            font-size: 1.8rem;
-        }
-        
-        .section-header h3 {
-            font-size: 1.8rem;
-        }
-        
-        .articles-grid {
-            grid-template-columns: 1fr;
         }
         
         .categories-grid {
             grid-template-columns: 1fr;
         }
         
-        .footer-grid {
-            grid-template-columns: 1fr;
-            gap: 30px;
+        .release-card {
+            min-width: 300px;
+        }
+        
+        .newsletter-form {
+            flex-direction: column;
+        }
+        
+        .news-card {
+            min-width: 220px;
+            max-width: 240px;
+        }
+        
+        .news-card-img img {
+            height: 120px;
+        }
+        
+        .news-title {
+            font-size: 15px;
         }
     }
-    .gallery-carousel {
-    padding: 80px 20px;
-    background: #0f0f0f;
-    color: #f5f5f5;
-}
-.gallery-carousel .carousel-wrapper {
-    position: relative;
-    overflow: hidden;
-}
-.gallery-carousel .carousel {
-    display: flex;
-    transition: transform 0.5s ease;
-    gap: 20px;
-}
-.gallery-carousel .carousel-item {
-    min-width: 300px;
-    max-width: 300px;
-    background: #1a1a1a;
-    border-radius: 12px;
-    overflow: hidden;
-    flex-shrink: 0;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-}
-.gallery-carousel img, .gallery-carousel video {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
-.gallery-carousel .news-card {
-    padding: 15px;
-}
-.carousel-prev, .carousel-next {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(212, 175, 55, 0.8);
-    border: none;
-    color: #000;
-    font-size: 1.5em;
-    padding: 10px;
-    border-radius: 50%;
-    cursor: pointer;
-    z-index: 10;
-}
-.carousel-prev { right: 10px; }
-.carousel-next { left: 10px; }
-.carousel-prev:hover, .carousel-next:hover { background: #ffce54; }
 
-</style>
+    @media (max-width: 576px) {
+        .hero h1 {
+            font-size: 1.9rem;
+        }
+        
+        .section-header h3 {
+            font-size: 1.8rem;
+        }
+        
+        .stats-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .footer-grid {
+            grid-template-columns: 1fr;
+            gap: 35px;
+        }
+        
+        .newsletter-box {
+            padding: 40px 25px;
+        }
+        
+        .about-short p {
+            font-size: 1.1rem;
+        }
+    }
+
+    /* ====== Skip to Main Content for Accessibility ====== */
+    .skip-link {
+        position: absolute;
+        top: -40px;
+        left: 0;
+        background: var(--accent);
+        color: white;
+        padding: 8px 16px;
+        text-decoration: none;
+        border-radius: 0 0 4px 0;
+        z-index: 1001;
+        transition: top 0.3s;
+    }
+
+    .skip-link:focus {
+        top: 0;
+    }
+
+    /* ====== Print Styles ====== */
+    @media print {
+        .header, .footer, .hero-news-slider, .carousel-controls, .nav-actions {
+            display: none;
+        }
+        
+        body {
+            background: white;
+            color: black;
+            font-size: 12pt;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: none;
+        }
+        
+        a {
+            color: black;
+            text-decoration: underline;
+        }
+        
+        .btn, .nav-btn {
+            display: none;
+        }
+    }
+
+    /* ====== Enhanced Notification Popup ====== */
+    .notification-popup {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s ease;
+        backdrop-filter: blur(5px);
+    }
+
+    .notification-popup.active {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .popup-content {
+        background: linear-gradient(145deg, #fef9f3, #fff8e7);
+        border: 2px solid var(--accent);
+        padding: 35px 40px;
+        border-radius: var(--apple-radius-large);
+        max-width: 500px;
+        width: 90%;
+        text-align: center;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        animation: slideDown 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        position: relative;
+        transform-origin: center;
+    }
+
+    .popup-header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    .popup-icon {
+        font-size: 32px;
+        color: var(--accent);
+    }
+
+    .popup-content h3 {
+        font-size: 24px;
+        color: var(--primary-text);
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, 'Amiri', serif;
+    }
+
+    .popup-content p {
+        font-size: 16px;
+        margin-bottom: 25px;
+        color: var(--secondary-text);
+        line-height: 1.6;
+    }
+
+    .popup-content button.close-popup {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        background: var(--accent);
+        color: #fff;
+        border: none;
+        font-size: 18px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: var(--apple-transition);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .popup-content button.close-popup:hover {
+        transform: scale(1.1) rotate(90deg);
+        background: var(--secondary-accent);
+        box-shadow: 0 5px 15px rgba(193, 154, 107, 0.4);
+    }
+
+    @keyframes slideDown {
+        0% { 
+            transform: translateY(-50px) scale(0.9);
+            opacity: 0;
+        }
+        100% { 
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+    }
+
+    /* ====== Enhanced Loading Animation ====== */
+    .loading-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--primary-bg);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    .loading-overlay.hidden {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    .loading-spinner {
+        width: 60px;
+        height: 60px;
+        border: 4px solid rgba(193, 154, 107, 0.2);
+        border-top: 4px solid var(--accent);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    /* ====== Enhanced Scroll Progress Bar ====== */
+    .scroll-progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 0%;
+        height: 3px;
+        background: var(--accent);
+        z-index: 1001;
+        transition: width 0.1s ease;
+    }
+
+    /* ====== Enhanced Back to Top Button ====== */
+    .back-to-top {
+        position: fixed;
+        bottom: 30px;
+        left: 30px;
+        width: 50px;
+        height: 50px;
+        background: var(--accent);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        opacity: 0;
+        visibility: hidden;
+        transition: var(--apple-transition);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 5px 20px rgba(193, 154, 107, 0.4);
+        z-index: 999;
+    }
+
+    .back-to-top.visible {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .back-to-top:hover {
+        transform: translateY(-5px) scale(1.1);
+        box-shadow: 0 10px 25px rgba(193, 154, 107, 0.5);
+    }
+    </style>
+    
+    <!-- تحميل الخطوط -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Amiri:wght@400;700&family=Almarai:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lucide-static@0.263.0/font/lucide.css">
 </head>
 
 <body>
-
-<!-- الهيدر -->
-<header class="header" id="header">
-    <div class="container">
-        <h1 class="logo">
-            <a href="/"><i class="fas fa-feather-alt"></i> الثَّقَف العربي</a>
-        </h1>
-        
-        <button class="mobile-menu-btn" id="mobileMenuBtn">
-            <i class="fas fa-bars"></i>
-        </button>
-        
-        <nav class="nav" id="nav">
-            <a href="/">الرئيسية</a>
-            <a href="/articles/">المقالات</a>
-            <a href="/categories/">الأقسام</a>
-            <a href="/gallery/">المعرض</a>
-
-            <a href="/about/">من نحن</a>
-            <a href="/contact/">اتصل بنا</a>
-            
-            <div class="nav-actions">
-                <button class="nav-btn"><i class="fas fa-search"></i> بحث</button>
-                <button class="nav-btn"><i class="fas fa-user"></i> دخول</button>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loader-container">
+            <div class="ball">
+                <div class="inner">
+                    <div class="line"></div>
+                    <div class="line line--two"></div>
+                    <div class="oval"></div>
+                    <div class="oval oval--two"></div>
+                </div>
             </div>
-        </nav>
-    </div>
-</header>
-
-<!-- المقدمة (Hero Section) -->
-<section class="hero">
-    <!-- 🎬 فيديو الخلفية -->
-    <video autoplay muted loop playsinline class="hero-video">
-        <source src="https://h.top4top.io/m_3596xgndj1.mp4" type="video/mp4">
-        متصفحك لا يدعم تشغيل الفيديو.
-    </video>
-
-  
-    <!-- المحتوى فوق الفيديو -->
-    <div class="hero-content">
-        <h2>اكتشف كنوز <span>الثقافة العربية</span> عبر العصور</h2>
-        <p>انطلق في رحلة استكشافية عبر تاريخنا المجيد، أدبنا الخالد، وفنوننا الأصيلة. مدونة عربية شاملة تقدم محتوى ثقافي ومعرفي مميز.</p>
-        <div class="hero-btns">
-            <a href="{% url 'articles' %}" class="btn"><i class="fas fa-book-open"></i> ابدأ القراءة</a>
-            <a href="/about/" class="btn btn-secondary"><i class="fas fa-play-circle"></i> تعرف علينا</a>
+            <div class="shadow"></div>
         </div>
     </div>
-</section>
 
-<!-- 📰 أحدث المقالات -->
-<section class="latest-articles">
-    <div class="container">
-        <div class="section-header">
-            <h3>أحدث الإصدارات</h3>
-            <p>اكتشف أحدث مقالاتنا المميزة في مختلف المجالات الثقافية والأدبية</p>
+    <!-- Skip to main content link -->
+    <a href="#main-content" class="skip-link">انتقل إلى المحتوى الرئيسي</a>
+
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="العودة إلى الأعلى">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- Notification Popup -->
+    {% if notifications %}
+      {% for note in notifications %}
+        {% if note.is_active %}
+          <div class="notification-popup" id="notificationPopup">
+            <div class="popup-content">
+              <div class="popup-header">
+                <span class="popup-icon"><i class="fas fa-bell"></i></span>
+                <h3>{{ note.title }}</h3>
+              </div>
+              <p>{{ note.message }}</p>
+              <button class="close-popup" aria-label="إغلاق الإشعار">&times;</button>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+
+    <!-- الهيدر -->
+    <header class="header" id="header">
+        <div class="container">
+            <h1 class="logo">
+                <a href="/"><i class="fas fa-feather-alt"></i> الثَّقَف العربي</a>
+            </h1>
+            
+            <!-- نموذج البحث في الهيدر -->
+            <form action="{% url 'search' %}" method="get" class="header-search">
+                <input type="text" name="q" placeholder="ابحث هنا..." required aria-label="بحث">
+                <button type="submit" aria-label="تنفيذ البحث"><i class="fas fa-search"></i></button>
+            </form>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="فتح القائمة">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav class="nav" id="nav" aria-label="القائمة الرئيسية">
+                <a href="/">الرئيسية</a>
+                <a href="/articles/">المقالات</a>
+                <a href="/categories/">الأقسام</a>
+                <a href="/gallery/">المعرض</a>
+                <a href="/about/">من نحن</a>
+                <a href="/contact/">اتصل بنا</a>
+                
+                <div class="nav-actions">
+                    <button class="nav-btn"><i class="fas fa-user"></i> دخول</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- المقدمة (Hero Section) -->
+    <section class="hero" id="main-content">
+        <!-- 🖼️ صورة الخلفية -->
+        <picture>
+            <!-- صورة للهواتف -->
+            <source media="(max-width: 767px)" srcset="https://e.top4top.io/p_3604xosgd1.png">
+            <!-- صورة لأجهزة الكمبيوتر -->
+            <img src="https://e.top4top.io/p_3604ri95c1.png" alt="خلفية الثقافة العربية" class="hero-image" aria-hidden="true">
+        </picture>
+
+        <!-- الأيقونات العائمة -->
+        <div class="floating-icons">
+            <i class="fas fa-scroll floating-icon"></i>
+            <i class="fas fa-mosque floating-icon"></i>
+            <i class="fas fa-pen-nib floating-icon"></i>
+            <i class="fas fa-book floating-icon"></i>
+            <i class="fas fa-palette floating-icon"></i>
+            <i class="fas fa-archway floating-icon"></i>
         </div>
 
-        <div class="articles-grid">
-            {% for article in latest_articles %}
-            <div class="article-card">
-                <a href="{% url 'article_detail' article.slug %}" class="article-image">
-                    {% if article.image %}
-                        <img src="{{ article.image.url }}" alt="{{ article.title }}">
-                    {% elif article.image_url %}
-                        <img src="{{ article.image_url }}" alt="{{ article.title }}">
-                    {% else %}
-                        <img src="{% static 'images/default.jpg' %}" alt="{{ article.title }}">
-                    {% endif %}
-                    <div class="article-category">
-                        {{ article.category.name|default:"ثقافة" }}
-                    </div>
-                </a>
+        <!-- المحتوى فوق الصورة -->
+        <div class="hero-content">
+            <h1>اكتشف كنوز <span>الثقافة العربية</span> عبر العصور</h1>
+            <p>انطلق في رحلة استكشافية عبر تاريخنا المجيد، أدبنا الخالد، وفنوننا الأصيلة. مدونة عربية شاملة تقدم محتوى ثقافي ومعرفي مميز.</p>
+            <div class="hero-btns">
+                <a href="/articles/" class="btn"><i class="fas fa-book-open"></i> ابدأ القراءة</a>
+                <a href="/about/" class="btn btn-secondary"><i class="fas fa-play-circle"></i> تعرف علينا</a>
+            </div>
+        </div>
+    </section>
 
-                <div class="article-info">
-                    <h4><a href="{% url 'article_detail' article.slug %}">{{ article.title }}</a></h4>
-                    <div class="article-meta">
-                        <span><i class="far fa-calendar"></i> {{ article.publish_date|date:"Y-m-d" }}</span>
-                        {% if article.read_time %}
-                        <span><i class="far fa-clock"></i> {{ article.read_time }} دقيقة</span>
-                        {% endif %}
-                    </div>
-                    <p class="article-summary">{{ article.content|striptags|truncatewords:10 }}</p>
-                    <a href="{% url 'article_detail' article.slug %}" class="read-more">
-                        اقرأ المزيد <i class="fas fa-arrow-left"></i>
+    <!-- 🧭 قسم الأقسام (Categories Section) -->
+    <section class="categories">
+        <div class="container">
+            <div class="section-header">
+                <h3>أقسامنا الثقافية</h3>
+                <p>استكشف مجموعة أقسامنا المتنوعة التي تغطي مختلف جوانب الثقافة العربية</p>
+            </div>
+            
+            <div class="categories-grid">
+                {% for category in categories %}
+                <div class="category-card">
+                    <a href="{% url 'category_detail' category.slug %}">
+                        <div class="category-icon">
+                            {% if category.icon %}
+                                <i class="lucide" data-lucide="{{ category.icon }}"></i>
+                            {% else %}
+                                <i class="lucide" data-lucide="book-open"></i>
+                            {% endif %}
+                        </div>
+                        <div class="category-info">
+                            <h4>{{ category.name }}</h4>
+                            <p>{{ category.description|truncatewords:15 }}</p>
+                        </div>
                     </a>
                 </div>
-            </div>
-            {% empty %}
-            <p class="no-articles">لا توجد مقالات حالياً.</p>
-            {% endfor %}
-        </div>
-    </div>
-</section>
-
-
-<!-- الأقسام -->
-<section class="categories">
-    <div class="container">
-        <div class="section-header">
-            <h3>أقسامنا الثقافية</h3>
-            <p>استكشف مجموعة أقسامنا المتنوعة التي تغطي مختلف جوانب الثقافة العربية</p>
-        </div>
-        
-        <div class="categories-grid">
-            {% for category in categories %}
-            <div class="category-card">
-                <a href="{% url 'category_detail' category.slug %}">
-                    <div class="category-icon">
-                        <i class="fas fa-monument"></i>
-                    </div>
-                    <div class="category-info">
-                        <h4>{{ category.name }}</h4>
-                        <p>{{ category.description|truncatewords:15 }}</p>
-                    </div>
-                </a>
-            </div>
-            {% empty %}
-            <p style="text-align:center; grid-column: 1/-1;">لم يتم إضافة أقسام بعد.</p>
-            {% endfor %}
-        </div>
-    </div>
-</section>
-<!-- 🎨 معرض الصور والفيديوهات والأخبار -->
-<section class="gallery-carousel">
-    <div class="container">
-        <div class="section-header">
-            <h3>آخر الأخبار</h3>
-            <p>احدث الأخبار الثقافية</p>
-        </div>
-
-        <div class="carousel-wrapper">
-            <div class="carousel" id="galleryCarousel">
-                {% for item in gallery_items %}
-                    {% if item.type == 'news' %}
-                        <div class="carousel-item">
-                            <div class="news-card">
-                                <h4>{{ item.title }}</h4>
-                                <p>{{ item.summary|truncatewords:20 }}</p>
-                                <a href="{% url 'gallery_detail' item.id %}" class="read-more">اقرأ المزيد →</a>
-                            </div>
-                        </div>
-                    {% endif %}
                 {% empty %}
-                    <p style="text-align:center;">لا توجد أخبار حالياً.</p>
+                <p style="text-align:center; grid-column: 1 / -1;">لم يتم إضافة أقسام بعد.</p>
                 {% endfor %}
             </div>
-            
-            <!-- أزرار التحكم -->
-            <button class="carousel-prev"><i class="fas fa-chevron-left"></i></button>
-            <button class="carousel-next"><i class="fas fa-chevron-right"></i></button>
         </div>
-    </div>
-</section>
+    </section>
 
+    <!-- 📀 قسم أحدث الإصدارات (Latest Releases) -->
+    <section class="latest-releases">
+        <div class="container">
+            <div class="section-header">
+                <h3>أحدث الإصدارات</h3>
+                <p>اكتشف أحدث مقالاتنا المميزة في مختلف المجالات الثقافية والأدبية</p>
+            </div>
 
+            <div class="releases-carousel">
+                <div class="releases-track" id="releasesTrack">
+                    {% for article in latest_articles %}
+                    <div class="release-card">
+                        <a href="{% url 'article_detail' article.slug %}">
+                            <div class="release-image">
+                                {% if article.image %}
+                                    <img src="{{ article.image.url }}" alt="{{ article.title }}" loading="lazy">
+                                {% elif article.image_url %}
+                                    <img src="{{ article.image_url }}" alt="{{ article.title }}" loading="lazy">
+                                {% else %}
+                                    <img src="{% static 'images/default.jpg' %}" alt="{{ article.title }}" loading="lazy">
+                                {% endif %}
+                            </div>
+                            <div class="release-info">
+                                <h4>{{ article.title }}</h4>
+                                <div class="release-meta">
+                                    <span class="release-date">
+                                        <i class="far fa-calendar"></i>
+                                        {{ article.publish_date|date:"d F Y" }}
+                                    </span>
+                                </div>
+                                <button class="read-more-btn">
+                                    قراءة المزيد <i class="fas fa-arrow-left"></i>
+                                </button>
+                            </div>
+                        </a>
+                    </div>
+                    {% empty %}
+                    <p style="text-align:center; width:100%;">لا توجد إصدارات حالياً.</p>
+                    {% endfor %}
+                </div>
 
-<!-- إحصائيات -->
-<section class="stats">
-    <div class="container">
-        <div class="stats-grid">
-            <div class="stat-item">
-                <div class="stat-number">+250</div>
-                <div class="stat-label">مقالة ثقافية</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">+15</div>
-                <div class="stat-label">قسم متخصص</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">+50K</div>
-                <div class="stat-label">قارئ شهرياً</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">+5</div>
-                <div class="stat-label">سنوات من العطاء</div>
+                <div class="carousel-controls">
+                    <button class="carousel-btn" id="carouselPrev" aria-label="السابق">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                    <button class="carousel-btn" id="carouselNext" aria-label="التالي">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- نبذة قصيرة -->
-<section class="about-short">
-    <div class="container">
-        <h3>منصة الثقافة العربية</h3>
-        <p>نحن منصة عربية رائدة تهدف إلى إثراء المحتوى الثقافي العربي بمقالات وبحوث مميزة تغطي التاريخ، الأدب، الفنون، والتراث العربي والإنساني. نعمل على تقديم محتوى أصيل يجمع بين الأصالة والمعاصرة، ويسهم في تعزيز الهوية الثقافية والوعي المعرفي لدى القارئ العربي.</p>
-    </div>
-</section>
+    <!-- 🗞️ قسم آخر الأخبار (Latest News) -->
+    <section class="latest-news">
+        <div class="container">
+            <div class="section-header">
+                <h3>آخر الأخبار والمعرض الثقافي</h3>
+                <p>تابع أحدث الصور، الفيديوهات، والأخبار في المشهد الثقافي العربي</p>
+            </div>
 
-<!-- النشرة البريدية -->
-<section class="newsletter">
-    <div class="container">
-        <div class="newsletter-box">
-            <h4>انضم إلى قائمة بريدنا</h4>
-            <p>اشترك في نشرتنا البريدية لتصلك أحدث مقالاتنا وموادنا الثقافية مباشرة إلى بريدك الإلكتروني</p>
-            <form class="newsletter-form">
-                <input type="email" class="newsletter-input" placeholder="بريدك الإلكتروني" required>
-                <button type="submit" class="btn">اشتراك</button>
-            </form>
+            <div class="news-grid">
+                <!-- الأخبار الرئيسية -->
+                {% for item in gallery_items %}
+                    {% if item.type == 'news' %}
+                    <div class="main-news">
+                        <div class="main-news-image">
+                            <img src="{{ item.get_cover }}" alt="{{ item.title }}" loading="lazy">
+                        </div>
+                        <div class="main-news-content">
+                            <h4>{{ item.title }}</h4>
+                            <p class="news-summary">{{ item.description|truncatewords:30 }}</p>
+                            <a href="{% url 'gallery_detail' item.id %}" class="news-read-more">
+                                اقرأ المزيد <i class="fas fa-arrow-left"></i>
+                            </a>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+
+                <div class="side-news">
+                    <!-- الصور -->
+                    {% for item in gallery_items %}
+                        {% if item.type == 'image' %}
+                        <div class="side-item">
+                            <a href="{% url 'gallery_detail' item.id %}">
+                                <img src="{{ item.get_media }}" alt="{{ item.title }}" loading="lazy">
+                                <div class="overlay">
+                                    <p><i class="fas fa-camera"></i> {{ item.title }}</p>
+                                </div>
+                            </a>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+
+                    <!-- الفيديوهات -->
+                    {% for item in gallery_items %}
+                        {% if item.type == 'video' %}
+                        <div class="side-item">
+                            <a href="{% url 'gallery_detail' item.id %}">
+                                <img src="{{ item.get_cover }}" alt="{{ item.title }}" loading="lazy">
+                                <div class="overlay">
+                                    <p><i class="fas fa-video"></i> {{ item.title }}</p>
+                                </div>
+                            </a>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- التذييل -->
-<footer class="footer">
-    <div class="container">
-        <div class="footer-grid">
-            <div class="footer-col">
-                <h5>الثقَف العربي</h5>
-                <p>منصة ثقافية عربية تهدف إلى إثراء المحتوى الثقافي والمعرفي العربي من خلال مقالات وبحوث ومواد متنوعة تغطي مختلف جوانب الثقافة العربية والإنسانية.</p>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
+    <!-- 📊 قسم الإحصائيات -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-icon"><i class="fas fa-book"></i></div>
+                    <div class="stat-number" data-target="250">0</div>
+                    <div class="stat-label">مقالة ثقافية</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon"><i class="fas fa-layer-group"></i></div>
+                    <div class="stat-number" data-target="15">0</div>
+                    <div class="stat-label">قسم متخصص</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon"><i class="fas fa-users"></i></div>
+                    <div class="stat-number" data-target="50000">0</div>
+                    <div class="stat-label">قارئ شهرياً</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon"><i class="fas fa-award"></i></div>
+                    <div class="stat-number" data-target="5">0</div>
+                    <div class="stat-label">سنوات من العطاء</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- نبذة قصيرة -->
+    <section class="about-short">
+        <div class="container">
+            <h3>منصة الثقافة العربية</h3>
+            <p>نحن منصة عربية رائدة تهدف إلى إثراء المحتوى الثقافي العربي بمقالات وبحوث مميزة تغطي التاريخ، الأدب، الفنون، والتراث العربي والإنساني. نعمل على تقديم محتوى أصيل يجمع بين الأصالة والمعاصرة، ويسهم في تعزيز الهوية الثقافية والوعي المعرفي لدى القارئ العربي.</p>
+        </div>
+    </section>
+
+    <!-- 📨 النشرة البريدية -->
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-box">
+                <h4>انضم إلى قائمة بريدنا</h4>
+                <p>اشترك في نشرتنا البريدية لتصلك أحدث مقالاتنا وموادنا الثقافية مباشرة إلى بريدك الإلكتروني</p>
+                
+                <!-- نموذج الاشتراك -->
+                <form method="POST" action="{% url 'subscribe_newsletter' %}" class="newsletter-form">
+                    {% csrf_token %}
+                    <input type="email" name="email" class="newsletter-input" placeholder="بريدك الإلكتروني" required aria-label="البريد الإلكتروني">
+                    <button type="submit" class="btn">اشتراك</button>
+                </form>
+
+                <!-- رسائل التنبيه -->
+                {% if messages %}
+                    <div class="newsletter-messages">
+                        {% for message in messages %}
+                            <p class="message {{ message.tags }}">{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <!-- التذييل -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h5>الثقَف العربي</h5>
+                    <p>منصة ثقافية عربية تهدف إلى إثراء المحتوى الثقافي والمعرفي العربي من خلال مقالات وبحوث ومواد متنوعة تغطي مختلف جوانب الثقافة العربية والإنسانية.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="تويتر"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="فيسبوك"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="إنستغرام"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="يوتيوب"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h5>روابط سريعة</h5>
+                    <ul class="footer-links">
+                        <li><a href="/"><i class="fas fa-arrow-left"></i> الرئيسية</a></li>
+                        <li><a href="/articles/"><i class="fas fa-arrow-left"></i> المقالات</a></li>
+                        <li><a href="/categories/"><i class="fas fa-arrow-left"></i> الأقسام</a></li>
+                        <li><a href="/about/"><i class="fas fa-arrow-left"></i> من نحن</a></li>
+                        <li><a href="/contact/"><i class="fas fa-arrow-left"></i> اتصل بنا</a></li>
+                    </ul>
+                </div>
+                
+                 <div class="footer-col">
+                    <h5>الأقسام</h5>
+                    <ul class="footer-links">
+                        {% for category in categories|slice:":5" %}
+                        <li><a href="{% url 'category_detail' category.slug %}"><i class="fas fa-arrow-left"></i> {{ category.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>معلومات</h5>
+                    <ul class="footer-links">
+                        <li><a href="/cookies/"><i class="fas fa-arrow-left"></i> ملفات تعريف الارتباط </a></li>
+                        <li><a href="/privacy/"><i class="fas fa-arrow-left"></i> سياسة الخصوصية</a></li>
+                        <li><a href="/terms/"><i class="fas fa-arrow-left"></i> اتفاقية الاستخدام</a></li>
+                        <li><a href="/disclaimer/"><i class="fas fa-arrow-left"></i> إخلاء المسؤولية</a></li>
+                        <li><a href="/sitemap/"><i class="fas fa-arrow-left"></i> خريطة الموقع</a></li>
+                    </ul>
                 </div>
             </div>
             
-            <div class="footer-col">
-                <h5>روابط سريعة</h5>
-                <ul class="footer-links">
-                    <li><a href="/"><i class="fas fa-arrow-left"></i> الرئيسية</a></li>
-                    <li><a href="/articles/"><i class="fas fa-arrow-left"></i> المقالات</a></li>
-                    <li><a href="/categories/"><i class="fas fa-arrow-left"></i> الأقسام</a></li>
-                    <li><a href="/about/"><i class="fas fa-arrow-left"></i> من نحن</a></li>
-                    <li><a href="/contact/"><i class="fas fa-arrow-left"></i> اتصل بنا</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-col">
-                <h5>الأقسام</h5>
-                <ul class="footer-links">
-                    {% for category in categories|slice:":5" %}
-                    <li><a href="{% url 'category_detail' category.slug %}"><i class="fas fa-arrow-left"></i> {{ category.name }}</a></li>
-                    {% endfor %}
-                </ul>
-            </div>
-            
-            <div class="footer-col">
-                <h5>معلومات</h5>
-                <ul class="footer-links">
-                    <li><a href="/privacy/"><i class="fas fa-arrow-left"></i> سياسة الخصوصية</a></li>
-                    <li><a href="/terms/"><i class="fas fa-arrow-left"></i> اتفاقية الاستخدام</a></li>
-                    <li><a href="/disclaimer/"><i class="fas fa-arrow-left"></i> إخلاء المسؤولية</a></li>
-                    <li><a href="/sitemap/"><i class="fas fa-arrow-left"></i> خريطة الموقع</a></li>
-                </ul>
+            <div class="copyright">
+                <p>© 2025 الثَّقَف العربي – جميع الحقوق محفوظة</p>
             </div>
         </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script>
+        // تهيئة أيقونات Lucide
+        lucide.createIcons();
         
-        <div class="copyright">
-            <p>© 2025 الثَّقَف العربي – جميع الحقوق محفوظة</p>
-        </div>
-    </div>
-</footer>
+        // إخفاء شاشة التحميل بعد تحميل الصفحة
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                document.getElementById('loadingOverlay').classList.add('hidden');
+                document.body.classList.add('loaded');
+            }, 800);
+        });
 
-<script>
-    // Header scroll effect
-    window.addEventListener('scroll', function() {
-        const header = document.getElementById('header');
-        if (window.scrollY > 100) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
-        }
-    });
-
-    // Mobile menu toggle
-    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-    const nav = document.getElementById('nav');
-    
-    mobileMenuBtn.addEventListener('click', function() {
-        nav.classList.toggle('active');
-        mobileMenuBtn.innerHTML = nav.classList.contains('active') ? 
-            '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
-    });
-
-    // Scroll animations
-    function checkVisibility() {
-        const elements = document.querySelectorAll('.article-card, .category-card, .stat-item');
-        
-        elements.forEach(element => {
-            const elementTop = element.getBoundingClientRect().top;
-            const elementVisible = 150;
-            
-            if (elementTop < window.innerHeight - elementVisible) {
-                element.classList.add('visible');
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
             }
         });
-    }
-    
-    // Initial check
-    checkVisibility();
-    
-    // Check on scroll
-    window.addEventListener('scroll', checkVisibility);
 
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const nav = document.getElementById('nav');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            nav.classList.toggle('active');
+            mobileMenuBtn.innerHTML = nav.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+            mobileMenuBtn.setAttribute('aria-label', 
+                nav.classList.contains('active') ? 'إغلاق القائمة' : 'فتح القائمة');
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!nav.contains(event.target) && !mobileMenuBtn.contains(event.target) && nav.classList.contains('active')) {
+                nav.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                mobileMenuBtn.setAttribute('aria-label', 'فتح القائمة');
+            }
+        });
+
+        // Scroll animations
+        function checkVisibility() {
+            const elements = document.querySelectorAll('.category-card, .stat-item, .release-card');
             
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-            
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                window.scrollTo({
-                    top: targetElement.offsetTop - 80,
-                    behavior: 'smooth'
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+        
+        // Initial check
+        checkVisibility();
+        
+        // Check on scroll
+        window.addEventListener('scroll', checkVisibility);
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Carousel functionality
+        const releasesTrack = document.getElementById('releasesTrack');
+        const carouselPrev = document.getElementById('carouselPrev');
+        const carouselNext = document.getElementById('carouselNext');
+        
+        let currentPosition = 0;
+        const cardWidth = 350 + 30; // عرض البطاقة + المسافة
+        
+        carouselNext.addEventListener('click', () => {
+            const maxScroll = releasesTrack.scrollWidth - releasesTrack.parentElement.offsetWidth;
+            if (currentPosition > -maxScroll) {
+                currentPosition -= cardWidth;
+                releasesTrack.style.transform = `translateX(${currentPosition}px)`;
+            }
+        });
+        
+        carouselPrev.addEventListener('click', () => {
+            if (currentPosition < 0) {
+                currentPosition += cardWidth;
+                releasesTrack.style.transform = `translateX(${currentPosition}px)`;
+            }
+        });
+        
+        // Touch swipe for mobile
+        let startX = 0;
+        let currentX = 0;
+        
+        releasesTrack.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+        });
+        
+        releasesTrack.addEventListener('touchmove', (e) => {
+            currentX = e.touches[0].clientX;
+        });
+        
+        releasesTrack.addEventListener('touchend', () => {
+            const diff = startX - currentX;
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) {
+                    // Swipe left - next
+                    carouselNext.click();
+                } else {
+                    // Swipe right - previous
+                    carouselPrev.click();
+                }
+            }
+        });
+
+        // Lazy loading for images
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        if (img.dataset.src) {
+                            img.src = img.dataset.src;
+                            img.classList.remove('lazy');
+                            imageObserver.unobserve(img);
+                        }
+                    }
+                });
+            });
+
+            document.querySelectorAll('img[data-src]').forEach(img => {
+                imageObserver.observe(img);
+            });
+        }
+
+        // Scroll progress bar
+        window.addEventListener('scroll', function() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('scrollProgress').style.width = scrolled + '%';
+        });
+
+        // Back to top button
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Notification popup
+        document.addEventListener('DOMContentLoaded', () => {
+            const popup = document.getElementById('notificationPopup');
+            const closeBtn = document.querySelector('.close-popup');
+
+            if (popup) {
+                // إظهار الإشعار بعد ثانيتين
+                setTimeout(() => {
+                    popup.classList.add('active');
+                }, 2000);
+
+                // إغلاق الإشعار عند الضغط على زر الإغلاق
+                closeBtn.addEventListener('click', () => {
+                    popup.classList.remove('active');
+                });
+
+                // إغلاق عند الضغط على الخلفية
+                popup.addEventListener('click', (e) => {
+                    if (e.target === popup) {
+                        popup.classList.remove('active');
+                    }
                 });
             }
         });
+
+        // Statistics counter animation
+        const counters = document.querySelectorAll('.stat-number');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counter = entry.target;
+                    const target = +counter.getAttribute('data-target');
+                    const duration = 2000; // 2 seconds
+                    const step = target / (duration / 16); // 60fps
+                    let current = 0;
+                    
+                    const updateCounter = () => {
+                        current += step;
+                        if (current < target) {
+                            counter.textContent = Math.floor(current);
+                            requestAnimationFrame(updateCounter);
+                        } else {
+                            counter.textContent = target.toLocaleString();
+                        }
+                    };
+                    
+                    updateCounter();
+                    observer.unobserve(counter);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        counters.forEach(counter => {
+            observer.observe(counter);
+        });
+
+        // Performance optimization: Defer non-critical resources
+        window.addEventListener('load', function() {
+            // Load non-critical resources after page load
+            setTimeout(() => {
+                // Any additional scripts or resources can be loaded here
+            }, 1000);
+        });
+    </script>
+    <!-- إشعار الكوكيز -->
+<div id="cookieConsent" class="cookie-consent">
+    <div class="cookie-content">
+      <p>نستخدم الكوكيز لتحسين تجربتك على الموقع. 
+<a href="/cookies/" style="color:#a67c52; text-decoration:underline;">اقرأ المزيد</a></p>
+    </div>
+</div>
+<style>
+    /* إشعار الكوكيز */
+.cookie-consent {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 20px 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 600px;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+}
+
+.cookie-consent.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.cookie-consent p {
+    margin: 0;
+    font-size: 14px;
+    color: #333;
+}
+
+.cookie-consent .btn {
+    background-color: #a67c52; /* لون تراثي */
+    color: #fff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.cookie-consent .btn:hover {
+    background-color: #8b6239;
+}
+
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const cookieConsent = document.getElementById('cookieConsent');
+    const acceptBtn = document.getElementById('acceptCookies');
+
+    // تحقق إذا تم قبول الكوكيز مسبقًا
+    if (!localStorage.getItem('cookiesAccepted')) {
+        cookieConsent.classList.add('show');
+    }
+
+    // عند الضغط على زر القبول
+    acceptBtn.addEventListener('click', function() {
+        localStorage.setItem('cookiesAccepted', 'true');
+        cookieConsent.classList.remove('show');
     });
-window.addEventListener('scroll', () => {
-  const header = document.querySelector('.header');
-  header.classList.toggle('scrolled', window.scrollY > 60);
 });
-const carousel = document.getElementById('galleryCarousel');
-const prevBtn = document.querySelector('.carousel-prev');
-const nextBtn = document.querySelector('.carousel-next');
-
-let scrollAmount = 0;
-const itemWidth = 320; // عرض العنصر + المسافة
-
-nextBtn.addEventListener('click', () => {
-    if (scrollAmount < carousel.scrollWidth - carousel.clientWidth) {
-        scrollAmount += itemWidth;
-        carousel.style.transform = `translateX(-${scrollAmount}px)`;
-    }
-});
-
-prevBtn.addEventListener('click', () => {
-    if (scrollAmount > 0) {
-        scrollAmount -= itemWidth;
-        carousel.style.transform = `translateX(-${scrollAmount}px)`;
-    }
-});
-
-// تمرير تلقائي كل 5 ثواني
-setInterval(() => {
-    if (scrollAmount < carousel.scrollWidth - carousel.clientWidth) {
-        scrollAmount += itemWidth;
-    } else {
-        scrollAmount = 0;
-    }
-    carousel.style.transform = `translateX(-${scrollAmount}px)`;
-}, 5000);
-
 </script>
 
 </body>

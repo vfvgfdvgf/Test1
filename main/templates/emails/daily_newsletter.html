@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>النشرة اليومية</title>
+<style>
+    body { font-family: 'Cairo', sans-serif; background: #f5f5f5; color: #000; }
+    a { color: #d4af37; text-decoration: none; }
+    .container { width: 90%; margin: auto; padding: 20px; background: #fff; border-radius: 12px; }
+    h2 { color: #d4af37; }
+    .section { margin-bottom: 25px; }
+    .article, .gallery-item { margin-bottom: 15px; padding: 10px; border-bottom: 1px solid #ddd; }
+    img { max-width: 100%; border-radius: 8px; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h2>مرحبًا {{ subscriber.email }}</h2>
+    <p>إليك أحدث المقالات، الأقسام، والأخبار من منصة <strong>الثقَف العربي</strong>:</p>
+
+    <div class="section">
+        <h3>📚 أحدث المقالات</h3>
+        {% for article in latest_articles %}
+            <div class="article">
+                <h4><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h4>
+                <p>{{ article.content|striptags|truncatewords:20 }}</p>
+            </div>
+        {% empty %}
+            <p>لا توجد مقالات حالياً.</p>
+        {% endfor %}
+    </div>
+
+    <div class="section">
+        <h3>🧭 الأقسام</h3>
+        {% for category in categories %}
+            <p><a href="{{ category.get_absolute_url }}">{{ category.name }}</a></p>
+        {% endfor %}
+    </div>
+
+    <div class="section">
+        <h3>🎨 آخر الأخبار والصور والفيديوهات</h3>
+        {% for item in latest_gallery %}
+            {% if item.type == 'image' %}
+                <div class="gallery-item">
+                    <img src="{{ item.image.url }}" alt="{{ item.title }}">
+                    <p>{{ item.title }}</p>
+                </div>
+            {% elif item.type == 'video' %}
+                <div class="gallery-item">
+                    <p>{{ item.title }} (فيديو)</p>
+                    <a href="{{ item.get_absolute_url }}">شاهد الفيديو</a>
+                </div>
+            {% elif item.type == 'news' %}
+                <div class="gallery-item">
+                    <h4><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></h4>
+                    <p>{{ item.summary|truncatewords:15 }}</p>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+</body>
+</html>

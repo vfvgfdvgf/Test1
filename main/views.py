@@ -138,3 +138,83 @@ def gallery_detail(request, pk):
     site_settings = SiteSettings.objects.first()
     item = get_object_or_404(GalleryItem, pk=pk)
     return render(request, 'gallery_detail.html', {'item': item, 'site_settings': site_settings})
+from django.shortcuts import redirect
+from django.contrib import messages
+from .models import NewsletterSubscriber
+
+from django.shortcuts import redirect
+from django.contrib import messages
+from .forms import NewsletterForm
+
+def subscribe_newsletter(request):
+    if request.method == 'POST':
+        form = NewsletterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "تم الاشتراك في النشرة البريدية بنجاح!")
+        else:
+            messages.error(request, "حدث خطأ، حاول مرة أخرى.")
+    return redirect(request.META.get('HTTP_REFERER'))
+from django.shortcuts import redirect
+from django.core.mail import EmailMultiAlternatives
+from django.contrib import messages
+from .models import Subscriber
+from .tasks import get_latest_news_html  # هذا تابع يعطي HTML للنشرة
+
+def admin_send_newsletter(request, subscriber_id):
+    subscriber = Subscriber.objects.get(id=subscriber_id)
+    
+    subject = "النشرة اليومية من الثَّقَف العربي"
+    html_content = get_latest_news_html()  # هذه دالة ترجع قالب HTML للنشرة
+    from_email = 'halax.7y7@gmail.com'
+    to_email = subscriber.email
+
+    msg = EmailMultiAlternatives(subject, '', from_email, [to_email])
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
+    
+    messages.success(request, f"تم إرسال النشرة إلى {subscriber.email}")
+    return redirect('/admin/your_app/subscriber/')
+from django.shortcuts import render
+from django.db.models import Q
+from .models import Article, Category, GalleryItem
+
+def search_view(request):
+    query = request.GET.get('q', '').strip()
+    
+    articles = Article.objects.filter(
+        Q(title__icontains=query) | Q(content__icontains=query),
+        is_published=True
+    ) if query else Article.objects.none()
+    
+    categories = Category.objects.filter(
+        Q(name__icontains=query) | Q(description__icontains=query)
+    ) if query else Category.objects.none()
+    
+    gallery_items = GalleryItem.objects.filter(
+        Q(title__icontains=query) | Q(description__icontains=query)
+    ) if query else GalleryItem.objects.none()
+
+    context = {
+        'query': query,
+        'articles': articles,
+        'categories': categories,
+        'gallery_items': gallery_items,
+    }
+    return render(request, 'search_results.html', context)
+# views.py
+from django.shortcuts import render
+
+def cookies_view(request):
+    return render(request, 'cookies.html')
+from django.http import HttpResponse
+
+def robots_txt(request):
+    content = """
+User-agent: *
+Disallow: /admin/
+
+Sitemap: https://atyafdec.com/sitemap.xml
+"""
+    return HttpResponse(content, content_type="text/plain")
+from . import views
