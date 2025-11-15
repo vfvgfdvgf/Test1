@@ -74,12 +74,26 @@
     <meta name="msapplication-TileColor" content="#C19A6B">
     <meta name="msapplication-config" content="{% static 'default/browserconfig.xml' %}">
     
-    <!-- ⚡️ تحميل الموارد الأساسية مسبقًا -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Amiri:wght@400;700&family=Almarai:wght@300;400;700&display=swap" as="style">
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/lucide-static@0.263.0/font/lucide.css" as="style">
+   <!-- ⚡️ تحميل الموارد الأساسية مسبقًا -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<!-- تحميل خطوط Google Fonts -->
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Amiri:wght@400;700&family=Almarai:wght@300;400;700&display=swap" as="style" onload="this.rel='stylesheet'">
+
+<!-- تحميل Font Awesome -->
+<link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.rel='stylesheet'">
+
+<!-- تحميل Lucide Icons -->
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/lucide-static@0.263.0/font/lucide.css" as="style" onload="this.rel='stylesheet'">
+
+<!-- Fallback لو لم يدعم المتصفح preload -->
+<noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Amiri:wght@400;700&family=Almarai:wght@300;400;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lucide-static@0.263.0/font/lucide.css">
+</noscript>
+
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
 
     <!-- 🎨 CSS الأساسي -->
@@ -164,12 +178,17 @@
     <!-- المقدمة (Hero Section) -->
     <section class="hero" id="main-content">
         <!-- 🖼️ صورة الخلفية -->
-        <picture>
-            <!-- صورة للهواتف -->
-            <source media="(max-width: 767px)" srcset="https://e.top4top.io/p_3604xosgd1.png">
-            <!-- صورة لأجهزة الكمبيوتر -->
-            <img src="https://e.top4top.io/p_3604ri95c1.png" alt="خلفية الثقافة العربية" class="hero-image" aria-hidden="true">
-        </picture>
+       <picture>
+    <!-- صورة للهواتف -->
+    <source media="(max-width: 767px)" srcset="{% static 'img/iphone.webp' %}">
+    
+    <!-- صورة لأجهزة الكمبيوتر -->
+    <img src="{% static 'img/desktop.webp' %}" 
+         alt="خلفية الثقافة العربية" 
+         class="hero-image" 
+         aria-hidden="true">
+</picture>
+
 
         <!-- الأيقونات العائمة -->
         <div class="floating-icons">
