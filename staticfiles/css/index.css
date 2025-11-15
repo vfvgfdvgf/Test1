@@ -1,0 +1,1675 @@
+    :root {
+        --primary-bg: #F7F4EF;
+        --primary-text: #1D1D1F;
+        --secondary-text: #6B6B6B;
+        --accent: #C19A6B;
+        --secondary-accent: #8C6B4F;
+        --card-bg: #FFFFFF;
+        --hover: rgba(193, 154, 107, 0.1);
+        --shadow: rgba(0, 0, 0, 0.08);
+        --shadow-hover: rgba(0, 0, 0, 0.12);
+        --border: rgba(193, 154, 107, 0.2);
+        --glass-bg: rgba(255, 255, 255, 0.7);
+        --glass-border: rgba(255, 255, 255, 0.2);
+        --apple-radius: 12px;
+        --apple-radius-large: 20px;
+        --apple-transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        --gradient-primary: linear-gradient(135deg, #C19A6B 0%, #8C6B4F 100%);
+        --gradient-hero: linear-gradient(135deg, rgba(29, 29, 31, 0.85) 0%, rgba(108, 92, 76, 0.85) 100%);
+    }
+
+    /* ====== Base Styles ====== */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Almarai', 'Cairo', sans-serif;
+        background-color: var(--primary-bg);
+        color: var(--primary-text);
+        line-height: 1.8;
+        overflow-x: hidden;
+        font-size: 16px;
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+        transition: var(--apple-transition);
+    }
+
+    .container {
+        width: 90%;
+        max-width: 1400px;
+        margin: auto;
+    }
+
+    /* ====== 🔹 Enhanced Glass Header with Arabic Patterns ====== */
+    .header {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(20px) saturate(180%);
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        border: none;
+        transition: var(--apple-transition);
+        padding: 5px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        overflow: hidden;
+    }
+
+    .header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none"><defs><pattern id="arabesque" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M10,0 C15,5 15,15 10,20 C5,15 5,5 10,0Z" fill="rgba(193,154,107,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23arabesque)"/></svg>');
+        opacity: 0.3;
+        pointer-events: none;
+        z-index: -1;
+    }
+
+    .header.scrolled {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(30px) saturate(180%);
+        -webkit-backdrop-filter: blur(30px) saturate(180%);
+        box-shadow: 0 2px 30px rgba(0,0,0,0.08);
+        padding: 15px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .header .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 25px;
+    }
+
+    .logo a {
+        color: var(--accent);
+        font-size: 1.9rem;
+        font-weight: 700;
+        font-family: -apple-system, BlinkMacSystemFont, 'Amiri', serif;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        letter-spacing: -0.5px;
+    }
+
+    .logo i {
+        font-size: 1.7rem;
+    }
+
+    .nav {
+        display: flex;
+        gap: 35px;
+    }
+
+    .nav a {
+        position: relative;
+        color: var(--secondary-text);
+        font-weight: 500;
+        padding: 10px 0;
+        font-size: 1.08rem;
+        text-decoration: none;
+        transition: var(--apple-transition);
+        font-family: -apple-system, BlinkMacSystemFont, 'Almarai', sans-serif;
+    }
+
+    .nav a:after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: 0;
+        right: 0;
+        background-color: var(--accent);
+        transition: var(--apple-transition);
+    }
+
+    .nav a:hover {
+        color: var(--accent);
+    }
+
+    .nav a:hover:after {
+        width: 100%;
+    }
+
+    .nav-actions {
+        display: flex;
+        gap: 18px;
+    }
+
+    .nav-btn {
+        background: transparent;
+        border: 1px solid var(--border);
+        color: var(--accent);
+        padding: 12px 24px;
+        border-radius: 50px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--apple-transition);
+        font-family: inherit;
+        font-size: 1rem;
+    }
+
+    .nav-btn:hover {
+        background: var(--accent);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(193, 154, 107, 0.3);
+    }
+
+    .mobile-menu-btn {
+        display: none;
+        background: transparent;
+        border: none;
+        font-size: 1.6rem;
+        color: var(--accent);
+        cursor: pointer;
+        padding: 8px;
+        border-radius: var(--apple-radius);
+        transition: var(--apple-transition);
+    }
+
+    .mobile-menu-btn:hover {
+        background: rgba(193, 154, 107, 0.1);
+    }
+
+    /* ====== 🔍 نموذج البحث المحسن ====== */
+    .header-search {
+        position: relative;
+        max-width: 400px;
+        width: 100%;
+        margin: 0 20px;
+    }
+
+    .header-search input {
+        width: 100%;
+        padding: 12px 50px 12px 20px;
+        border: 1px solid var(--border);
+        border-radius: 50px;
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(10px);
+        font-family: inherit;
+        font-size: 1rem;
+        transition: var(--apple-transition);
+    }
+
+    .header-search input:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(193, 154, 107, 0.2);
+        background: white;
+    }
+
+    .header-search button {
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: var(--accent);
+        color: white;
+        border: none;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: var(--apple-transition);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .header-search button:hover {
+        background: var(--secondary-accent);
+        transform: translateY(-50%) scale(1.1);
+    }
+
+    /* ====== 🎥 Enhanced Hero Section with Floating Arabic Icons ====== */
+    .hero {
+        position: relative;
+        text-align: center;
+        color: var(--primary-text);
+        overflow: hidden;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .hero-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 0;
+    }
+    
+    .hero-content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        padding: 0 30px;
+        animation: fadeInUp 1.2s ease;
+        max-width: 900px;
+    }
+
+    .hero h1 {
+        font-size: 3.8rem;
+        font-weight: 700;
+        margin-bottom: 25px;
+        font-family: -apple-system, BlinkMacSystemFont, 'Amiri', serif;
+        line-height: 1.2;
+        color: #F7F4EF;
+        letter-spacing: -0.5px;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+
+    .hero h1 span {
+        color: var(--accent);
+        position: relative;
+        display: inline-block;
+    }
+
+    .hero h1 span:after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 8px;
+        bottom: 8px;
+        right: 0;
+        background-color: rgba(193, 154, 107, 0.3);
+        z-index: -1;
+        transform: skewX(-15deg);
+    }
+
+    .hero p {
+        max-width: 750px;
+        margin: 25px auto 35px;
+        font-size: 1.4rem;
+        color: #F7F4EF;
+        opacity: 0.9;
+        line-height: 1.8;
+        font-weight: 300;
+        text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .hero-btns {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        margin-top: 35px;
+    }
+
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        background: var(--accent);
+        color: white;
+        padding: 18px 40px;
+        border-radius: 50px;
+        font-weight: 600;
+        transition: var(--apple-transition);
+        border: none;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 1.1rem;
+        box-shadow: 0 6px 20px rgba(193, 154, 107, 0.3);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+        transition: left 0.5s;
+    }
+
+    .btn:hover::before {
+        left: 100%;
+    }
+
+    .btn:hover {
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: 0 12px 30px rgba(193, 154, 107, 0.4);
+        background: #b08a5d;
+    }
+
+    .btn-secondary {
+        background: transparent;
+        border: 2px solid rgba(247, 244, 239, 0.7);
+        color: #F7F4EF;
+        box-shadow: none;
+    }
+
+    .btn-secondary:hover {
+        background: rgba(247, 244, 239, 0.1);
+        border-color: #F7F4EF;
+        transform: translateY(-5px) scale(1.02);
+    }
+
+    /* Floating Arabic Icons */
+    .floating-icons {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    .floating-icon {
+        position: absolute;
+        font-size: 2.5rem;
+        color: rgba(255, 255, 255, 0.3);
+        animation: float 15s infinite ease-in-out;
+        filter: drop-shadow(0 2px 5px rgba(0,0,0,0.2));
+    }
+
+    .floating-icon:nth-child(1) {
+        top: 15%;
+        left: 10%;
+        animation-delay: 0s;
+    }
+
+    .floating-icon:nth-child(2) {
+        top: 25%;
+        right: 15%;
+        animation-delay: 2s;
+    }
+
+    .floating-icon:nth-child(3) {
+        bottom: 20%;
+        left: 20%;
+        animation-delay: 4s;
+    }
+
+    .floating-icon:nth-child(4) {
+        bottom: 30%;
+        right: 10%;
+        animation-delay: 6s;
+    }
+
+    .floating-icon:nth-child(5) {
+        top: 40%;
+        left: 5%;
+        animation-delay: 8s;
+    }
+
+    .floating-icon:nth-child(6) {
+        top: 60%;
+        right: 5%;
+        animation-delay: 10s;
+    }
+
+    @keyframes float {
+        0%, 100% {
+            transform: translateY(0) rotate(0deg);
+        }
+        33% {
+            transform: translateY(-20px) rotate(5deg);
+        }
+        66% {
+            transform: translateY(10px) rotate(-5deg);
+        }
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* ====== 🧭 Enhanced Categories Section with Arabic Patterns ====== */
+    .categories {
+        position: relative;
+        padding: 120px 20px;
+        background: linear-gradient(to bottom, var(--primary-bg), #f0ebe3);
+        overflow: hidden;
+    }
+
+    /* 🟠 الشبكة الهندسية فوق الخلفية */
+    .categories::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(193,154,107,0.05)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+        opacity: 0.5;
+        pointer-events: none;
+        z-index: 0;
+        animation: slowMove 60s linear infinite;
+    }
+
+    /* حركة خفيفة للشبكة */
+    @keyframes slowMove {
+        0% { transform: translate(0, 0) scale(1); }
+        50% { transform: translate(20px, 15px) scale(1.05); }
+        100% { transform: translate(0, 0) scale(1); }
+    }
+
+    /* تأكيد أن المحتوى فوق الزخرفة */
+    .categories * {
+        position: relative;
+        z-index: 1;
+    }
+
+    /* ====== شبكة البطاقات ====== */
+    .categories-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 35px;
+    }
+
+    /* ====== تصميم البطاقات ====== */
+    .category-card {
+        background: var(--card-bg);
+        border-radius: var(--apple-radius-large);
+        overflow: hidden;
+        box-shadow: 0 8px 25px var(--shadow);
+        transition: var(--apple-transition);
+        text-align: center;
+        padding: 45px 30px;
+        opacity: 0;
+        transform: translateY(30px);
+        position: relative;
+        border: 1px solid rgba(255, 255, 255, 0.8);
+    }
+
+    .category-card.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .category-card:hover {
+        transform: translateY(-12px) scale(1.02);
+        box-shadow: 0 20px 40px var(--shadow-hover);
+    }
+
+    /* ====== الأيقونة ====== */
+    .category-icon {
+        width: 100px;
+        height: 100px;
+        background: rgba(193, 154, 107, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 30px;
+        transition: var(--apple-transition);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .category-card:hover .category-icon {
+        background: var(--accent);
+        transform: scale(1.15) translateY(-5px);
+    }
+
+    .category-icon i, .category-icon .lucide {
+        font-size: 2.4rem;
+        color: var(--accent);
+        transition: var(--apple-transition);
+    }
+
+    .category-card:hover .category-icon i,
+    .category-card:hover .category-icon .lucide {
+        color: white;
+        transform: scale(1.1);
+    }
+
+    /* ====== العناوين والنصوص ====== */
+    .category-info h4 {
+        color: var(--primary-text);
+        margin-bottom: 18px;
+        font-size: 1.5rem;
+        font-family: -apple-system, BlinkMacSystemFont, 'Amiri', serif;
+        font-weight: 700;
+        transition: var(--apple-transition);
+    }
+
+    .category-card:hover .category-info h4 {
+        color: var(--accent);
+    }
+
+    .category-info p {
+        opacity: 0.8;
+        font-size: 1.05rem;
+        line-height: 1.7;
+        color: var(--secondary-text);
+    }
+
+    /* ====== 📀 Enhanced Latest Releases ====== */
+    .latest-releases {
+        position: relative;
+        padding: 120px 20px;
+        background: linear-gradient(to bottom, var(--primary-bg), #f0ebe3);
+        overflow: hidden;
+    }
+
+    /* 🟢 الزخرفة التراثية الخلفية */
+    .latest-releases::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none"><defs><pattern id="arabic-pattern" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M10,0 C15,5 15,15 10,20 C5,15 5,5 10,0Z" fill="rgba(193,154,107,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23arabic-pattern)"/></svg>');
+        opacity: 0.3;
+        pointer-events: none;
+        mix-blend-mode: soft-light;
+        animation: slowMove 60s linear infinite;
+        z-index: 0;
+    }
+
+    /* 🟠 الشبكة الهندسية فوق الزخرفة */
+    .latest-releases::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(193,154,107,0.05)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+        opacity: 0.5;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    /* ==== البطاقات ==== */
+    .releases-carousel {
+        position: relative;
+        overflow: hidden;
+        padding: 40px 0;
+    }
+
+    .releases-track {
+        display: flex;
+        gap: 35px;
+        transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        padding: 20px;
+    }
+
+    .release-card {
+        min-width: 350px;
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(15px) saturate(180%);
+        -webkit-backdrop-filter: blur(15px) saturate(180%);
+        border-radius: var(--apple-radius-large);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        transition: var(--apple-transition);
+        flex-shrink: 0;
+        position: relative;
+        overflow: hidden;
+        opacity: 0;
+        transform: translateY(40px);
+        transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .release-card.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .release-card:hover {
+        transform: translateY(-15px) scale(1.03);
+        box-shadow: 0 25px 45px rgba(0, 0, 0, 0.12);
+        border-color: rgba(193, 154, 107, 0.35);
+    }
+
+    /* ==== الصورة ==== */
+    .release-image {
+        position: relative;
+        overflow: hidden;
+        height: 240px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .release-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.9s ease;
+    }
+
+    .release-card:hover .release-image img {
+        transform: scale(1.1) rotate(1deg);
+    }
+
+    /* ==== المعلومات ==== */
+    .release-info {
+        padding: 30px;
+        text-align: center;
+    }
+
+    .release-info h4 {
+        margin: 0 0 15px;
+        font-size: 1.5rem;
+        font-family: -apple-system, BlinkMacSystemFont, 'Amiri', serif;
+        line-height: 1.5;
+        color: var(--primary-text);
+        font-weight: 700;
+        transition: var(--apple-transition);
+        text-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .release-card:hover .release-info h4 {
+        color: var(--accent);
+    }
+
+    .release-meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        font-size: 0.95rem;
+        color: var(--secondary-text);
+        opacity: 0.9;
+    }
+
+    .release-date {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .release-date i {
+        color: var(--accent);
+        font-size: 1.1rem;
+    }
+
+    /* ==== زر القراءة ==== */
+    .read-more-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: transparent;
+        color: var(--accent);
+        border: 1px solid var(--accent);
+        padding: 10px 24px;
+        border-radius: 50px;
+        font-weight: 600;
+        transition: var(--apple-transition);
+        font-size: 0.95rem;
+    }
+
+    .read-more-btn:hover {
+        background: var(--accent);
+        color: #fff;
+        transform: translateY(-4px);
+        box-shadow: 0 6px 15px rgba(193, 154, 107, 0.3);
+    }
+
+    /* ==== أزرار السلايدر ==== */
+    .carousel-controls {
+        display: flex;
+        justify-content: center;
+        gap: 18px;
+        margin-top: 40px;
+    }
+
+    .carousel-btn {
+        width: 55px;
+        height: 55px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.6);
+        border: 1px solid rgba(193, 154, 107, 0.25);
+        color: var(--accent);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: var(--apple-transition);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        backdrop-filter: blur(12px);
+    }
+
+    .carousel-btn:hover {
+        background: var(--accent);
+        color: white;
+        transform: translateY(-4px) scale(1.05);
+        box-shadow: 0 10px 25px rgba(193, 154, 107, 0.3);
+    }
+
+    /* ====== 📰 Apple-Style Enhanced Latest News Section ====== */
+    .latest-news {
+        padding: 120px 20px;
+        background: linear-gradient(to bottom right, #f8f6f2, #f4f0ea);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .latest-news::before {
+        content: "";
+        position: absolute;
+        top: -50px;
+        left: -50px;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle at top left, rgba(255,255,255,0.3), transparent 70%);
+        z-index: 0;
+    }
+
+    .news-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 40px;
+        position: relative;
+        z-index: 1;
+    }
+
+    /* ====== Main News Card ====== */
+    .main-news {
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(25px);
+        border-radius: var(--apple-radius-large);
+        overflow: hidden;
+        box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+        display: flex;
+        flex-direction: column;
+        transition: all 0.4s ease;
+    }
+
+    .main-news:hover {
+        transform: translateY(-10px) scale(1.01);
+        box-shadow: 0 15px 45px rgba(0,0,0,0.1);
+    }
+
+    .main-news-image img {
+        width: 100%;
+        height: 340px;
+        object-fit: cover;
+        transition: transform 0.6s ease;
+    }
+
+    .main-news:hover img {
+        transform: scale(1.05);
+    }
+
+    .main-news-content {
+        padding: 35px;
+    }
+
+    .main-news-content h4 {
+        font-size: 1.7rem;
+        margin-bottom: 18px;
+        color: var(--primary-text);
+        font-weight: 600;
+        letter-spacing: -0.5px;
+        font-family: "SF Pro Display", "Amiri", serif;
+    }
+
+    .news-summary {
+        color: var(--secondary-text);
+        line-height: 1.75;
+        font-size: 1.08rem;
+    }
+
+    /* ====== Side News Cards ====== */
+    .side-news {
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+        gap: 30px;
+    }
+
+    .side-item {
+        position: relative;
+        border-radius: var(--apple-radius-large);
+        overflow: hidden;
+        background: rgba(255,255,255,0.6);
+        backdrop-filter: blur(20px);
+        box-shadow: 0 6px 25px rgba(0,0,0,0.07);
+        transition: all 0.4s ease;
+    }
+
+    .side-item img,
+    .side-item video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s ease;
+    }
+
+    .side-item .overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0,0,0,0.45);
+        color: #fff;
+        padding: 20px;
+        font-size: 1.05rem;
+        text-align: center;
+        backdrop-filter: blur(8px);
+    }
+
+    .side-item:hover {
+        transform: translateY(-8px) scale(1.02);
+    }
+
+    .side-item:hover img,
+    .side-item:hover video {
+        transform: scale(1.1);
+    }
+
+    /* ====== Enhanced Section Headers ====== */
+    .section-header {
+        text-align: center;
+        margin-bottom: 80px;
+    }
+
+    .section-header h3 {
+        font-size: 2.6rem;
+        font-weight: 700;
+        color: var(--accent);
+        margin-bottom: 20px;
+        font-family: -apple-system, BlinkMacSystemFont, 'Amiri', serif;
+        position: relative;
+        display: inline-block;
+    }
+
+    .section-header h3:after {
+        content: '';
+        position: absolute;
+        width: 60%;
+        height: 4px;
+        bottom: -12px;
+        right: 20%;
+        background: linear-gradient(to left, var(--accent), transparent);
+        border-radius: 2px;
+    }
+
+    .section-header p {
+        max-width: 650px;
+        margin: 0 auto;
+        color: var(--secondary-text);
+        font-size: 1.15rem;
+        line-height: 1.7;
+    }
+
+    /* ====== Enhanced Stats Section ====== */
+    .stats {
+        padding: 100px 20px;
+        background: var(--gradient-primary);
+        color: white;
+        text-align: center;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 35px;
+    }
+
+    .stat-item {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.6s ease;
+    }
+
+    .stat-item.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .stat-number {
+        font-size: 3.2rem;
+        font-weight: 700;
+        margin-bottom: 12px;
+        font-family: -apple-system, BlinkMacSystemFont, 'Amiri', serif;
+    }
+
+    .stat-label {
+        font-size: 1.15rem;
+        opacity: 0.9;
+        font-weight: 300;
+    }
+
+    /* ====== Enhanced About Section ====== */
+    .about-short {
+        text-align: center;
+        padding: 140px 20px;
+        background: var(--primary-bg);
+        position: relative;
+    }
+
+    .about-short:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none"><defs><pattern id="pattern" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(193,154,107,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23pattern)"/></svg>') repeat;
+        opacity: 0.5;
+        pointer-events: none;
+    }
+
+    .about-short h3 {
+        color: var(--accent);
+        font-size: 2.6rem;
+        margin-bottom: 30px;
+        font-family: -apple-system, BlinkMacSystemFont, 'Amiri', serif;
+        position: relative;
+        display: inline-block;
+    }
+
+    .about-short h3:after {
+        content: '';
+        position: absolute;
+        width: 60%;
+        height: 4px;
+        bottom: -15px;
+        right: 20%;
+        background: linear-gradient(to left, var(--accent), transparent);
+        border-radius: 2px;
+    }
+
+    .about-short p {
+        max-width: 850px;
+        margin: 35px auto 0;
+        opacity: 0.85;
+        font-size: 1.2rem;
+        line-height: 1.9;
+        font-weight: 300;
+    }
+
+    /* ====== Enhanced Newsletter Section ====== */
+    .newsletter {
+        padding: 100px 20px;
+        background: linear-gradient(to right, #f0ebe3, var(--primary-bg));
+        text-align: center;
+    }
+
+    .newsletter-box {
+        background: var(--card-bg);
+        border-radius: var(--apple-radius-large);
+        padding: 60px 50px;
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+        max-width: 750px;
+        margin: 0 auto;
+    }
+
+    .newsletter h4 {
+        color: var(--accent);
+        font-size: 2rem;
+        margin-bottom: 20px;
+        font-family: -apple-system, BlinkMacSystemFont, 'Amiri', serif;
+    }
+
+    .newsletter p {
+        color: var(--secondary-text);
+        margin-bottom: 35px;
+        max-width: 550px;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 1.1rem;
+    }
+
+    .newsletter-form {
+        display: flex;
+        gap: 12px;
+        max-width: 550px;
+        margin: 0 auto;
+    }
+
+    .newsletter-input {
+        flex: 1;
+        padding: 18px 25px;
+        border: 1px solid var(--border);
+        border-radius: 50px;
+        font-family: inherit;
+        font-size: 1.05rem;
+        transition: var(--apple-transition);
+        background: rgba(255, 255, 255, 0.8);
+    }
+
+    .newsletter-input:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 4px rgba(193, 154, 107, 0.2);
+        background: white;
+    }
+
+    /* ====== Enhanced Footer ====== */
+    .footer {
+        background: #1D1D1F;
+        color: #ddd;
+        padding: 80px 20px 40px;
+    }
+
+    .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 45px;
+        margin-bottom: 50px;
+    }
+
+    .footer-col h5 {
+        color: var(--accent);
+        font-size: 1.4rem;
+        margin-bottom: 25px;
+        font-family: -apple-system, BlinkMacSystemFont, 'Amiri', serif;
+        position: relative;
+        display: inline-block;
+    }
+
+    .footer-col h5:after {
+        content: '';
+        position: absolute;
+        width: 45px;
+        height: 2px;
+        bottom: -10px;
+        right: 0;
+        background-color: var(--accent);
+        border-radius: 1px;
+    }
+
+    .footer-links {
+        list-style: none;
+    }
+
+    .footer-links li {
+        margin-bottom: 15px;
+    }
+
+    .footer-links a {
+        color: #aaa;
+        transition: var(--apple-transition);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 1rem;
+    }
+
+    .footer-links a:hover {
+        color: var(--accent);
+        transform: translateX(-8px);
+    }
+
+    .footer-links i {
+        font-size: 0.85rem;
+    }
+
+    .social-links {
+        display: flex;
+        gap: 18px;
+        margin-top: 25px;
+    }
+
+    .social-links a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 45px;
+        height: 45px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 50%;
+        transition: var(--apple-transition);
+    }
+
+    .social-links a:hover {
+        background: var(--accent);
+        transform: translateY(-5px) scale(1.1);
+    }
+
+    .copyright {
+        text-align: center;
+        padding-top: 40px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: #888;
+        font-size: 0.95rem;
+    }
+
+    /* ====== Enhanced Animations ====== */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    /* ====== Enhanced News Slider ====== */
+    .hero-news-slider {
+        position: absolute;
+        bottom: 25px;
+        width: 100%;
+        overflow: hidden;
+        padding: 20px 0;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 10;
+        backdrop-filter: blur(10px);
+    }
+
+    .news-track {
+        display: flex;
+        gap: 25px;
+        animation: scrollNews 50s linear infinite;
+    }
+
+    .news-card {
+        display: flex;
+        flex-direction: column;
+        min-width: 280px;
+        max-width: 300px;
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: var(--apple-radius);
+        overflow: hidden;
+        transition: var(--apple-transition);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .news-card:hover {
+        transform: scale(1.1);
+        background: rgba(255, 255, 255, 0.12);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    }
+
+    .news-card-img img {
+        width: 100%;
+        height: 160px;
+        object-fit: cover;
+    }
+
+    .news-card-content {
+        padding: 15px;
+        background: rgba(0,0,0,0.4);
+        text-align: center;
+    }
+
+    .news-title {
+        font-size: 17px;
+        color: #fff;
+        font-weight: 600;
+        margin-bottom: 8px;
+        line-height: 1.4;
+    }
+
+    .news-date {
+        font-size: 13px;
+        color: #ddd;
+    }
+
+    .hero-news-slider:hover .news-track {
+        animation-play-state: paused;
+    }
+
+    @keyframes scrollNews {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-100%); }
+    }
+
+    /* ====== Enhanced Responsive Design ====== */
+    @media (max-width: 1200px) {
+        .container {
+            width: 95%;
+            max-width: 1200px;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+        }
+        
+        .section-header h3 {
+            font-size: 2.3rem;
+        }
+        
+        .header-search {
+            max-width: 300px;
+        }
+    }
+
+    @media (max-width: 992px) {
+        .nav {
+            gap: 25px;
+        }
+        
+        .hero h1 {
+            font-size: 2.6rem;
+        }
+        
+        .section-header h3 {
+            font-size: 2rem;
+        }
+        
+        .news-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .side-news {
+            grid-template-rows: 1fr 1fr;
+        }
+        
+        .categories-grid {
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+        
+        .header-search {
+            display: none;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .mobile-menu-btn {
+            display: block;
+        }
+        
+        .nav {
+            position: fixed;
+            top: 80px;
+            right: -100%;
+            background: var(--card-bg);
+            width: 85%;
+            height: calc(100vh - 80px);
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 50px;
+            gap: 35px;
+            transition: var(--apple-transition);
+            box-shadow: -8px 0 25px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        
+        .nav.active {
+            right: 0;
+        }
+        
+        .nav-actions {
+            flex-direction: column;
+            width: 80%;
+            margin-top: 40px;
+        }
+        
+        .hero {
+            padding: 160px 20px;
+            min-height: 600px;
+        }
+        
+        .hero h1 {
+            font-size: 2.2rem;
+        }
+        
+        .hero p {
+            font-size: 1.1rem;
+        }
+        
+        .hero-btns {
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .btn {
+            width: 100%;
+            max-width: 300px;
+            justify-content: center;
+        }
+        
+        .categories-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .release-card {
+            min-width: 300px;
+        }
+        
+        .newsletter-form {
+            flex-direction: column;
+        }
+        
+        .news-card {
+            min-width: 220px;
+            max-width: 240px;
+        }
+        
+        .news-card-img img {
+            height: 120px;
+        }
+        
+        .news-title {
+            font-size: 15px;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .hero h1 {
+            font-size: 1.9rem;
+        }
+        
+        .section-header h3 {
+            font-size: 1.8rem;
+        }
+        
+        .stats-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .footer-grid {
+            grid-template-columns: 1fr;
+            gap: 35px;
+        }
+        
+        .newsletter-box {
+            padding: 40px 25px;
+        }
+        
+        .about-short p {
+            font-size: 1.1rem;
+        }
+    }
+
+    /* ====== Skip to Main Content for Accessibility ====== */
+    .skip-link {
+        position: absolute;
+        top: -40px;
+        left: 0;
+        background: var(--accent);
+        color: white;
+        padding: 8px 16px;
+        text-decoration: none;
+        border-radius: 0 0 4px 0;
+        z-index: 1001;
+        transition: top 0.3s;
+    }
+
+    .skip-link:focus {
+        top: 0;
+    }
+
+    /* ====== Print Styles ====== */
+    @media print {
+        .header, .footer, .hero-news-slider, .carousel-controls, .nav-actions {
+            display: none;
+        }
+        
+        body {
+            background: white;
+            color: black;
+            font-size: 12pt;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: none;
+        }
+        
+        a {
+            color: black;
+            text-decoration: underline;
+        }
+        
+        .btn, .nav-btn {
+            display: none;
+        }
+    }
+
+    /* ====== Enhanced Notification Popup ====== */
+    .notification-popup {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s ease;
+        backdrop-filter: blur(5px);
+    }
+
+    .notification-popup.active {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .popup-content {
+        background: linear-gradient(145deg, #fef9f3, #fff8e7);
+        border: 2px solid var(--accent);
+        padding: 35px 40px;
+        border-radius: var(--apple-radius-large);
+        max-width: 500px;
+        width: 90%;
+        text-align: center;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        animation: slideDown 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        position: relative;
+        transform-origin: center;
+    }
+
+    .popup-header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    .popup-icon {
+        font-size: 32px;
+        color: var(--accent);
+    }
+
+    .popup-content h3 {
+        font-size: 24px;
+        color: var(--primary-text);
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, 'Amiri', serif;
+    }
+
+    .popup-content p {
+        font-size: 16px;
+        margin-bottom: 25px;
+        color: var(--secondary-text);
+        line-height: 1.6;
+    }
+
+    .popup-content button.close-popup {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        background: var(--accent);
+        color: #fff;
+        border: none;
+        font-size: 18px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: var(--apple-transition);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .popup-content button.close-popup:hover {
+        transform: scale(1.1) rotate(90deg);
+        background: var(--secondary-accent);
+        box-shadow: 0 5px 15px rgba(193, 154, 107, 0.4);
+    }
+
+    @keyframes slideDown {
+        0% { 
+            transform: translateY(-50px) scale(0.9);
+            opacity: 0;
+        }
+        100% { 
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+    }
+
+    /* ====== Enhanced Loading Animation ====== */
+    .loading-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--primary-bg);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    .loading-overlay.hidden {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    .loading-spinner {
+        width: 60px;
+        height: 60px;
+        border: 4px solid rgba(193, 154, 107, 0.2);
+        border-top: 4px solid var(--accent);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    /* ====== Enhanced Scroll Progress Bar ====== */
+    .scroll-progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 0%;
+        height: 3px;
+        background: var(--accent);
+        z-index: 1001;
+        transition: width 0.1s ease;
+    }
+
+    /* ====== Enhanced Back to Top Button ====== */
+    .back-to-top {
+        position: fixed;
+        bottom: 30px;
+        left: 30px;
+        width: 50px;
+        height: 50px;
+        background: var(--accent);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        opacity: 0;
+        visibility: hidden;
+        transition: var(--apple-transition);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 5px 20px rgba(193, 154, 107, 0.4);
+        z-index: 999;
+    }
+
+    .back-to-top.visible {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .back-to-top:hover {
+        transform: translateY(-5px) scale(1.1);
+        box-shadow: 0 10px 25px rgba(193, 154, 107, 0.5);
+    }
+
+    /* ====== Enhanced Loader Animation ====== */
+    .loader-container {
+        position: relative;
+        width: 80px;
+        height: 80px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .ball {
+        width: 50px;
+        height: 50px;
+        background: var(--accent);
+        border-radius: 50%;
+        position: relative;
+        animation: bounce 1.2s infinite ease-in-out;
+        box-shadow: 0 0 20px rgba(193, 154, 107, 0.4);
+    }
+
+    .shadow {
+        width: 40px;
+        height: 10px;
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 50%;
+        margin-top: 20px;
+        animation: shadow 1.2s infinite ease-in-out;
+    }
+
+    @keyframes bounce {
+        0%, 100% {
+            transform: translateY(0) scale(1, 1);
+        }
+        50% {
+            transform: translateY(-30px) scale(1.1, 0.9);
+        }
+    }
+
+    @keyframes shadow {
+        0%, 100% {
+            transform: scale(1);
+            opacity: 0.7;
+        }
+        50% {
+            transform: scale(0.8);
+            opacity: 0.4;
+        }
+    }
